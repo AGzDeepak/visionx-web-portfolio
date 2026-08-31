@@ -84,6 +84,34 @@ VisionX is founded and steered by six dedicated digital craftsmen:
 
 ---
 
+
+---
+
+## 🔥 Firebase Cloud Database & Authentication Integration
+
+VisionX Web Technology is seamlessly integrated with **Firebase Cloud Firestore** and **Firebase Authentication**:
+
+### 1. Cloud Firestore Database Collections
+* **`projects` Collection**:
+  - Automatically syncs all portfolio projects, categories, visual themes, and **Live Demo ↗** URLs in real time (`onSnapshot`).
+  - Supports full in-browser CRUD (Create, Read, Update, Delete) from the Executive CMS.
+* **`reviews` Collection**:
+  - Stores all verified client reviews and feedback submissions in the cloud.
+
+### 2. Executive Authentication & Admin Authorization
+* **Executive Admin Passes**: Deepak Kumar (`CEO & Founder`), Balaji (`Co-Founder & CTO`), Sanjay (`Co-Founder & CDO`), Inbaraj (`Co-Founder & CSA`), Sivanesan (`Co-Founder & Product Design`), and Boopathi (`Co-Founder & Creative Director`).
+* Grants administrative CMS privileges to create and edit live showcase projects.
+
+### 3. Setting Up Your Firebase Project
+1. Create a project in the [Firebase Console](https://console.firebase.google.com/).
+2. Enable **Cloud Firestore Database** (Start in test mode or production rules).
+3. Enable **Authentication** (Email/Password provider).
+4. Go to **Project Settings** → **General** → Copy your Web App SDK config.
+5. Either:
+   - Open the website, click **Gateway** → **☁️ Firebase Cloud**, paste your keys, and click **Save**.
+   - Or paste your keys directly into [`js/firebase-config.js`](js/firebase-config.js).
+
+
 ## 🛠️ Tech Stack
 
 * **Markup & Structure**: HTML5 (Semantic, Accessible, SEO Optimized)

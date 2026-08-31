@@ -179,6 +179,8 @@ const VisionXPortal = (function () {
     // Render Dynamic Live Portfolio & CMS List
     renderPortfolioGrid();
     initReviews();
+    _initFirebaseSync();
+    _initFirebaseConfigTab();
     setupFounderModalEvents();
     renderCMSList();
 
@@ -497,6 +499,9 @@ const VisionXPortal = (function () {
       } else {
         clientReviews = [...DEFAULT_REVIEWS];
         localStorage.setItem('visionx_client_reviews', JSON.stringify(clientReviews));
+        if (typeof VisionXFirebase !== 'undefined') {
+          VisionXFirebase.saveReview(newRev);
+        }
       }
     } catch (e) {
       clientReviews = [...DEFAULT_REVIEWS];
@@ -637,6 +642,9 @@ const VisionXPortal = (function () {
 
         clientReviews.unshift(newRev);
         localStorage.setItem('visionx_client_reviews', JSON.stringify(clientReviews));
+        if (typeof VisionXFirebase !== 'undefined') {
+          VisionXFirebase.saveReview(newRev);
+        }
 
         renderReviewsGrid();
         playSound('publish');
@@ -726,8 +734,14 @@ const VisionXPortal = (function () {
         if (confirm('Reset portfolio to the default VisionX projects?')) {
           STATE.projects = JSON.parse(JSON.stringify(DEFAULT_PROJECTS));
           localStorage.setItem('visionx_projects', JSON.stringify(STATE.projects));
+    // Cloud Firestore Sync
+    if (typeof VisionXFirebase !== 'undefined') {
+      VisionXFirebase.saveProject(existingId ? STATE.projects[idx] : newProj);
+    }
           renderPortfolioGrid();
     initReviews();
+    _initFirebaseSync();
+    _initFirebaseConfigTab();
     setupFounderModalEvents();
           renderCMSList();
           playSound('publish');
@@ -785,6 +799,10 @@ const VisionXPortal = (function () {
     }
 
     localStorage.setItem('visionx_projects', JSON.stringify(STATE.projects));
+    // Cloud Firestore Sync
+    if (typeof VisionXFirebase !== 'undefined') {
+      VisionXFirebase.saveProject(existingId ? STATE.projects[idx] : newProj);
+    }
     renderPortfolioGrid();
     renderCMSList();
     _resetCMSForm();
@@ -834,6 +852,10 @@ const VisionXPortal = (function () {
     if (confirm(`Remove "${proj.title}" from live portfolio?`)) {
       STATE.projects = STATE.projects.filter(p => p.id !== id);
       localStorage.setItem('visionx_projects', JSON.stringify(STATE.projects));
+    // Cloud Firestore Sync
+    if (typeof VisionXFirebase !== 'undefined') {
+      VisionXFirebase.saveProject(existingId ? STATE.projects[idx] : newProj);
+    }
       renderPortfolioGrid();
       renderCMSList();
       playSound('delete');

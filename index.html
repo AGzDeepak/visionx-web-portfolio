@@ -1051,6 +1051,7 @@
       <div class="portal-tabs" role="tablist">
         <button class="portal-tab-btn active" data-tab="login" role="tab" aria-selected="true">Gateway</button>
         <button class="portal-tab-btn" data-tab="cms" role="tab" aria-selected="false">📁 Project CMS</button>
+        <button class="portal-tab-btn" data-tab="cloud" role="tab" aria-selected="false">☁️ Firebase Cloud</button>
       </div>
     </div>
 
@@ -1226,7 +1227,68 @@
           <!-- Dynamically populated -->
         </div>
       </div>
+    
+    <!-- Tab 3: Firebase Cloud & Live Database Settings -->
+    <div class="portal-tab-pane" id="tab-cloud" role="tabpanel">
+      <div class="cms-header">
+        <div class="firebase-status-badge" id="firebase-status-indicator">
+          <span class="firebase-status-dot"></span>
+          <span id="firebase-status-text">Cloud Firestore &amp; Auth Ready</span>
+        </div>
+        <p class="cms-subtitle">Real-time cloud database synchronization for works, live demo links, and client reviews.</p>
+      </div>
+
+      <div class="firebase-info-card">
+        <div class="firebase-feature-row">
+          <div class="firebase-feat-icon">⚡</div>
+          <div class="firebase-feat-text">
+            <h5>Real-Time Cloud Firestore Sync</h5>
+            <p>Any project added, updated, or deleted is pushed to Firestore and syncs in real-time across all global visitors.</p>
+          </div>
+        </div>
+        <div class="firebase-feature-row">
+          <div class="firebase-feat-icon">🔒</div>
+          <div class="firebase-feat-text">
+            <h5>Firebase Authentication &amp; Role Authorization</h5>
+            <p>Admin privileges restrict project editing exclusively to verified VisionX executive passkeys and accounts.</p>
+          </div>
+        </div>
+      </div>
+
+      <form class="cms-form" id="firebase-config-form">
+        <div class="form-group">
+          <label for="fb-api-key">Firebase API Key</label>
+          <input type="text" id="fb-api-key" placeholder="AIzaSy..." />
+        </div>
+        <div class="form-row">
+          <div class="form-group">
+            <label for="fb-auth-domain">Auth Domain</label>
+            <input type="text" id="fb-auth-domain" placeholder="your-project.firebaseapp.com" />
+          </div>
+          <div class="form-group">
+            <label for="fb-project-id">Project ID</label>
+            <input type="text" id="fb-project-id" placeholder="your-project-id" />
+          </div>
+        </div>
+        <div class="form-row">
+          <div class="form-group">
+            <label for="fb-storage-bucket">Storage Bucket</label>
+            <input type="text" id="fb-storage-bucket" placeholder="your-project.appspot.com" />
+          </div>
+          <div class="form-group">
+            <label for="fb-app-id">App ID</label>
+            <input type="text" id="fb-app-id" placeholder="1:123456789:web:abcdef..." />
+          </div>
+        </div>
+
+        <div class="cms-actions">
+          <button type="submit" class="btn btn-primary" id="fb-save-config-btn">
+            💾 Save Firebase Cloud Config
+          </button>
+        </div>
+      </form>
     </div>
+</div>
 
     
   </div>
@@ -1285,6 +1347,12 @@
 
   <!-- Three.js CDN -->
   <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js" integrity="sha512-dLxUelApnYxpLt6K2iomGngnHO83iUvZytA3YjDUCjT0HDOHKXnVYdf3hU4JjM8Fg03zIcUtUoigrj78fsdaw==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+
+  <!-- Firebase SDK v10 (Compat) -->
+  <script src="https://www.gstatic.com/firebasejs/10.12.2/firebase-app-compat.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/10.12.2/firebase-auth-compat.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/10.12.2/firebase-firestore-compat.js"></script>
+  <script src="js/firebase-config.js"></script>
 
   <!-- VisionX Scripts -->
   <script src="js/three-scene.js"></script>
