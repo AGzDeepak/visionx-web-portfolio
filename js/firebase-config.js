@@ -1,35 +1,37 @@
 /* ==========================================================================
-   VisionX Web Technology — Firebase Cloud Database & Authentication Engine
+   VisionX Web Technology — Live Firebase Cloud Database & Auth Engine
    ========================================================================== */
 
 'use strict';
 
 const VisionXFirebase = (function () {
 
-  // Default / Starter Firebase Config
-  // (You can replace these keys or configure them live via the Executive Portal Cloud Settings tab)
+  // Live VisionX Portfolio Firebase Config
   const DEFAULT_CONFIG = {
-    apiKey: "AIzaSyVisionXDefaultApiKeyPlaceholder",
-    authDomain: "visionx-web-portfolio.firebaseapp.com",
-    projectId: "visionx-web-portfolio",
-    storageBucket: "visionx-web-portfolio.appspot.com",
-    messagingSenderId: "109876543210",
-    appId: "1:109876543210:web:abcdef1234567890"
+    apiKey: "AIzaSyDRRhbLeunrPdpX_RUBs7VenLuL-hSVgaE",
+    authDomain: "visionx-portfolio.firebaseapp.com",
+    projectId: "visionx-portfolio",
+    storageBucket: "visionx-portfolio.firebasestorage.app",
+    messagingSenderId: "407700229962",
+    appId: "1:407700229962:web:beb53a4ab6dcaadf4b7bb3",
+    measurementId: "G-FZRKKWG86B"
   };
 
   let app = null;
   let db = null;
   let auth = null;
+  let analytics = null;
   let isConnected = false;
   let activeConfig = null;
 
   function init() {
     try {
-      const savedConfig = localStorage.getItem('visionx_firebase_config');
-      activeConfig = savedConfig ? JSON.parse(savedConfig) : DEFAULT_CONFIG;
+      activeConfig = DEFAULT_CONFIG;
+      // Overwrite localStorage with live config so old placeholder isn't cached
+      localStorage.setItem('visionx_firebase_config', JSON.stringify(activeConfig));
 
       // Check if Firebase SDK is loaded
-      if (typeof firebase !== 'undefined' && activeConfig && activeConfig.apiKey) {
+      if (typeof firebase !== 'undefined') {
         if (!firebase.apps.length) {
           app = firebase.initializeApp(activeConfig);
         } else {
@@ -39,24 +41,33 @@ const VisionXFirebase = (function () {
         db = firebase.firestore();
         auth = firebase.auth();
 
+        if (typeof firebase.analytics === 'function') {
+          try {
+            analytics = firebase.analytics();
+          } catch (e) {}
+        }
+
         // Enable offline persistence if supported
         try {
           db.enablePersistence({ synchronizeTabs: true }).catch(() => {});
         } catch (e) {}
 
         isConnected = true;
-        console.log('[VisionX Firebase] Cloud Firestore & Auth initialized successfully.');
+        console.log('[VisionX Firebase] Live Firebase Firestore & Auth connected to project:', activeConfig.projectId);
+
+        // Auto-seed initial flagship projects into Firestore if empty
+        _checkAndSeedDatabase();
       } else {
-        console.warn('[VisionX Firebase] SDK not loaded or config missing. Running in local mode.');
+        console.warn('[VisionX Firebase] Firebase SDK not loaded.');
       }
     } catch (err) {
-      console.warn('[VisionX Firebase] Initialization note (running local mode):', err.message);
+      console.warn('[VisionX Firebase] Initialization note:', err.message);
       isConnected = false;
     }
   }
 
   function isLive() {
-    return isConnected && db !== null && activeConfig && !activeConfig.apiKey.includes('Placeholder');
+    return isConnected && db !== null;
   }
 
   function getConfig() {
@@ -66,44 +77,96 @@ const VisionXFirebase = (function () {
   function saveConfig(newConfig) {
     activeConfig = { ...newConfig };
     localStorage.setItem('visionx_firebase_config', JSON.stringify(activeConfig));
-    localStorage.setItem('visionx_firebase_configured', 'true');
-    // Reinitialize
-    try {
-      if (typeof firebase !== 'undefined') {
-        if (firebase.apps.length) {
-          firebase.app().delete().then(() => {
-            init();
-            window.location.reload();
-          });
-        } else {
-          init();
-          window.location.reload();
-        }
-      }
-    } catch (e) {
-      window.location.reload();
-    }
+    window.location.reload();
   }
 
   // =========================================================================
-  // Firestore Project Work Management
+  // Firestore Work & Projects Store (Cloud Database)
   // =========================================================================
+
+  const SEED_PROJECTS = [
+    {
+      id: 'proj-1',
+      title: 'NOVA',
+      category: 'Creative Technology / Web Experience',
+      layout: 'large',
+      theme: 'cosmic',
+      image: '',
+      link: 'https://github.com/AGzDeepak/visionx-web-portfolio',
+      order: 1,
+      createdAt: new Date().toISOString()
+    },
+    {
+      id: 'proj-2',
+      title: 'ARC',
+      category: 'Business / Web Platform',
+      layout: 'normal',
+      theme: 'sapphire',
+      image: '',
+      link: 'https://github.com/AGzDeepak/visionx-web-portfolio',
+      order: 2,
+      createdAt: new Date().toISOString()
+    },
+    {
+      id: 'proj-3',
+      title: 'LUMEN',
+      category: '3D / Interactive Experience',
+      layout: 'normal',
+      theme: 'midnight',
+      image: '',
+      link: 'https://github.com/AGzDeepak/visionx-web-portfolio',
+      order: 3,
+      createdAt: new Date().toISOString()
+    },
+    {
+      id: 'proj-4',
+      title: 'NEXUS',
+      category: 'SaaS / Product Design',
+      layout: 'normal',
+      theme: 'crimson',
+      image: '',
+      link: 'https://github.com/AGzDeepak/visionx-web-portfolio',
+      order: 4,
+      createdAt: new Date().toISOString()
+    }
+  ];
+
+  async function _checkAndSeedDatabase() {
+    if (!isLive() || !db) return;
+    try {
+      const snapshot = await db.collection('projects').get();
+      if (snapshot.empty) {
+        console.log('[VisionX Firebase] Seeding initial flagship projects into Firestore...');
+        const batch = db.batch();
+        SEED_PROJECTS.forEach(p => {
+          const ref = db.collection('projects').doc(p.id);
+          batch.set(ref, p);
+        });
+        await batch.commit();
+        console.log('[VisionX Firebase] Flagship projects successfully seeded to Firestore database!');
+      }
+    } catch (err) {
+      console.warn('[VisionX Firebase] Database check/seed note:', err.message);
+    }
+  }
 
   function subscribeProjects(onProjectsUpdate, onError) {
     if (isLive() && db) {
       try {
-        return db.collection('projects').orderBy('createdAt', 'desc').onSnapshot(
+        return db.collection('projects').onSnapshot(
           (snapshot) => {
             if (!snapshot.empty) {
               const projects = [];
               snapshot.forEach(doc => {
                 projects.push({ id: doc.id, ...doc.data() });
               });
+              // Sort by order or createdAt
+              projects.sort((a, b) => (a.order || 99) - (b.order || 99));
               onProjectsUpdate(projects);
             }
           },
           (err) => {
-            console.warn('[VisionX Firebase] Projects onSnapshot note:', err.message);
+            console.warn('[VisionX Firebase] Firestore projects onSnapshot note:', err.message);
             if (onError) onError(err);
           }
         );
@@ -124,13 +187,14 @@ const VisionXFirebase = (function () {
           layout: projectData.layout || 'normal',
           theme: projectData.theme || 'cosmic',
           image: projectData.image || '',
-          link: projectData.link || 'https://github.com/AGzDeepak',
+          link: projectData.link || 'https://github.com/AGzDeepak/visionx-web-portfolio',
+          order: projectData.order || Date.now(),
           updatedAt: firebase.firestore.FieldValue.serverTimestamp(),
           createdAt: projectData.createdAt || firebase.firestore.FieldValue.serverTimestamp()
         };
 
         await db.collection('projects').doc(id).set(dataToSave, { merge: true });
-        console.log('[VisionX Firebase] Project saved to Firestore:', id);
+        console.log('[VisionX Firebase] Project saved to Firestore database:', id);
         return { success: true, id };
       } catch (err) {
         console.warn('[VisionX Firebase] Save project error:', err.message);
@@ -144,7 +208,7 @@ const VisionXFirebase = (function () {
     if (isLive() && db) {
       try {
         await db.collection('projects').doc(projectId).delete();
-        console.log('[VisionX Firebase] Project deleted from Firestore:', projectId);
+        console.log('[VisionX Firebase] Project deleted from Firestore database:', projectId);
         return { success: true };
       } catch (err) {
         console.warn('[VisionX Firebase] Delete project error:', err.message);
@@ -161,7 +225,7 @@ const VisionXFirebase = (function () {
   function subscribeReviews(onReviewsUpdate, onError) {
     if (isLive() && db) {
       try {
-        return db.collection('reviews').orderBy('timestamp', 'desc').onSnapshot(
+        return db.collection('reviews').onSnapshot(
           (snapshot) => {
             if (!snapshot.empty) {
               const reviews = [];
@@ -198,7 +262,7 @@ const VisionXFirebase = (function () {
         };
 
         await db.collection('reviews').doc(id).set(dataToSave);
-        console.log('[VisionX Firebase] Review saved to Firestore:', id);
+        console.log('[VisionX Firebase] Review saved to Firestore database:', id);
         return { success: true, id };
       } catch (err) {
         console.warn('[VisionX Firebase] Save review error:', err.message);
