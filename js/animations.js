@@ -74,7 +74,7 @@ const VisionXAnimations = (function () {
     }, { passive: true });
   }
 
-  // ---- Custom Cursor ----
+    // ---- Custom Cursor (Fluid Spring Physics & Delegation) ----
 
   function initCursor() {
     const reducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
@@ -85,9 +85,14 @@ const VisionXAnimations = (function () {
     const follower = document.querySelector('.cursor-follower');
     if (!cursor || !follower) return;
 
-    let mouseX = 0, mouseY = 0;
-    let followerX = 0, followerY = 0;
-    let rafId;
+    let mouseX = window.innerWidth / 2, mouseY = window.innerHeight / 2;
+    let followerX = mouseX, followerY = mouseY;
+    let rafId = null;
+
+    cursor.style.left = mouseX + 'px';
+    cursor.style.top = mouseY + 'px';
+    follower.style.left = mouseX + 'px';
+    follower.style.top = mouseY + 'px';
 
     document.addEventListener('mousemove', function (e) {
       mouseX = e.clientX;
@@ -97,29 +102,42 @@ const VisionXAnimations = (function () {
     });
 
     function animateFollower() {
-      followerX += (mouseX - followerX) * 0.12;
-      followerY += (mouseY - followerY) * 0.12;
+      followerX += (mouseX - followerX) * 0.15;
+      followerY += (mouseY - followerY) * 0.15;
       follower.style.left = followerX + 'px';
       follower.style.top = followerY + 'px';
       rafId = requestAnimationFrame(animateFollower);
     }
     animateFollower();
 
-    // Hover state on interactive elements
-    const interactiveSelectors = 'a, button, .btn, .service-card, .project-card, .nav__hamburger, input, textarea, select, .tech-tag';
+    // Event delegation for interactive elements (works on all dynamic DOM elements)
+    const interactiveSelectors = 'a, button, .btn, .service-card, .project-card, .nav__hamburger, input, textarea, select, .tech-tag, .about__profile-card, .profile-chip, .review-card, .floating-quick-action, .portal-trigger-btn, .portal-tab-btn, [tabindex="0"], [role="button"]';
 
-    document.querySelectorAll(interactiveSelectors).forEach(function (el) {
-      el.addEventListener('mouseenter', function () {
+    document.addEventListener('mouseover', function (e) {
+      if (e.target.closest(interactiveSelectors)) {
         cursor.classList.add('cursor-hover');
         follower.classList.add('cursor-hover');
-      });
-      el.addEventListener('mouseleave', function () {
-        cursor.classList.remove('cursor-hover');
-        follower.classList.remove('cursor-hover');
-      });
+      }
     });
 
-    // Hide cursor when leaving window
+    document.addEventListener('mouseout', function (e) {
+      if (e.target.closest(interactiveSelectors)) {
+        cursor.classList.remove('cursor-hover');
+        follower.classList.remove('cursor-hover');
+      }
+    });
+
+    document.addEventListener('mousedown', function () {
+      cursor.classList.add('cursor-active');
+      follower.classList.add('cursor-active');
+    });
+
+    document.addEventListener('mouseup', function () {
+      cursor.classList.remove('cursor-active');
+      follower.classList.remove('cursor-active');
+    });
+
+    // Hide/show cursor on window boundary
     document.addEventListener('mouseleave', function () {
       cursor.style.opacity = '0';
       follower.style.opacity = '0';

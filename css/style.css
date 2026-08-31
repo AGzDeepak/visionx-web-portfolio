@@ -122,13 +122,14 @@ button {
   left: 0;
   width: 8px;
   height: 8px;
-  background: var(--color-text);
+  background: var(--color-accent);
   border-radius: 50%;
   pointer-events: none;
-  z-index: 9999;
+  z-index: 99999;
   transform: translate(-50%, -50%);
-  transition: transform var(--transition-fast), width var(--transition-fast), height var(--transition-fast), opacity var(--transition-fast);
-  will-change: transform;
+  box-shadow: 0 0 10px rgba(56, 189, 248, 0.8), 0 0 20px rgba(56, 189, 248, 0.4);
+  transition: opacity 0.2s ease, transform 0.15s ease, background 0.2s ease;
+  will-change: transform, left, top;
 }
 
 .cursor-follower {
@@ -137,28 +138,41 @@ button {
   left: 0;
   width: 38px;
   height: 38px;
-  border: 1px solid var(--color-border-strong);
-  background: rgba(255, 255, 255, 0.06);
-  backdrop-filter: blur(6px);
+  border: 1.5px solid rgba(56, 189, 248, 0.45);
+  background: rgba(56, 189, 248, 0.05);
+  backdrop-filter: blur(4px);
+  -webkit-backdrop-filter: blur(4px);
   border-radius: 50%;
   pointer-events: none;
-  z-index: 9998;
+  z-index: 99998;
   transform: translate(-50%, -50%);
-  transition: transform 0.12s ease, width var(--transition-normal), height var(--transition-normal), opacity var(--transition-fast);
-  will-change: transform;
+  box-shadow: 0 0 15px rgba(56, 189, 248, 0.15);
+  transition: opacity 0.25s ease, width 0.25s cubic-bezier(0.16, 1, 0.3, 1), height 0.25s cubic-bezier(0.16, 1, 0.3, 1), border-color 0.2s ease, background 0.2s ease, transform 0.15s ease;
+  will-change: transform, left, top, width, height;
 }
 
 .cursor.cursor-hover {
-  width: 6px;
-  height: 6px;
-  opacity: 0.6;
+  transform: translate(-50%, -50%) scale(1.6);
+  background: #ffffff;
+  box-shadow: 0 0 12px #ffffff, 0 0 22px rgba(56, 189, 248, 0.9);
 }
 
 .cursor-follower.cursor-hover {
-  width: 60px;
-  height: 60px;
-  border-color: var(--color-accent);
-  background: var(--color-accent-glow);
+  width: 58px;
+  height: 58px;
+  border-color: rgba(56, 189, 248, 0.85);
+  background: rgba(56, 189, 248, 0.12);
+  box-shadow: 0 0 25px rgba(56, 189, 248, 0.4);
+}
+
+.cursor.cursor-active {
+  transform: translate(-50%, -50%) scale(0.7);
+}
+
+.cursor-follower.cursor-active {
+  transform: translate(-50%, -50%) scale(0.85);
+  border-color: #38bdf8;
+  background: rgba(56, 189, 248, 0.25);
 }
 
 /* ==========================================================================
