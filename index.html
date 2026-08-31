@@ -1,0 +1,1243 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="dark">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="description" content="VisionX Web Technology creates modern websites, interactive 3D experiences and digital products for ambitious businesses." />
+  <meta name="theme-color" content="#ffffff" />
+  <meta property="og:type" content="website" />
+  <meta property="og:title" content="VisionX Web Technology - Digital Experiences Beyond Ordinary" />
+  <meta property="og:description" content="VisionX Web Technology creates modern websites, interactive 3D experiences and digital products for ambitious businesses." />
+  <meta property="og:url" content="https://visionxweb.com" />
+  <meta property="og:site_name" content="VisionX Web Technology" />
+  <meta name="twitter:card" content="summary_large_image" />
+  <meta name="twitter:title" content="VisionX Web Technology - Digital Experiences Beyond Ordinary" />
+  <link rel="icon" type="image/png" href="assets/images/visionx-logo.png" />
+  <link rel="apple-touch-icon" href="assets/images/visionx-logo.png" />
+  <meta property="og:image" content="assets/images/visionx-logo.png" />
+
+  <link rel="canonical" href="https://visionxweb.com" />
+  <title>VisionX Web Technology - Digital Experiences Beyond Ordinary</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="css/style.css" />
+  <link rel="stylesheet" href="css/animations.css" />
+  <link rel="stylesheet" href="css/responsive.css" />
+</head>
+<body>
+
+  <!-- =====================================================================
+       PAGE LOADER — shown while page initializes
+       ===================================================================== -->
+  <div class="page-loader" id="page-loader" aria-live="polite" aria-label="Loading VisionX">
+    <div class="page-loader__inner">
+      <div class="page-loader__logo-wrap">
+        <img
+          src="assets/images/visionx-logo.png"
+          alt="VisionX Web Technology"
+          class="page-loader__logo"
+          draggable="false"
+        />
+      </div>
+      <div class="page-loader__bar-wrap" aria-hidden="true">
+        <div class="page-loader__bar"></div>
+      </div>
+      <p class="page-loader__text" aria-hidden="true">Loading experience&hellip;</p>
+    </div>
+  </div>
+
+  <div class="scroll-progress" aria-hidden="true"></div>
+  <div class="cursor" aria-hidden="true"></div>
+  <div class="cursor-follower" aria-hidden="true"></div>
+
+  <header>
+    <nav class="nav" role="navigation" aria-label="Main navigation">
+      <div class="container">
+        <div class="nav__inner">
+          <a href="#" class="nav__logo" aria-label="VisionX Web Technology - Home">
+            <img src="assets/images/visionx-logo.png" alt="VisionX Web Technology" class="nav__logo-img" />
+          </a>
+          <ul class="nav__links" role="list">
+            <li><a href="#work">Work</a></li>
+            <li><a href="#services">Services</a></li>
+            <li><a href="#about">About</a></li>
+            <li><a href="#contact">Contact</a></li>
+          </ul>
+          <div class="nav__cta">
+            <button class="nav__portal-btn js-open-portal" id="nav-portal-btn" data-tab="login" aria-label="Client Portal & Studio">
+              <span>Portal</span> &rarr;
+            </button>
+            <button class="nav__start-btn" data-scroll="contact" aria-label="Start a project with VisionX">Start a Project &rarr;</button>
+            <button class="nav__hamburger" aria-label="Open navigation menu" aria-expanded="false" aria-controls="mobile-menu">
+              <span></span><span></span><span></span>
+            </button>
+          </div>
+        </div>
+      </div>
+    </nav>
+  </header>
+
+  <div class="mobile-menu" id="mobile-menu" role="dialog" aria-modal="true" aria-label="Navigation menu">
+    <nav class="mobile-menu__links" aria-label="Mobile navigation">
+      <a href="#work"><span class="mobile-menu__num">01</span>Work</a>
+      <a href="#services"><span class="mobile-menu__num">02</span>Services</a>
+      <a href="#about"><span class="mobile-menu__num">03</span>About</a>
+      <a href="#contact"><span class="mobile-menu__num">04</span>Contact</a>
+      <a href="#" class="js-open-portal" data-tab="login"><span class="mobile-menu__num">05</span>Client Portal &amp; Theme Studio</a>
+    </nav>
+    <div class="mobile-menu__bottom">
+      <button class="btn btn-primary" data-scroll="contact">Start a Project &rarr;</button>
+    </div>
+  </div>
+
+  <main>
+
+    <section class="hero" aria-label="Hero">
+      <div class="hero__container container">
+        <div class="hero__content">
+          <div class="hero__eyebrow" aria-hidden="true">
+            <span class="hero__eyebrow-line"></span>
+            <span class="text-label">EST. / DIGITAL CRAFT &nbsp;&bull;&nbsp; WEB TECHNOLOGY</span>
+          </div>
+          
+          <h1 class="hero__title">
+            <span class="line"><span class="line-inner">Digital</span></span>
+            <span class="line"><span class="line-inner">experiences</span></span>
+            <span class="line"><span class="line-inner">built for</span></span>
+            <span class="line"><span class="line-inner hero__title--accent">what&apos;s next.</span></span>
+          </h1>
+
+          <p class="hero__subtitle">
+            VisionX Web Technology engineers high-performance web applications, interactive 3D WebGL interfaces, and bespoke digital platforms for modern global brands.
+          </p>
+
+          <!-- Core Capability Highlights -->
+          <div class="hero__tags-wrap" aria-label="Core Specializations">
+            <span class="hero-chip">✦ Three.js &amp; 3D</span>
+            <span class="hero-chip">⚡ Web Applications</span>
+            <span class="hero-chip">🛒 Modern E-Commerce</span>
+            <span class="hero-chip">🎨 UI/UX Architecture</span>
+          </div>
+
+          <!-- Action Buttons -->
+          <div class="hero__actions">
+            <button class="btn btn-primary" data-scroll="work">Explore Our Work &darr;</button>
+            <button class="btn btn-secondary" data-scroll="contact">Start a Project &rarr;</button>
+            <button class="btn btn-secondary js-open-portal" data-tab="login" title="Open Client Portal">
+              Client Portal ⚡
+            </button>
+          </div>
+
+          <!-- Real-Time Metrics & Performance Intelligence -->
+          <div class="hero__metrics-grid">
+            <div class="hero__metric-card">
+              <span class="metric-val">&lt; 0.8s</span>
+              <span class="metric-lbl">Core Web Vitals</span>
+            </div>
+            <div class="hero__metric-card">
+              <span class="metric-val">60 FPS</span>
+              <span class="metric-lbl">WebGL 3D Engine</span>
+            </div>
+            <div class="hero__metric-card">
+              <span class="metric-val">100%</span>
+              <span class="metric-lbl">Bespoke Architecture</span>
+            </div>
+          </div>
+        </div>
+
+        <!-- 3D Interactive Canvas with Live HUD Overlay -->
+        <div class="hero__scene-container">
+          <div class="hero__scene" aria-hidden="true" role="img" aria-label="Interactive 3D visualization"></div>
+          <div class="hero__scene-badge">
+            <span class="badge-dot"></span>
+            <span class="badge-text">Interactive 3D Canvas &bull; Drag / Orbit</span>
+          </div>
+        </div>
+      </div>
+      
+      <div class="hero__scroll" aria-hidden="true">
+        <span class="hero__scroll-text">Scroll to explore</span>
+        <div class="hero__scroll-arrow"></div>
+      </div>
+    </section>
+
+    <section class="intro section" aria-labelledby="intro-heading">
+      <div class="container">
+        <div class="intro__inner">
+          <div class="intro__label reveal">
+            <span class="text-label">01 &mdash; Who We Are</span>
+          </div>
+          <div class="intro__body">
+            <h2 class="intro__statement reveal reveal-delay-1" id="intro-heading">We transform ideas into digital experiences that matter.</h2>
+            <p class="intro__text reveal reveal-delay-2">From strategy and interface design to development and interactive 3D experiences, VisionX combines technology and creativity to build digital products people remember. We approach each project as a collaboration, working closely with our clients to understand their goals and build something exceptional.</p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section class="section section--surface" id="services" aria-labelledby="services-heading">
+      <div class="container">
+        <div class="services__header">
+          <h2 class="services__title reveal" id="services-heading">What we do.</h2>
+        </div>
+        <div class="services__grid stagger-children" role="list">
+
+          <article class="service-card" role="listitem" tabindex="0" aria-label="Web Development">
+            <span class="service-card__num">01</span>
+            <h3 class="service-card__title">Web Development</h3>
+            <p class="service-card__desc">High-performance responsive websites engineered for speed, accessibility and scalability. Built to last, optimized to convert.</p>
+            <div class="service-card__footer">
+              <span class="text-label">Development</span>
+              <div class="service-card__arrow" aria-hidden="true">&nearr;</div>
+            </div>
+          </article>
+
+          <article class="service-card" role="listitem" tabindex="0" aria-label="Creative Web Design">
+            <span class="service-card__num">02</span>
+            <h3 class="service-card__title">Creative Web Design</h3>
+            <p class="service-card__desc">Distinctive interfaces with strong visual systems, thoughtful interaction design and modern user experiences that stand out.</p>
+            <div class="service-card__footer">
+              <span class="text-label">Design</span>
+              <div class="service-card__arrow" aria-hidden="true">&nearr;</div>
+            </div>
+          </article>
+
+          <article class="service-card" role="listitem" tabindex="0" aria-label="Three.js and 3D">
+            <span class="service-card__num">03</span>
+            <h3 class="service-card__title">Three.js &amp; 3D</h3>
+            <p class="service-card__desc">Immersive 3D experiences, interactive scenes and WebGL-powered interfaces that push the boundaries of what a browser can do.</p>
+            <div class="service-card__footer">
+              <span class="text-label">WebGL</span>
+              <div class="service-card__arrow" aria-hidden="true">&nearr;</div>
+            </div>
+          </article>
+
+          <article class="service-card" role="listitem" tabindex="0" aria-label="E-Commerce">
+            <span class="service-card__num">04</span>
+            <h3 class="service-card__title">E-Commerce</h3>
+            <p class="service-card__desc">Modern commerce experiences designed around usability, conversion and performance. Stores that feel as good as they sell.</p>
+            <div class="service-card__footer">
+              <span class="text-label">Commerce</span>
+              <div class="service-card__arrow" aria-hidden="true">&nearr;</div>
+            </div>
+          </article>
+
+          <article class="service-card" role="listitem" tabindex="0" aria-label="Web Applications">
+            <span class="service-card__num">05</span>
+            <h3 class="service-card__title">Web Applications</h3>
+            <p class="service-card__desc">Scalable browser-based products and dashboards for modern businesses. Thoughtfully architected and built for growth.</p>
+            <div class="service-card__footer">
+              <span class="text-label">Application</span>
+              <div class="service-card__arrow" aria-hidden="true">&nearr;</div>
+            </div>
+          </article>
+
+          <article class="service-card" role="listitem" tabindex="0" aria-label="UI/UX Design">
+            <span class="service-card__num">06</span>
+            <h3 class="service-card__title">UI / UX Design</h3>
+            <p class="service-card__desc">Research-driven interfaces with clear information architecture and polished micro-interactions that feel natural and intuitive.</p>
+            <div class="service-card__footer">
+              <span class="text-label">UX / UI</span>
+              <div class="service-card__arrow" aria-hidden="true">&nearr;</div>
+            </div>
+          </article>
+
+        </div>
+      </div>
+    </section>
+
+    <section class="section" id="work" aria-labelledby="work-heading">
+      <div class="container">
+        <div class="work__header">
+          <h2 class="work__title reveal" id="work-heading">Selected work.</h2>
+          <p class="work__sub reveal reveal-delay-1">A collection of digital experiences designed and built by VisionX.</p>
+        </div>
+        <div class="work__grid" id="portfolio-grid">
+
+          <article class="project-card project-card--large reveal" aria-label="Project: NOVA">
+            <div class="project-card__visual"><div class="project-card__visual-inner"></div></div>
+            <div class="project-card__info">
+              <div class="project-card__meta">
+                <p class="project-card__num">PROJECT 01</p>
+                <h3 class="project-card__title">NOVA</h3>
+                <p class="project-card__category">Creative Technology / Web Experience</p>
+              </div>
+              <div class="project-card__link" aria-hidden="true">&nearr;</div>
+            </div>
+          </article>
+
+          <article class="project-card reveal" aria-label="Project: ARC">
+            <div class="project-card__visual"><div class="project-card__visual-inner"></div></div>
+            <div class="project-card__info">
+              <div class="project-card__meta">
+                <p class="project-card__num">PROJECT 02</p>
+                <h3 class="project-card__title">ARC</h3>
+                <p class="project-card__category">Business / Web Platform</p>
+              </div>
+              <div class="project-card__link" aria-hidden="true">&nearr;</div>
+            </div>
+          </article>
+
+          <article class="project-card reveal reveal-delay-1" aria-label="Project: LUMEN">
+            <div class="project-card__visual"><div class="project-card__visual-inner"></div></div>
+            <div class="project-card__info">
+              <div class="project-card__meta">
+                <p class="project-card__num">PROJECT 03</p>
+                <h3 class="project-card__title">LUMEN</h3>
+                <p class="project-card__category">3D / Interactive Experience</p>
+              </div>
+              <div class="project-card__link" aria-hidden="true">&nearr;</div>
+            </div>
+          </article>
+
+          <article class="project-card reveal" aria-label="Project: NEXUS">
+            <div class="project-card__visual"><div class="project-card__visual-inner"></div></div>
+            <div class="project-card__info">
+              <div class="project-card__meta">
+                <p class="project-card__num">PROJECT 04</p>
+                <h3 class="project-card__title">NEXUS</h3>
+                <p class="project-card__category">SaaS / Product Design</p>
+              </div>
+              <div class="project-card__link" aria-hidden="true">&nearr;</div>
+            </div>
+          </article>
+
+        </div>
+      </div>
+    </section>
+
+    <section class="feature3d" aria-label="Three.js and WebGL showcase">
+      <div class="feature3d__canvas" aria-hidden="true"></div>
+      <div class="container">
+        <div class="feature3d__content">
+          <div class="feature3d__label">
+            <span class="feature3d__label-text">Three.js / WebGL</span>
+            <span class="feature3d__label-line"></span>
+          </div>
+          <h2 class="feature3d__title">Built beyond<br>the screen.</h2>
+          <p class="feature3d__text">We use WebGL and Three.js to turn ordinary interfaces into interactive digital environments. Drag the object. Move your cursor. Experience the difference.</p>
+          <button class="feature3d__cta" data-scroll="contact">Work with us &rarr;</button>
+        </div>
+      </div>
+    </section>
+
+    <section class="section section--surface" aria-labelledby="process-heading">
+      <div class="container">
+        <h2 class="process__title reveal" id="process-heading">How we build.</h2>
+        <div class="process__steps" role="list">
+
+          <div class="process-step" role="listitem">
+            <p class="process-step__num">01</p>
+            <h3 class="process-step__title">Discover</h3>
+            <p class="process-step__desc">Understand the business, its users and the goals we are working toward together.</p>
+            <div class="process-step__marker" aria-hidden="true"></div>
+          </div>
+
+          <div class="process-step" role="listitem">
+            <p class="process-step__num">02</p>
+            <h3 class="process-step__title">Define</h3>
+            <p class="process-step__desc">Shape the strategy, information architecture and overall experience blueprint.</p>
+            <div class="process-step__marker" aria-hidden="true"></div>
+          </div>
+
+          <div class="process-step" role="listitem">
+            <p class="process-step__num">03</p>
+            <h3 class="process-step__title">Design</h3>
+            <p class="process-step__desc">Create the visual language, component system and interaction design.</p>
+            <div class="process-step__marker" aria-hidden="true"></div>
+          </div>
+
+          <div class="process-step" role="listitem">
+            <p class="process-step__num">04</p>
+            <h3 class="process-step__title">Build</h3>
+            <p class="process-step__desc">Engineer the experience using modern web technologies, clean and performant.</p>
+            <div class="process-step__marker" aria-hidden="true"></div>
+          </div>
+
+          <div class="process-step" role="listitem">
+            <p class="process-step__num">05</p>
+            <h3 class="process-step__title">Launch</h3>
+            <p class="process-step__desc">Test, optimize and deliver a production-ready product built to perform.</p>
+            <div class="process-step__marker" aria-hidden="true"></div>
+          </div>
+
+        </div>
+      </div>
+    </section>
+
+    <section class="section" aria-labelledby="tech-heading">
+      <div class="container">
+        <div class="tech__header">
+          <h2 class="tech__title reveal" id="tech-heading">Technology meets imagination.</h2>
+        </div>
+        <div class="tech__tags" role="list" aria-label="Technologies we use">
+          <span class="tech-tag" role="listitem"><span class="tech-tag__dot" aria-hidden="true"></span>HTML5</span>
+          <span class="tech-tag" role="listitem"><span class="tech-tag__dot" aria-hidden="true"></span>CSS3</span>
+          <span class="tech-tag" role="listitem"><span class="tech-tag__dot" aria-hidden="true"></span>JavaScript</span>
+          <span class="tech-tag" role="listitem"><span class="tech-tag__dot" aria-hidden="true"></span>Three.js</span>
+          <span class="tech-tag" role="listitem"><span class="tech-tag__dot" aria-hidden="true"></span>WebGL</span>
+          <span class="tech-tag" role="listitem"><span class="tech-tag__dot" aria-hidden="true"></span>UI / UX</span>
+        </div>
+      </div>
+    </section>
+
+    <section class="section section--surface" id="about" aria-labelledby="about-heading">
+      <div class="container">
+        
+        <div class="about__header">
+          <div class="about__eyebrow-wrap reveal">
+            <span class="about__label text-label">Leadership &bull; VisionX Web Technology</span>
+          </div>
+          <h2 class="about__title reveal reveal-delay-1" id="about-heading">Technology should feel as good as it works.</h2>
+          <p class="about__text text-large reveal reveal-delay-2">
+            VisionX Web Technology is focused on creating thoughtful, high-performance digital experiences where engineering, design, and spatial creativity work together seamlessly. Founded by <strong>Deepak Kumar</strong>, <strong>Balaji</strong>, <strong>Sanjay</strong>, <strong>Inbaraj</strong>, <strong>Sivanesan</strong>, and <strong>Boopathi</strong>, we architect bespoke digital solutions and interactive WebGL experiences for ambitious brands worldwide.
+          </p>
+        </div>
+
+                                        <!-- Featured Tier: Deepak Kumar (CEO & Founder) -->
+        <div class="about__ceo-wrap">
+          <div class="about__profile-card about__profile-card--featured reveal js-founder-card" data-founder="deepak" tabindex="0" title="Tap to view Deepak Kumar details">
+            <div class="about__image-frame">
+              <img
+                src="assets/images/deepak-kumar.jpg"
+                alt="Deepak Kumar, CEO & Founder of VisionX Web Technology"
+                class="about__profile-img"
+                loading="lazy"
+              />
+            </div>
+            <div class="about__profile-info">
+              <div class="profile-meta">
+                <div class="profile-status">
+                  <span class="status-dot"></span>
+                  <span class="status-role">CEO &amp; Founder</span>
+                </div>
+                <h3 class="profile-name">Deepak Kumar</h3>
+                <p class="profile-role">Web Development</p>
+                <p class="profile-company">VisionX Web Technology</p>
+              </div>
+              <div class="profile-chips">
+                <a href="https://www.instagram.com/deepak_h4x_?igsi=MWVmbGRyZGVvMWoxYg==" target="_blank" rel="noopener noreferrer" class="profile-chip" aria-label="Deepak Kumar Instagram">
+                  Instagram ↗
+                </a>
+                <a href="https://github.com/AGzDeepak" target="_blank" rel="noopener noreferrer" class="profile-chip" aria-label="Deepak Kumar GitHub">
+                  GitHub ↗
+                </a>
+                <a href="https://mail.google.com/mail/?view=cm&fs=1&to=deepakyuoyt@gmail.com&su=Inquiry%20for%20Deepak%20Kumar%20(CEO%20%26%20Founder)%20-%20VisionX&body=Hello%20Deepak,%0A%0AI%20would%20like%20to%20discuss%20a%20web%20technology%20project%20with%20VisionX.%0A%0ALooking%20forward%20to%20connecting." target="_blank" rel="noopener noreferrer" class="profile-chip" aria-label="Email Deepak Kumar via Gmail">
+                  Email ↗
+                </a>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Founders Tier: 5 Founders in Single Line -->
+        <div class="about__team-grid about__team-grid--founders">
+          
+          <!-- Balaji Card -->
+          <div class="about__profile-card reveal reveal-delay-1 js-founder-card" data-founder="balaji" tabindex="0" title="Tap to view Balaji details">
+            <div class="about__image-frame">
+              <img
+                src="assets/images/balaji.jpg"
+                alt="Balaji, Founder of VisionX Web Technology"
+                class="about__profile-img"
+                loading="lazy"
+              />
+            </div>
+            <div class="about__profile-info">
+              <div class="profile-meta">
+                <div class="profile-status">
+                  <span class="status-dot"></span>
+                  <span class="status-role">Founder</span>
+                </div>
+                <h3 class="profile-name">Balaji</h3>
+                <p class="profile-role">Frontend Developer</p>
+                <p class="profile-company">VisionX Web Technology</p>
+              </div>
+              <div class="profile-chips">
+                <a href="https://www.instagram.com/bala_zx_?igsi=MTZnZXJudWtreWxieA==" target="_blank" rel="noopener noreferrer" class="profile-chip" aria-label="Balaji Instagram">
+                  Instagram ↗
+                </a>
+                <a href="https://github.com/balajibalaji72863-cyber" target="_blank" rel="noopener noreferrer" class="profile-chip" aria-label="Balaji GitHub">
+                  GitHub ↗
+                </a>
+                <a href="https://mail.google.com/mail/?view=cm&fs=1&to=balajibalaji72863@gmail.com&su=Inquiry%20for%20Balaji%20(Founder%20%26%20Frontend)%20-%20VisionX&body=Hello%20Balaji,%0A%0AI%20would%20like%20to%20discuss%20frontend%20development%20and%20web%20experiences%20with%20VisionX.%0A%0ALooking%20forward%20to%20connecting." target="_blank" rel="noopener noreferrer" class="profile-chip" aria-label="Email Balaji via Gmail">
+                  Email ↗
+                </a>
+              </div>
+            </div>
+          </div>
+
+          <!-- Sanjay Card -->
+          <div class="about__profile-card reveal reveal-delay-2 js-founder-card" data-founder="sanjay" tabindex="0" title="Tap to view Sanjay details">
+            <div class="about__image-frame">
+              <img
+                src="assets/images/sanjay.png"
+                alt="Sanjay, Founder of VisionX Web Technology"
+                class="about__profile-img"
+                loading="lazy"
+              />
+            </div>
+            <div class="about__profile-info">
+              <div class="profile-meta">
+                <div class="profile-status">
+                  <span class="status-dot"></span>
+                  <span class="status-role">Founder</span>
+                </div>
+                <h3 class="profile-name">Sanjay</h3>
+                <p class="profile-role">UI / UX Designer</p>
+                <p class="profile-company">VisionX Web Technology</p>
+              </div>
+              <div class="profile-chips">
+                <a href="https://www.instagram.com/_.sanjuzz_x___?igsi=dnF1aG1nMmZoMmdl" target="_blank" rel="noopener noreferrer" class="profile-chip" aria-label="Sanjay Instagram">
+                  Instagram ↗
+                </a>
+                <a href="https://github.com/sanjayv152006-cmyk" target="_blank" rel="noopener noreferrer" class="profile-chip" aria-label="Sanjay GitHub">
+                  GitHub ↗
+                </a>
+                <a href="https://mail.google.com/mail/?view=cm&fs=1&to=sanjaysanju152006@gmail.com&su=Inquiry%20for%20Sanjay%20(Founder%20%26%20UI%2FUX)%20-%20VisionX&body=Hello%20Sanjay,%0A%0AI%20would%20like%20to%20discuss%20UI/UX%20design%20and%20creative%20direction%20with%20VisionX.%0A%0ALooking%20forward%20to%20connecting." target="_blank" rel="noopener noreferrer" class="profile-chip" aria-label="Email Sanjay via Gmail">
+                  Email ↗
+                </a>
+              </div>
+            </div>
+          </div>
+
+          <!-- Inbaraj Card -->
+          <div class="about__profile-card reveal reveal-delay-3 js-founder-card" data-founder="inbaraj" tabindex="0" title="Tap to view Inbaraj details">
+            <div class="about__image-frame">
+              <img
+                src="assets/images/inbaraj.jpg"
+                alt="Inbaraj, Founder of VisionX Web Technology"
+                class="about__profile-img"
+                loading="lazy"
+              />
+            </div>
+            <div class="about__profile-info">
+              <div class="profile-meta">
+                <div class="profile-status">
+                  <span class="status-dot"></span>
+                  <span class="status-role">Founder</span>
+                </div>
+                <h3 class="profile-name">Inbaraj</h3>
+                <p class="profile-role">Database, Full Stack Development</p>
+                <p class="profile-company">VisionX Web Technology</p>
+              </div>
+              <div class="profile-chips">
+                <a href="https://www.instagram.com/itz_inba_007/" target="_blank" rel="noopener noreferrer" class="profile-chip" aria-label="Inbaraj Instagram">
+                  Instagram ↗
+                </a>
+                <a href="https://github.com/enbarajenba21-Tech" target="_blank" rel="noopener noreferrer" class="profile-chip" aria-label="Inbaraj GitHub">
+                  GitHub ↗
+                </a>
+                <a href="https://mail.google.com/mail/?view=cm&fs=1&to=enbarjenba21@gmail.com&su=Inquiry%20for%20Inbaraj%20(Founder%20%26%20Full%20Stack)%20-%20VisionX&body=Hello%20Inbaraj,%0A%0AI%20would%20like%20to%20discuss%20database%20architecture%20and%20full%20stack%20development%20with%20VisionX.%0A%0ALooking%20forward%20to%20connecting." target="_blank" rel="noopener noreferrer" class="profile-chip" aria-label="Email Inbaraj via Gmail">
+                  Email ↗
+                </a>
+              </div>
+            </div>
+          </div>
+
+          <!-- Sivanesan Card -->
+          <div class="about__profile-card reveal reveal-delay-1 js-founder-card" data-founder="sivanesan" tabindex="0" title="Tap to view Sivanesan details">
+            <div class="about__image-frame">
+              <img
+                src="assets/images/sivanesan.png"
+                alt="Sivanesan, Founder of VisionX Web Technology"
+                class="about__profile-img"
+                loading="lazy"
+              />
+            </div>
+            <div class="about__profile-info">
+              <div class="profile-meta">
+                <div class="profile-status">
+                  <span class="status-dot"></span>
+                  <span class="status-role">Founder</span>
+                </div>
+                <h3 class="profile-name">Sivanesan</h3>
+                <p class="profile-role">UI / UX Designer</p>
+                <p class="profile-company">VisionX Web Technology</p>
+              </div>
+              <div class="profile-chips">
+                <a href="https://www.instagram.com/_x_o__mad__?igsi=dnp5a2RseDNnb2tu" target="_blank" rel="noopener noreferrer" class="profile-chip" aria-label="Sivanesan Instagram">
+                  Instagram ↗
+                </a>
+                <a href="https://github.com/AGzDeepak" target="_blank" rel="noopener noreferrer" class="profile-chip" aria-label="VisionX GitHub">
+                  GitHub ↗
+                </a>
+                <a href="https://mail.google.com/mail/?view=cm&fs=1&to=sivanesan010307@gmail.com&su=Inquiry%20for%20Sivanesan%20(Founder%20%26%20UI%2FUX)%20-%20VisionX&body=Hello%20Sivanesan,%0A%0AI%20would%20like%20to%20discuss%20UI/UX%20design%20and%20interface%20development%20with%20VisionX.%0A%0ALooking%20forward%20to%20connecting." target="_blank" rel="noopener noreferrer" class="profile-chip" aria-label="Email Sivanesan via Gmail">
+                  Email ↗
+                </a>
+              </div>
+            </div>
+          </div>
+
+          <!-- Boopathi Card -->
+          <div class="about__profile-card reveal reveal-delay-2 js-founder-card" data-founder="boopathi" tabindex="0" title="Tap to view Boopathi details">
+            <div class="about__image-frame">
+              <img
+                src="assets/images/boopathi.jpg"
+                alt="Boopathi, Founder of VisionX Web Technology"
+                class="about__profile-img"
+                loading="lazy"
+              />
+            </div>
+            <div class="about__profile-info">
+              <div class="profile-meta">
+                <div class="profile-status">
+                  <span class="status-dot"></span>
+                  <span class="status-role">Founder</span>
+                </div>
+                <h3 class="profile-name">Boopathi</h3>
+                <p class="profile-role">Graphic, UI / UX Designer</p>
+                <p class="profile-company">VisionX Web Technology</p>
+              </div>
+              <div class="profile-chips">
+                <a href="https://www.instagram.com/b_o_o_p_a_t_h_i______?igsi=MWZwYmpmaGRwandjNA==" target="_blank" rel="noopener noreferrer" class="profile-chip" aria-label="Boopathi Instagram">
+                  Instagram ↗
+                </a>
+                <a href="https://github.com/AGzDeepak" target="_blank" rel="noopener noreferrer" class="profile-chip" aria-label="VisionX GitHub">
+                  GitHub ↗
+                </a>
+                <a href="https://mail.google.com/mail/?view=cm&fs=1&to=boopathi3332@gmail.com&su=Inquiry%20for%20Boopathi%20(Founder%20%26%20Graphic%20UI%2FUX)%20-%20VisionX&body=Hello%20Boopathi,%0A%0AI%20would%20like%20to%20discuss%20graphic%20design%20and%20UI/UX%20branding%20with%20VisionX.%0A%0ALooking%20forward%20to%20connecting." target="_blank" rel="noopener noreferrer" class="profile-chip" aria-label="Email Boopathi via Gmail">
+                  Email ↗
+                </a>
+              </div>
+            </div>
+          </div>
+
+        </div>
+
+        <div class="about__bottom-actions reveal reveal-delay-4">
+          <button class="btn btn-primary" data-scroll="contact">Work with VisionX &rarr;</button>
+          <a href="https://github.com/AGzDeepak" target="_blank" rel="noopener noreferrer" class="btn btn-secondary">
+            GitHub Profile ↗
+          </a>
+        </div>
+
+      </div>
+    </section>
+
+    <section class="section" aria-labelledby="principles-heading">
+      <div class="container">
+        <h2 class="principles__title reveal" id="principles-heading">Why VisionX.</h2>
+        <div class="principles__grid stagger-children">
+
+          <div class="principle-item">
+            <span class="principle-item__num">01</span>
+            <h3 class="principle-item__title">Craft</h3>
+            <p class="principle-item__desc">Every detail matters. We obsess over the small things &mdash; typography, spacing, motion &mdash; because they add up to something extraordinary.</p>
+          </div>
+
+          <div class="principle-item">
+            <span class="principle-item__num">02</span>
+            <h3 class="principle-item__title">Performance</h3>
+            <p class="principle-item__desc">Beautiful experiences should also be fast. We optimize for real-world conditions, not just ideal scenarios.</p>
+          </div>
+
+          <div class="principle-item">
+            <span class="principle-item__num">03</span>
+            <h3 class="principle-item__title">Innovation</h3>
+            <p class="principle-item__desc">We explore new technologies and push boundaries to create experiences that surprise, delight and differentiate.</p>
+          </div>
+
+          <div class="principle-item">
+            <span class="principle-item__num">04</span>
+            <h3 class="principle-item__title">Clarity</h3>
+            <p class="principle-item__desc">Technology should make things simpler, not harder. We build products that feel intuitive the moment you touch them.</p>
+          </div>
+
+        </div>
+      </div>
+    </section>
+
+            <!-- ===================================================================
+         CLIENT REVIEWS SECTION (Interactive Real-Time Feedback)
+         =================================================================== -->
+    <section class="section section--surface" id="reviews" aria-labelledby="reviews-heading">
+      <div class="container">
+        
+        <div class="reviews__header">
+          <div class="reviews__header-left">
+            <div class="reveal">
+              <span class="text-label">Verified Client Feedback &bull; Reputation</span>
+            </div>
+            <h2 class="reviews__title reveal reveal-delay-1" id="reviews-heading">Client Reviews.</h2>
+            <div class="reviews__rating-badge reveal reveal-delay-2">
+              <div class="rating-stars">★★★★★</div>
+              <span class="rating-score">5.0 / 5.0</span>
+              <span class="rating-divider">&bull;</span>
+              <span class="rating-count"><span id="reviews-count-label">4</span> Verified Reviews</span>
+            </div>
+          </div>
+          <div class="reviews__header-right reveal reveal-delay-2">
+            <button type="button" class="btn btn-primary" id="open-review-modal-btn">
+              <span>+ Write a Review</span> &rarr;
+            </button>
+          </div>
+        </div>
+
+        <!-- Dynamic Reviews Grid -->
+        <div class="reviews__grid" id="reviews-grid">
+          <!-- Dynamically populated from localStorage & initialized defaults -->
+        </div>
+
+      </div>
+    </section>
+
+    <!-- Client Review Submission Modal -->
+    <div class="review-modal-overlay" id="review-modal" role="dialog" aria-modal="true" aria-hidden="true">
+      <div class="review-modal-backdrop" id="review-modal-backdrop"></div>
+      <div class="review-modal-container">
+        <div class="review-modal-header">
+          <div>
+            <h3 class="review-modal-title">Write a Client Review</h3>
+            <p class="review-modal-sub">Share your feedback about working with the VisionX leadership team.</p>
+          </div>
+          <button type="button" class="review-modal-close" id="close-review-modal-btn" aria-label="Close modal">&times;</button>
+        </div>
+
+        <form class="review-form" id="client-review-form">
+          <div class="form-row">
+            <div class="form-group">
+              <label for="rev-name">Your Full Name *</label>
+              <input type="text" id="rev-name" placeholder="e.g. Johnathan Hayes" required />
+            </div>
+            <div class="form-group">
+              <label for="rev-role">Role &amp; Company *</label>
+              <input type="text" id="rev-role" placeholder="e.g. Founder, Horizon Tech" required />
+            </div>
+          </div>
+
+          <div class="form-group">
+            <label>Select Rating *</label>
+            <div class="star-rating-picker" id="star-rating-picker">
+              <button type="button" class="star-btn active" data-rating="1">★</button>
+              <button type="button" class="star-btn active" data-rating="2">★</button>
+              <button type="button" class="star-btn active" data-rating="3">★</button>
+              <button type="button" class="star-btn active" data-rating="4">★</button>
+              <button type="button" class="star-btn active" data-rating="5">★</button>
+              <span class="rating-text" id="star-rating-text">5.0 - Exceptional</span>
+            </div>
+            <input type="hidden" id="rev-rating-value" value="5" />
+          </div>
+
+          <div class="form-group">
+            <label for="rev-text">Your Review / Project Experience *</label>
+            <textarea id="rev-text" placeholder="Describe the quality of design, 3D WebGL engineering, and communication with the team..." required rows="4"></textarea>
+          </div>
+
+          <div class="review-modal-footer">
+            <button type="submit" class="btn btn-primary" id="submit-review-btn">
+              Submit Live Review &rarr;
+            </button>
+          </div>
+        </form>
+      </div>
+    </div>
+
+    <!-- ===================================================================
+         FREQUENTLY ASKED QUESTIONS
+         =================================================================== -->
+    <section class="section" id="faq" aria-labelledby="faq-heading">
+      <div class="container">
+        <div class="faq__inner">
+          <div class="faq__header">
+            <div class="reveal">
+              <span class="text-label">Clarity &bull; FAQ</span>
+            </div>
+            <h2 class="faq__title reveal reveal-delay-1" id="faq-heading">Everything you need to know.</h2>
+            <p class="faq__sub reveal reveal-delay-2">Answers to common questions about our bespoke engineering and design collaboration.</p>
+          </div>
+
+          <div class="faq__accordion">
+            
+            <div class="faq-item reveal">
+              <button class="faq-question" aria-expanded="false">
+                <span>How does direct collaboration with Deepak Kumar &amp; Balaji work?</span>
+                <span class="faq-icon" aria-hidden="true">+</span>
+              </button>
+              <div class="faq-answer">
+                <p>You work directly with founders Deepak Kumar and Balaji from initial concept strategy through to final code deployment. There are no middlemen, account managers, or outsourced handoffs &mdash; guaranteeing speed, creative alignment, and top-tier execution.</p>
+              </div>
+            </div>
+
+            <div class="faq-item reveal reveal-delay-1">
+              <button class="faq-question" aria-expanded="false">
+                <span>Can 3D Three.js &amp; WebGL run smoothly at 60 FPS on mobile phones?</span>
+                <span class="faq-icon" aria-hidden="true">+</span>
+              </button>
+              <div class="faq-answer">
+                <p>Yes. We optimize 3D WebGL scenes using adaptive particle budgets, low-draw-call geometry, hardware-accelerated shaders, and graceful fallbacks for lower-powered devices to guarantee buttery-smooth 60 FPS performance everywhere.</p>
+              </div>
+            </div>
+
+            <div class="faq-item reveal reveal-delay-2">
+              <button class="faq-question" aria-expanded="false">
+                <span>What is the typical timeline for a bespoke digital project?</span>
+                <span class="faq-icon" aria-hidden="true">+</span>
+              </button>
+              <div class="faq-answer">
+                <p>Depending on complexity and requirements, bespoke projects typically range from 2 to 6 weeks. We work in rapid agile sprints with live staging links so you can interact with your digital product in real-time throughout development.</p>
+              </div>
+            </div>
+
+            <div class="faq-item reveal reveal-delay-3">
+              <button class="faq-question" aria-expanded="false">
+                <span>Do you offer post-launch support and performance maintenance?</span>
+                <span class="faq-icon" aria-hidden="true">+</span>
+              </button>
+              <div class="faq-answer">
+                <p>Absolutely. We provide continuous uptime monitoring, security updates, asset optimization, and feature enhancements to ensure your digital experience remains fast, modern, and reliable.</p>
+              </div>
+            </div>
+
+            <div class="faq-item reveal reveal-delay-4">
+              <button class="faq-question" aria-expanded="false">
+                <span>Can we update our showcase and portfolio projects easily?</span>
+                <span class="faq-icon" aria-hidden="true">+</span>
+              </button>
+              <div class="faq-answer">
+                <p>Yes! VisionX features a built-in Executive Project CMS accessible right from the portal. Leadership can create, edit, retheme, and publish live showcase projects with one click directly in the browser.</p>
+              </div>
+            </div>
+
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section class="cta-section" aria-labelledby="cta-heading">
+      <div class="container">
+        <div class="cta-section__label reveal">
+          <span class="hero__eyebrow-line" aria-hidden="true"></span>
+          <span class="text-label">Start a Project</span>
+          <span class="hero__eyebrow-line" aria-hidden="true"></span>
+        </div>
+        <h2 class="cta-section__title reveal" id="cta-heading">Have an idea?<br>Let&apos;s build it.</h2>
+        <p class="cta-section__text reveal reveal-delay-1">Tell us what you&apos;re imagining. We&apos;ll help turn it into a digital experience worth remembering.</p>
+        <button class="btn btn-primary reveal reveal-delay-2" data-scroll="contact">Start a Project &rarr;</button>
+      </div>
+    </section>
+
+    <section class="section" id="contact" aria-labelledby="contact-heading">
+      <div class="container">
+        <div class="contact__inner">
+
+          <div class="contact__info">
+            <h2 class="contact__title reveal" id="contact-heading">Let&apos;s create something<br>remarkable.</h2>
+            <p class="contact__text reveal reveal-delay-1">Tell us about your project and we&apos;ll get back to you within one business day. No pressure, no commitment.</p>
+            <div class="contact__meta reveal reveal-delay-2">
+              <div class="contact__meta-item">
+                <span class="contact__meta-label">Direct Email</span>
+                <span class="contact__meta-value">
+                  <a href="https://mail.google.com/mail/?view=cm&fs=1&to=visionxwebtechnology@gmail.com&su=VisionX%20Project%20Inquiry" target="_blank" rel="noopener noreferrer" class="contact__email-link" title="Compose in Gmail">visionxwebtechnology@gmail.com</a>
+                </span>
+              </div>
+              <div class="contact__meta-item">
+                <span class="contact__meta-label">Connect</span>
+                <span class="contact__meta-value">
+                  <a href="https://www.instagram.com/visionxwebtechnology?igsi=cnFhN2VuZnd0dGY1" target="_blank" rel="noopener noreferrer" class="contact__email-link">Instagram &rarr;</a>
+                  &nbsp;&bull;&nbsp;
+                  <a href="https://github.com/AGzDeepak" target="_blank" rel="noopener noreferrer" class="contact__email-link">GitHub &rarr;</a>
+                </span>
+              </div>
+              <div class="contact__meta-item">
+                <span class="contact__meta-label">Response time</span>
+                <span class="contact__meta-value">Within 24 hours</span>
+              </div>
+            </div>
+          </div>
+
+          <div class="contact__form-wrap reveal reveal-delay-1">
+            <form class="contact-form" novalidate aria-label="Contact form">
+
+              <div class="form-row">
+                <div class="form-group">
+                  <label for="contact-name">Name <span aria-label="required">*</span></label>
+                  <input type="text" id="contact-name" name="name" placeholder="Your name" required autocomplete="given-name" aria-required="true" aria-describedby="name-error" />
+                  <span class="form-error" id="name-error" role="alert" aria-live="polite"></span>
+                </div>
+                <div class="form-group">
+                  <label for="contact-email">Email <span aria-label="required">*</span></label>
+                  <input type="email" id="contact-email" name="email" placeholder="your@email.com" required autocomplete="email" aria-required="true" aria-describedby="email-error" />
+                  <span class="form-error" id="email-error" role="alert" aria-live="polite"></span>
+                </div>
+              </div>
+
+              <div class="form-row">
+                <div class="form-group">
+                  <label for="contact-company">Company</label>
+                  <input type="text" id="contact-company" name="company" placeholder="Company name (optional)" autocomplete="organization" />
+                </div>
+                <div class="form-group">
+                  <label for="contact-type">Project Type &bull; Select a Service</label>
+                  <select id="contact-type" name="project_type">
+                    <option value="" disabled selected>✦ Select a Service...</option>
+                    <option value="web-development">Web Development (Full Stack)</option>
+                    <option value="threejs-3d">Three.js &amp; 3D WebGL Experiences</option>
+                    <option value="web-design">Creative Web Design &amp; UI/UX</option>
+                    <option value="ecommerce">Modern E-Commerce Platforms</option>
+                    <option value="web-app">Custom Web Applications &amp; SaaS</option>
+                    <option value="other">Bespoke Enterprise Technology</option>
+                  </select>
+                </div>
+              </div>
+
+              <div class="form-group">
+                <label for="contact-message">Tell us about your project <span aria-label="required">*</span></label>
+                <textarea id="contact-message" name="message" placeholder="Share your vision, goals and any relevant details..." required rows="5" aria-required="true" aria-describedby="message-error"></textarea>
+                <span class="form-error" id="message-error" role="alert" aria-live="polite"></span>
+              </div>
+
+              <div class="form-submit">
+                <div class="form-message" role="status" aria-live="polite"></div>
+                <button type="submit" class="btn btn-primary contact-form__submit">Send Inquiry &rarr;</button>
+              </div>
+
+            </form>
+          </div>
+
+        </div>
+      </div>
+    </section>
+
+  </main>
+
+  <footer class="footer" role="contentinfo">
+    <div class="container">
+      <div class="footer__top">
+        <div class="footer__brand">
+          <div class="footer__brand-header">
+            <img src="assets/images/visionx-logo.png" alt="VisionX Logo" class="footer__logo-img" />
+            <div>
+              <span class="footer__brand-name">VisionX</span>
+              <span class="footer__brand-sub">Web Technology</span>
+            </div>
+          </div>
+          <p class="footer__tagline">Digital experiences beyond the ordinary.</p>
+        </div>
+        <nav class="footer__nav" aria-label="Footer navigation">
+          <div class="footer__nav-col">
+            <h4>Navigate</h4>
+            <ul>
+              <li><a href="#work">Work</a></li>
+              <li><a href="#services">Services</a></li>
+              <li><a href="#about">About</a></li>
+              <li><a href="#contact">Contact</a></li>
+            </ul>
+          </div>
+          <div class="footer__nav-col">
+            <h4>Services</h4>
+            <ul>
+              <li><a href="#services">Web Development</a></li>
+              <li><a href="#services">Creative Design</a></li>
+              <li><a href="#services">Three.js &amp; 3D</a></li>
+              <li><a href="#services">UI / UX</a></li>
+            </ul>
+          </div>
+          <div class="footer__nav-col">
+            <h4>Connect</h4>
+            <ul>
+              <li><a href="https://www.instagram.com/visionxwebtechnology?igsi=cnFhN2VuZnd0dGY1" target="_blank" rel="noopener noreferrer" aria-label="VisionX on Instagram">Instagram ↗</a></li>
+              <li><a href="https://github.com/AGzDeepak" target="_blank" rel="noopener noreferrer" aria-label="VisionX on GitHub">GitHub ↗</a></li>
+              <li><a href="https://mail.google.com/mail/?view=cm&fs=1&to=visionxwebtechnology@gmail.com&su=VisionX%20Project%20Inquiry" target="_blank" rel="noopener noreferrer" aria-label="Compose in Gmail">Email ↗</a></li>
+            </ul>
+          </div>
+        </nav>
+      </div>
+      <div class="footer__bottom">
+        <p class="footer__copy">&copy; <span class="footer__year">2026</span> VisionX Web Technology. All rights reserved.</p>
+        <p class="footer__built">Built with HTML &nbsp;&bull;&nbsp; CSS &nbsp;&bull;&nbsp; JavaScript &nbsp;&bull;&nbsp; Three.js</p>
+      </div>
+    </div>
+  </footer>
+
+  <!-- =====================================================================
+       CONNECTED WORKSPACE HUD (Floating Status when Authenticated)
+       ===================================================================== -->
+  <aside class="visionx-hud" id="visionx-hud" aria-label="VisionX Connected Workspace">
+    <div class="hud-inner">
+      <div class="hud-status">
+        <span class="hud-dot"></span>
+        <span class="hud-badge">CONNECTED</span>
+      </div>
+      <div class="hud-info">
+      <div class="hud-info">
+        <div class="hud-user">
+          <span class="hud-user-name" id="hud-user-name">Deepak Kumar</span>
+          <span class="hud-user-id" id="hud-user-id">CEO &amp; Founder</span>
+        </div>
+        <div class="hud-project">
+          <span class="hud-label">Portal:</span>
+          <span class="hud-project-name" id="hud-project-name">Executive CMS Active</span>
+        </div>
+      </div>
+      <div class="hud-actions">
+        <button class="hud-btn js-open-portal" data-tab="cms" title="Open Project Manager">📁 Projects</button>
+        
+        <button class="hud-btn hud-btn--danger" id="hud-logout-btn" title="Exit Workspace">Logout</button>
+      </div>
+    </div>
+  </aside>
+
+  <!-- =====================================================================
+       PORTAL, EXECUTIVE CMS & THEME STUDIO MODAL
+       ===================================================================== -->
+  <div class="portal-overlay" id="portal-overlay" aria-hidden="true"></div>
+  <div class="portal-modal" id="portal-modal" role="dialog" aria-modal="true" aria-labelledby="portal-title">
+    <button class="portal-modal__close" id="portal-close-btn" aria-label="Close Portal">&times;</button>
+    
+    <div class="portal-modal__header">
+      <div class="portal-badge">
+        <img src="assets/images/visionx-logo.png" alt="VisionX Badge" class="portal-badge__img" draggable="false" />
+      </div>
+      <h2 class="portal-modal__title" id="portal-title">VisionX Executive Portal</h2>
+      <p class="portal-modal__subtitle">Executive Project Studio &amp; Interface Control</p>
+      
+      <div class="portal-tabs" role="tablist">
+        <button class="portal-tab-btn active" data-tab="login" role="tab" aria-selected="true">Gateway</button>
+        <button class="portal-tab-btn" data-tab="cms" role="tab" aria-selected="false">📁 Project CMS</button>
+      </div>
+    </div>
+
+    <!-- Tab 1: Executive Gateway / Login -->
+    <div class="portal-tab-pane active" id="tab-login" role="tabpanel">
+      <div class="portal-auth-message" id="portal-auth-message" style="display:none;"></div>
+      
+      <!-- One-Click Executive Passes -->
+                  <div class="executive-quick-access">
+        <p class="quick-access-label">Instant Executive Access:</p>
+        <div class="executive-pass-grid">
+          <button type="button" class="executive-pass-btn" id="pass-deepak-btn">
+            <div class="pass-avatar">
+              <img src="assets/images/deepak-kumar.jpg" alt="Deepak Kumar" />
+            </div>
+            <div class="pass-info">
+              <span class="pass-name">Deepak Kumar</span>
+              <span class="pass-role">CEO &amp; Founder</span>
+            </div>
+            <span class="pass-arrow">&rarr;</span>
+          </button>
+
+          <button type="button" class="executive-pass-btn" id="pass-balaji-btn">
+            <div class="pass-avatar">
+              <img src="assets/images/balaji.jpg" alt="Balaji" />
+            </div>
+            <div class="pass-info">
+              <span class="pass-name">Balaji</span>
+              <span class="pass-role">Founder</span>
+            </div>
+            <span class="pass-arrow">&rarr;</span>
+          </button>
+
+          <button type="button" class="executive-pass-btn" id="pass-sanjay-btn">
+            <div class="pass-avatar">
+              <img src="assets/images/sanjay.png" alt="Sanjay" />
+            </div>
+            <div class="pass-info">
+              <span class="pass-name">Sanjay</span>
+              <span class="pass-role">Founder</span>
+            </div>
+            <span class="pass-arrow">&rarr;</span>
+          </button>
+
+          <button type="button" class="executive-pass-btn" id="pass-inbaraj-btn">
+            <div class="pass-avatar">
+              <img src="assets/images/inbaraj.jpg" alt="Inbaraj" />
+            </div>
+            <div class="pass-info">
+              <span class="pass-name">Inbaraj</span>
+              <span class="pass-role">Founder</span>
+            </div>
+            <span class="pass-arrow">&rarr;</span>
+          </button>
+
+          <button type="button" class="executive-pass-btn" id="pass-sivanesan-btn">
+            <div class="pass-avatar">
+              <img src="assets/images/sivanesan.png" alt="Sivanesan" />
+            </div>
+            <div class="pass-info">
+              <span class="pass-name">Sivanesan</span>
+              <span class="pass-role">Founder</span>
+            </div>
+            <span class="pass-arrow">&rarr;</span>
+          </button>
+
+          <button type="button" class="executive-pass-btn" id="pass-boopathi-btn">
+            <div class="pass-avatar">
+              <img src="assets/images/boopathi.jpg" alt="Boopathi" />
+            </div>
+            <div class="pass-info">
+              <span class="pass-name">Boopathi</span>
+              <span class="pass-role">Founder</span>
+            </div>
+            <span class="pass-arrow">&rarr;</span>
+          </button>
+        </div>
+      </div>
+
+      <div class="portal-divider"><span>OR SIGN IN MANUALLY</span></div>
+
+      <form class="portal-form" id="portal-login-form">
+        <div class="form-group">
+          <label for="portal-email">Executive ID or Work Email</label>
+          <input type="text" id="portal-email" placeholder="e.g. deepak@visionx.com or balaji@visionx.com" required autocomplete="username" />
+        </div>
+        <div class="form-group">
+          <label for="portal-pass">Security Access Key / PIN</label>
+          <input type="password" id="portal-pass" placeholder="••••••••••••" required autocomplete="current-password" />
+        </div>
+        <div class="portal-form__footer">
+          <button type="submit" class="btn btn-primary portal-btn-submit">
+            Enter Workspace &rarr;
+          </button>
+        </div>
+      </form>
+      <p class="portal-note">🔒 End-to-end encrypted node connection for VisionX leadership &amp; partners.</p>
+    </div>
+
+    <!-- Tab 2: Executive Project CMS -->
+    <div class="portal-tab-pane" id="tab-cms" role="tabpanel">
+      <div class="cms-header">
+        <div class="cms-user-badge">
+          <span class="status-dot"></span>
+          <span class="cms-active-user" id="cms-active-user">Deepak Kumar (CEO &amp; Founder)</span>
+        </div>
+        <p class="cms-subtitle">Publish and update portfolio projects live on the website.</p>
+      </div>
+
+      <!-- Add / Edit Project Form -->
+      <form class="cms-form" id="cms-project-form">
+        <input type="hidden" id="cms-project-id" value="" />
+        
+        <div class="form-row">
+          <div class="form-group">
+            <label for="cms-title">Project Title *</label>
+            <input type="text" id="cms-title" placeholder="e.g. AETHER 3D, PRISM AI, NOVA" required />
+          </div>
+          <div class="form-group">
+            <label for="cms-category">Category / Specialization *</label>
+            <input type="text" id="cms-category" placeholder="e.g. Spatial Computing / 3D Web" required />
+          </div>
+        </div>
+
+        <div class="form-row">
+          <div class="form-group">
+            <label for="cms-layout">Layout Style</label>
+            <select id="cms-layout">
+              <option value="normal">Standard Card (Half Width)</option>
+              <option value="large">Featured Card (Full Width)</option>
+            </select>
+          </div>
+          <div class="form-group">
+            <label for="cms-theme">Visual Atmosphere</label>
+            <select id="cms-theme">
+              <option value="cosmic">Cosmic Void (Deep Space &amp; Slate)</option>
+              <option value="sapphire">Sapphire Aurora (Electric Blue &amp; Indigo)</option>
+              <option value="midnight">Midnight Matrix (Emerald &amp; Dark Cyan)</option>
+              <option value="crimson">Nebula Glow (Violet &amp; Magenta)</option>
+              <option value="platinum">Platinum Crystalline (Pure Chrome)</option>
+            </select>
+          </div>
+        </div>
+
+        <div class="form-row">
+          <div class="form-group">
+            <label for="cms-image-url">Custom Image / Visual URL (Optional)</label>
+            <input type="url" id="cms-image-url" placeholder="https://... (or leave blank for 3D generative gradient)" />
+          </div>
+          <div class="form-group">
+            <label for="cms-link">Live Project Demo Link *</label>
+            <input type="url" id="cms-link" placeholder="https://yourprojectdemo.com or https://github.com/..." />
+          </div>
+        </div>
+
+        <div class="cms-actions">
+          <button type="submit" class="btn btn-primary" id="cms-save-btn">
+            + Publish to Live Site
+          </button>
+          <button type="button" class="btn btn-secondary" id="cms-cancel-btn" style="display:none;">
+            Cancel Edit
+          </button>
+        </div>
+      </form>
+
+      <!-- Live Projects Manager List -->
+      <div class="cms-manager">
+        <div class="cms-manager-header">
+          <h4>Live Portfolio Projects (<span id="cms-project-count">4</span>)</h4>
+          <button type="button" class="cms-reset-btn" id="cms-reset-btn" title="Reset to initial projects">Reset Defaults</button>
+        </div>
+        <div class="cms-project-list" id="cms-project-list">
+          <!-- Dynamically populated -->
+        </div>
+      </div>
+    </div>
+
+    
+  </div>
+
+  <!-- Three.js CDN -->
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js" integrity="sha512-dLxUelApnYxpLt6K2iomGngnHO83iUvZytA3YjDUCjT0HDOHKXnVYdf3hU4JjM8Fg03zIcUtUoigrj78fsdaw==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+
+  <!-- VisionX Scripts -->
+  <script src="js/three-scene.js"></script>
+  <script src="js/animations.js"></script>
+  <script src="js/navigation.js"></script>
+  <script src="js/portal.js"></script>
+  <script src="js/main.js"></script>
+
+
+  <!-- Floating Direct Action Pill -->
+  <a href="https://mail.google.com/mail/?view=cm&fs=1&to=visionxwebtechnology@gmail.com&su=Project%20Inquiry%20-%20VisionX%20Web%20Technology&body=Hello%20VisionX%20Leadership%20Team,%0A%0AI%20would%20like%20to%20inquire%20about%20starting%20a%20project%20with%20VisionX%20Web%20Technology.%0A%0ALooking%20forward%20to%20your%20response." target="_blank" rel="noopener noreferrer" class="floating-quick-action" aria-label="Direct Gmail Inquiry to VisionX" title="Open in Gmail">
+    <span class="floating-pulse"></span>
+    <span class="floating-text">💬 Direct Inquiry</span>
+  </a>
+
+
+  <!-- Executive Founder Profile Details Modal -->
+  <div class="founder-modal-overlay" id="founder-modal" role="dialog" aria-modal="true" aria-hidden="true">
+    <div class="founder-modal-backdrop" id="founder-modal-backdrop"></div>
+    <div class="founder-modal-container">
+      <button type="button" class="founder-modal-close" id="founder-modal-close-btn" aria-label="Close profile details">&times;</button>
+      
+      <div class="founder-modal-body">
+        <div class="founder-modal-left">
+          <div class="founder-modal-avatar-frame">
+            <img src="assets/images/deepak-kumar.jpg" alt="Founder Portrait" id="modal-founder-img" class="founder-modal-avatar" />
+          </div>
+        </div>
+        
+        <div class="founder-modal-right">
+          <div class="founder-modal-badge">
+            <span class="status-dot"></span>
+            <span id="modal-founder-status">CEO &amp; Founder</span>
+          </div>
+          
+          <h3 class="founder-modal-name" id="modal-founder-name">Deepak Kumar</h3>
+          <p class="founder-modal-spec" id="modal-founder-spec">Web Development</p>
+          <p class="founder-modal-company">VisionX Web Technology</p>
+          
+          <div class="founder-modal-divider"></div>
+          
+          <p class="founder-modal-bio" id="modal-founder-bio">
+            Leading technical vision, full-stack architecture, and interactive Three.js engineering. Dedicated to building world-class digital platforms that push technological boundaries.
+          </p>
+
+          <div class="founder-modal-actions">
+            <a href="#" target="_blank" rel="noopener noreferrer" class="founder-modal-action-btn" id="modal-founder-insta">
+              <span>Instagram Profile</span> ↗
+            </a>
+            <a href="#" target="_blank" rel="noopener noreferrer" class="founder-modal-action-btn" id="modal-founder-git">
+              <span>GitHub Profile</span> ↗
+            </a>
+            <a href="#" target="_blank" rel="noopener noreferrer" class="founder-modal-action-btn founder-modal-action-btn--email" id="modal-founder-email">
+              <span>Direct Gmail</span> ✉
+            </a>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+</body>
+</html>

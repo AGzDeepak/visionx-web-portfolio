@@ -1,0 +1,333 @@
+/* ==========================================================================
+   VisionX Web Technology — Responsive Styles
+   ========================================================================== */
+
+/* ---- 1200px and below ---- */
+@media (max-width: 1200px) {
+  .hero__container {
+    grid-template-columns: 1fr 1fr;
+    gap: 3rem;
+  }
+
+  .hero__scene {
+    height: 460px;
+  }
+
+  .services__grid {
+    grid-template-columns: repeat(2, 1fr);
+  }
+
+  .principles__grid {
+    grid-template-columns: repeat(2, 1fr);
+    gap: 2.5rem;
+  }
+
+  .process__steps {
+    grid-template-columns: repeat(3, 1fr);
+  }
+}
+
+/* ---- Tablet: 1024px and below ---- */
+@media (max-width: 1024px) {
+  .nav__links {
+    display: none;
+  }
+
+  .nav__start-btn {
+    display: none;
+  }
+
+  .nav__hamburger {
+    display: flex;
+  }
+
+  .hero__container {
+    grid-template-columns: 1fr;
+    gap: 2.5rem;
+    text-align: left;
+  }
+
+  .hero__scene {
+    height: 380px;
+    max-width: 500px;
+  }
+
+  .hero__title {
+    font-size: clamp(3rem, 8vw, 5rem);
+  }
+
+  .intro__inner {
+    grid-template-columns: 1fr;
+    gap: 2rem;
+  }
+
+  .intro__label {
+    position: static;
+  }
+
+  .about__inner {
+    grid-template-columns: 1fr;
+    gap: 3rem;
+  }
+
+  .about__visual {
+    aspect-ratio: 16/9;
+  }
+
+  .contact__inner {
+    grid-template-columns: 1fr;
+    gap: 3rem;
+  }
+
+  .footer__top {
+    grid-template-columns: 1fr;
+    gap: 3rem;
+  }
+
+  .footer__nav {
+    grid-template-columns: repeat(3, 1fr);
+  }
+
+  .work__header {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 1rem;
+  }
+
+  .work__sub {
+    text-align: left;
+    max-width: 100%;
+  }
+
+  .process__steps {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
+
+/* ---- Mobile: 768px and below ---- */
+@media (max-width: 768px) {
+  .services__grid {
+    grid-template-columns: 1fr;
+  }
+
+  .work__grid {
+    grid-template-columns: 1fr;
+  }
+
+  .project-card--large {
+    grid-column: span 1;
+  }
+
+  .project-card__visual {
+    height: 260px;
+  }
+
+  .project-card--large .project-card__visual {
+    height: 300px;
+  }
+
+  .principles__grid {
+    grid-template-columns: 1fr 1fr;
+    gap: 2rem;
+  }
+
+  .process__steps {
+    grid-template-columns: 1fr;
+    border-radius: var(--radius-sm);
+  }
+
+  .cta-section__title {
+    font-size: clamp(2.5rem, 12vw, 5rem);
+  }
+
+  .footer__nav {
+    grid-template-columns: repeat(2, 1fr);
+    gap: 2rem;
+  }
+
+  .footer__bottom {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 0.5rem;
+  }
+
+  .form-row {
+    grid-template-columns: 1fr;
+  }
+
+  /* Hero adjustments */
+  .hero__actions {
+    flex-direction: column;
+    align-items: flex-start;
+  }
+
+  .hero__actions .btn {
+    width: 100%;
+    justify-content: center;
+  }
+
+  .hero__scene {
+    height: 320px;
+  }
+
+  /* Feature 3D */
+  .feature3d {
+    min-height: 70vh;
+  }
+
+  /* About Profile Card adjustments */
+  .about__team-grid {
+    flex-direction: column;
+    align-items: center;
+    gap: 1.75rem;
+    max-width: 100%;
+    margin: 0 auto 2.5rem;
+  }
+
+  .about__profile-card {
+    max-width: 300px;
+  }
+
+  .about__image-frame {
+    height: 270px;
+  }
+}
+
+/* ---- Small Mobile: 480px and below ---- */
+@media (max-width: 480px) {
+  :root {
+    --container-padding: 1.25rem;
+  }
+
+  .hero__title {
+    font-size: clamp(2.75rem, 10vw, 4rem);
+  }
+
+  .hero__scene {
+    height: 280px;
+  }
+
+  .service-card {
+    padding: 1.75rem;
+  }
+
+  .principles__grid {
+    grid-template-columns: 1fr;
+    gap: 2rem;
+  }
+
+  .work__grid {
+    gap: 1rem;
+  }
+
+  .project-card__visual {
+    height: 220px;
+  }
+
+  .footer__nav {
+    grid-template-columns: 1fr 1fr;
+  }
+
+  /* Mobile menu font size */
+  .mobile-menu__links a {
+    font-size: clamp(2rem, 8vw, 3rem);
+  }
+
+  .btn {
+    padding: 0.8rem 1.4rem;
+    font-size: 0.82rem;
+  }
+}
+
+/* ---- Very small: 375px and below ---- */
+@media (max-width: 375px) {
+  .hero__title {
+    font-size: 2.5rem;
+  }
+
+  .cta-section__title {
+    font-size: 2.5rem;
+  }
+
+  .services__title,
+  .work__title,
+  .process__title,
+  .principles__title {
+    font-size: 2.25rem;
+  }
+}
+
+/* Leadership Responsive: Single Line on Desktop -> Clean Wrap on Mobile */
+@media (max-width: 1200px) {
+  .about__team-grid--founders {
+    grid-template-columns: repeat(3, 1fr);
+    max-width: 860px;
+    gap: 1.25rem;
+  }
+}
+
+@media (max-width: 768px) {
+  .about__team-grid--founders {
+    grid-template-columns: repeat(2, 1fr);
+    max-width: 580px;
+    gap: 1.2rem;
+  }
+}
+
+@media (max-width: 480px) {
+  .about__team-grid--founders {
+    grid-template-columns: 1fr;
+    max-width: 300px;
+    gap: 1.5rem;
+  }
+}
+
+/* ---- Mobile adjustments for Portal & HUD ---- */
+@media (max-width: 768px) {
+  .theme-cards,
+  .theme-cards--dual {
+    grid-template-columns: 1fr;
+  }
+
+  .portal-modal {
+    width: 95vw;
+    padding: clamp(1.4rem, 4vw, 2rem);
+  }
+
+  .portal-tabs {
+    max-width: 100%;
+    gap: 3px;
+  }
+
+  .portal-tab-btn {
+    padding: 0.6rem 0.65rem;
+    font-size: 0.78rem;
+  }
+
+  .cms-form {
+    padding: 1.25rem;
+  }
+
+  .visionx-hud {
+    bottom: 1rem;
+    left: 1rem;
+    right: 1rem;
+    padding: 0.75rem 1rem;
+  }
+
+  .hud-inner {
+    justify-content: space-between;
+  }
+
+  .hud-project {
+    display: none;
+  }
+}
+
+/* ---- Cursor: hide on touch devices ---- */
+@media (hover: none) or (pointer: coarse) {
+  .cursor,
+  .cursor-follower {
+    display: none;
+  }
+}
