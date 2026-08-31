@@ -74,135 +74,7 @@ const VisionXAnimations = (function () {
     }, { passive: true });
   }
 
-  // ---- Custom Cursor (Clear Frosted Glass & Spatial Quantum Lens) ----
-
-  function initCursor() {
-    // Only disable on pure touch devices without hover capabilities
-    const isPureTouch = window.matchMedia('(hover: none) and (pointer: coarse)').matches;
-    if (isPureTouch) return;
-
-    const cursor = document.querySelector('.cursor');
-    const follower = document.querySelector('.cursor-follower');
-    const cursorLabel = document.querySelector('.cursor-label');
-    if (!cursor || !follower) return;
-
-    let mouseX = window.innerWidth / 2;
-    let mouseY = window.innerHeight / 2;
-    let followerX = mouseX;
-    let followerY = mouseY;
-    let hasMoved = false;
-
-    cursor.style.opacity = '1';
-    follower.style.opacity = '1';
-    cursor.style.left = mouseX + 'px';
-    cursor.style.top = mouseY + 'px';
-    follower.style.left = mouseX + 'px';
-    follower.style.top = mouseY + 'px';
-
-    function updatePosition(e) {
-      mouseX = e.clientX;
-      mouseY = e.clientY;
-      cursor.style.left = mouseX + 'px';
-      cursor.style.top = mouseY + 'px';
-      cursor.style.opacity = '1';
-      follower.style.opacity = '1';
-
-      if (!hasMoved) {
-        hasMoved = true;
-        followerX = mouseX;
-        followerY = mouseY;
-      }
-    }
-
-    window.addEventListener('mousemove', updatePosition, { passive: true });
-    window.addEventListener('pointermove', updatePosition, { passive: true });
-
-    function animateFollower() {
-      const dx = mouseX - followerX;
-      const dy = mouseY - followerY;
-      followerX += dx * 0.15;
-      followerY += dy * 0.15;
-
-      follower.style.left = followerX + 'px';
-      follower.style.top = followerY + 'px';
-
-      requestAnimationFrame(animateFollower);
-    }
-    requestAnimationFrame(animateFollower);
-
-    // Event delegation for context-aware HUD modes
-    document.addEventListener('mouseover', function (e) {
-      const target = e.target;
-      if (!target) return;
-
-      // 1. 3D WebGL Canvas Scene -> DRAG label
-      const sceneEl = target.closest('.hero__scene, .feature3d__canvas, #hero-canvas, #feature-canvas, .about__visual, canvas');
-      if (sceneEl) {
-        follower.className = 'cursor-follower cursor-mode-3d';
-        cursor.className = 'cursor cursor-mode-3d';
-        if (cursorLabel) cursorLabel.textContent = 'DRAG ⟲';
-        return;
-      }
-
-      // 2. Project Portfolio Card -> EXPLORE label
-      const projectCard = target.closest('.project-card');
-      if (projectCard) {
-        follower.className = 'cursor-follower cursor-mode-project';
-        cursor.className = 'cursor cursor-mode-project';
-        if (cursorLabel) cursorLabel.textContent = 'EXPLORE ↗';
-        return;
-      }
-
-      // 3. Direct Live Demo & Action Buttons -> OPEN label
-      const demoBtn = target.closest('.project-demo-btn, a[href*="github.com"], a[href*="instagram.com"], .profile-chip');
-      if (demoBtn) {
-        follower.className = 'cursor-follower cursor-mode-demo';
-        cursor.className = 'cursor cursor-mode-demo';
-        if (cursorLabel) cursorLabel.textContent = 'OPEN ↗';
-        return;
-      }
-
-      // 4. Standard Interactive Elements -> Fluid Magnetic Expansion
-      const interactive = target.closest('a, button, .btn, .service-card, .nav__hamburger, input, textarea, select, .tech-tag, .about__profile-card, .review-card, .floating-quick-action, .portal-trigger-btn, .portal-tab-btn, [role="button"], [tabindex="0"]');
-      if (interactive) {
-        follower.className = 'cursor-follower cursor-hover';
-        cursor.className = 'cursor cursor-hover';
-        if (cursorLabel) cursorLabel.textContent = '';
-        return;
-      }
-    }, { passive: true });
-
-    document.addEventListener('mouseout', function (e) {
-      const related = e.relatedTarget;
-      if (!related || !related.closest('a, button, .btn, .service-card, .project-card, canvas, .hero__scene, .feature3d__canvas, .about__visual, .nav__hamburger, input, textarea, select, .tech-tag, .about__profile-card, .review-card, .floating-quick-action, .portal-trigger-btn, .portal-tab-btn, .profile-chip, [role="button"], [tabindex="0"]')) {
-        follower.className = 'cursor-follower';
-        cursor.className = 'cursor';
-        if (cursorLabel) cursorLabel.textContent = '';
-      }
-    }, { passive: true });
-
-    document.addEventListener('mousedown', function () {
-      cursor.classList.add('cursor-active');
-      follower.classList.add('cursor-active');
-    }, { passive: true });
-
-    document.addEventListener('mouseup', function () {
-      cursor.classList.remove('cursor-active');
-      follower.classList.remove('cursor-active');
-    }, { passive: true });
-
-    document.addEventListener('mouseleave', function () {
-      cursor.style.opacity = '0';
-      follower.style.opacity = '0';
-    }, { passive: true });
-
-    document.addEventListener('mouseenter', function () {
-      cursor.style.opacity = '1';
-      follower.style.opacity = '1';
-    }, { passive: true });
-  }
-
-    // ---- Hero Entrance ----
+  // ---- Hero Entrance ----
 
   function initHeroEntrance() {
     const hero = document.querySelector('.hero');
@@ -270,7 +142,6 @@ const VisionXAnimations = (function () {
     initHeroEntrance();
     initScrollReveal();
     initScrollProgress();
-    initCursor();
     initMagneticButtons();
   }
 

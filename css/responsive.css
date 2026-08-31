@@ -324,14 +324,4 @@
   }
 }
 
-/* ---- Cursor: hide ONLY on pure touch devices without hover support ---- */
-@media (hover: none) and (pointer: coarse) {
-  *, *::before, *::after {
-    cursor: auto !important;
-  }
-  .cursor,
-  .cursor-follower {
-    display: none !important;
-  }
-}
 
