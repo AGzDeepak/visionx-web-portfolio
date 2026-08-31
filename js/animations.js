@@ -74,60 +74,101 @@ const VisionXAnimations = (function () {
     }, { passive: true });
   }
 
-  // ---- Custom Cursor ----
+  // ---- Custom Cursor (Luminous Quantum Beacon & Frosted Glass Ring) ----
 
   function initCursor() {
-    const reducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
-    const hasCoarsePointer = window.matchMedia('(pointer: coarse)').matches;
-    if (reducedMotion || hasCoarsePointer) return;
+    // Only disable on pure touch devices without hover capabilities
+    const isPureTouch = window.matchMedia('(hover: none) and (pointer: coarse)').matches;
+    if (isPureTouch) return;
 
     const cursor = document.querySelector('.cursor');
     const follower = document.querySelector('.cursor-follower');
     if (!cursor || !follower) return;
 
-    let mouseX = 0, mouseY = 0;
-    let followerX = 0, followerY = 0;
-    let rafId;
+    let mouseX = window.innerWidth / 2;
+    let mouseY = window.innerHeight / 2;
+    let followerX = mouseX;
+    let followerY = mouseY;
+    let hasMoved = false;
 
-    document.addEventListener('mousemove', function (e) {
+    // Make elements visible and positioned
+    cursor.style.opacity = '1';
+    follower.style.opacity = '1';
+    cursor.style.left = mouseX + 'px';
+    cursor.style.top = mouseY + 'px';
+    follower.style.left = mouseX + 'px';
+    follower.style.top = mouseY + 'px';
+
+    function updatePosition(e) {
       mouseX = e.clientX;
       mouseY = e.clientY;
       cursor.style.left = mouseX + 'px';
       cursor.style.top = mouseY + 'px';
-    });
+      cursor.style.opacity = '1';
+      follower.style.opacity = '1';
+
+      if (!hasMoved) {
+        hasMoved = true;
+        followerX = mouseX;
+        followerY = mouseY;
+      }
+    }
+
+    window.addEventListener('mousemove', updatePosition, { passive: true });
+    window.addEventListener('pointermove', updatePosition, { passive: true });
 
     function animateFollower() {
-      followerX += (mouseX - followerX) * 0.12;
-      followerY += (mouseY - followerY) * 0.12;
+      const dx = mouseX - followerX;
+      const dy = mouseY - followerY;
+      followerX += dx * 0.15;
+      followerY += dy * 0.15;
+
       follower.style.left = followerX + 'px';
       follower.style.top = followerY + 'px';
-      rafId = requestAnimationFrame(animateFollower);
+
+      requestAnimationFrame(animateFollower);
     }
-    animateFollower();
+    requestAnimationFrame(animateFollower);
 
-    // Hover state on interactive elements
-    const interactiveSelectors = 'a, button, .btn, .service-card, .project-card, .nav__hamburger, input, textarea, select, .tech-tag';
+    // Event delegation for smooth hover states
+    document.addEventListener('mouseover', function (e) {
+      const target = e.target;
+      if (!target) return;
 
-    document.querySelectorAll(interactiveSelectors).forEach(function (el) {
-      el.addEventListener('mouseenter', function () {
+      const interactive = target.closest('a, button, .btn, .service-card, .project-card, .nav__hamburger, input, textarea, select, .tech-tag, .about__profile-card, .review-card, .floating-quick-action, .portal-trigger-btn, .portal-tab-btn, [role="button"], [tabindex="0"]');
+      if (interactive) {
         cursor.classList.add('cursor-hover');
         follower.classList.add('cursor-hover');
-      });
-      el.addEventListener('mouseleave', function () {
+      }
+    }, { passive: true });
+
+    document.addEventListener('mouseout', function (e) {
+      const related = e.relatedTarget;
+      if (!related || !related.closest('a, button, .btn, .service-card, .project-card, .nav__hamburger, input, textarea, select, .tech-tag, .about__profile-card, .review-card, .floating-quick-action, .portal-trigger-btn, .portal-tab-btn, [role="button"], [tabindex="0"]')) {
         cursor.classList.remove('cursor-hover');
         follower.classList.remove('cursor-hover');
-      });
-    });
+      }
+    }, { passive: true });
 
-    // Hide cursor when leaving window
+    document.addEventListener('mousedown', function () {
+      cursor.classList.add('cursor-active');
+      follower.classList.add('cursor-active');
+    }, { passive: true });
+
+    document.addEventListener('mouseup', function () {
+      cursor.classList.remove('cursor-active');
+      follower.classList.remove('cursor-active');
+    }, { passive: true });
+
     document.addEventListener('mouseleave', function () {
       cursor.style.opacity = '0';
       follower.style.opacity = '0';
-    });
+    }, { passive: true });
+
     document.addEventListener('mouseenter', function () {
       cursor.style.opacity = '1';
       follower.style.opacity = '1';
-    });
+    }, { passive: true });
   }
 
     // ---- Hero Entrance ----

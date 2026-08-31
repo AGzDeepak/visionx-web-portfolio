@@ -294,9 +294,5 @@
   .hero__scroll-arrow {
     animation: none;
   }
-
-  .cursor,
-  .cursor-follower {
-    display: none;
-  }
 }
+
