@@ -575,6 +575,38 @@ const VisionXPortal = (function () {
   }
 
   function _setupCMSEvents() {
+
+    // Push all works to Firebase
+    const syncFbBtn = document.getElementById('cms-sync-firebase-btn');
+    if (syncFbBtn) {
+      syncFbBtn.addEventListener('click', async () => {
+        if (typeof VisionXFirebase === 'undefined') return;
+        syncFbBtn.disabled = true;
+        syncFbBtn.textContent = '⏳ Syncing to Firebase...';
+
+        const result = await VisionXFirebase.syncAllProjectsToFirestore(STATE.projects);
+        if (result.success) {
+          playSound('publish');
+          alert(`✓ Successfully stored all ${result.count} existing works into Firebase Cloud Firestore!`);
+          syncFbBtn.textContent = '✓ Works Synced to Firebase';
+          setTimeout(() => {
+            syncFbBtn.disabled = false;
+            syncFbBtn.textContent = '🔥 Push All Works to Firebase';
+          }, 3000);
+        } else {
+          alert(`Firebase Sync Notice:
+${result.error}
+
+To complete setup:
+1. Open https://console.firebase.google.com/project/visionx-portfolio/firestore
+2. Click 'Create database' and choose 'Start in test mode'
+3. Click Enable!`);
+          syncFbBtn.disabled = false;
+          syncFbBtn.textContent = '🔥 Push All Works to Firebase';
+        }
+      });
+    }
+
     if (!cmsProjectForm) return;
 
     cmsProjectForm.addEventListener('submit', (e) => {

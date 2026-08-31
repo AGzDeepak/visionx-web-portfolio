@@ -177,6 +177,36 @@ const VisionXFirebase = (function () {
     return null;
   }
 
+  
+  async function syncAllProjectsToFirestore(customProjects) {
+    if (!isLive() || !db) return { success: false, error: 'Firebase Firestore is not initialized yet. Please make sure Firestore Database is created in Firebase Console.' };
+    try {
+      const list = (customProjects && customProjects.length > 0) ? customProjects : SEED_PROJECTS;
+      const batch = db.batch();
+      list.forEach((p, idx) => {
+        const id = p.id || ('proj-' + (idx + 1));
+        const ref = db.collection('projects').doc(id);
+        batch.set(ref, {
+          title: p.title,
+          category: p.category,
+          layout: p.layout || 'normal',
+          theme: p.theme || 'cosmic',
+          image: p.image || '',
+          link: p.link || 'https://github.com/AGzDeepak/visionx-web-portfolio',
+          order: idx + 1,
+          updatedAt: firebase.firestore.FieldValue.serverTimestamp(),
+          createdAt: p.createdAt || firebase.firestore.FieldValue.serverTimestamp()
+        }, { merge: true });
+      });
+      await batch.commit();
+      console.log('[VisionX Firebase] All existing works synced to Firestore database!');
+      return { success: true, count: list.length };
+    } catch (err) {
+      console.error('[VisionX Firebase] Sync works error:', err);
+      return { success: false, error: err.message };
+    }
+  }
+
   async function saveProject(projectData) {
     if (isLive() && db) {
       try {
@@ -309,6 +339,7 @@ const VisionXFirebase = (function () {
     getConfig: getConfig,
     saveConfig: saveConfig,
     subscribeProjects: subscribeProjects,
+    syncAllProjectsToFirestore: syncAllProjectsToFirestore,
     saveProject: saveProject,
     deleteProject: deleteProject,
     subscribeReviews: subscribeReviews,
