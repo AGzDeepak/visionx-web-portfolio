@@ -74,7 +74,7 @@ const VisionXAnimations = (function () {
     }, { passive: true });
   }
 
-    // ---- Custom Cursor (Fluid Spring Physics & Delegation) ----
+      // ---- VisionX Spatial Tech Cursor System (Context-Aware & Physics) ----
 
   function initCursor() {
     const reducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
@@ -83,6 +83,7 @@ const VisionXAnimations = (function () {
 
     const cursor = document.querySelector('.cursor');
     const follower = document.querySelector('.cursor-follower');
+    const cursorLabel = document.querySelector('.cursor-label');
     if (!cursor || !follower) return;
 
     let mouseX = window.innerWidth / 2, mouseY = window.innerHeight / 2;
@@ -102,28 +103,65 @@ const VisionXAnimations = (function () {
     });
 
     function animateFollower() {
-      followerX += (mouseX - followerX) * 0.15;
-      followerY += (mouseY - followerY) * 0.15;
+      const dx = mouseX - followerX;
+      const dy = mouseY - followerY;
+      followerX += dx * 0.15;
+      followerY += dy * 0.15;
+
       follower.style.left = followerX + 'px';
       follower.style.top = followerY + 'px';
+
       rafId = requestAnimationFrame(animateFollower);
     }
     animateFollower();
 
-    // Event delegation for interactive elements (works on all dynamic DOM elements)
-    const interactiveSelectors = 'a, button, .btn, .service-card, .project-card, .nav__hamburger, input, textarea, select, .tech-tag, .about__profile-card, .profile-chip, .review-card, .floating-quick-action, .portal-trigger-btn, .portal-tab-btn, [tabindex="0"], [role="button"]';
-
+    // Context-Aware Interactive Cursor Delegation
     document.addEventListener('mouseover', function (e) {
-      if (e.target.closest(interactiveSelectors)) {
-        cursor.classList.add('cursor-hover');
-        follower.classList.add('cursor-hover');
+      const target = e.target;
+      
+      // 1. 3D WebGL Canvas Scene Hover -> DRAG label
+      const sceneEl = target.closest('.hero__scene, .feature3d__canvas, #hero-canvas, #feature-canvas, .about__visual');
+      if (sceneEl) {
+        follower.className = 'cursor-follower cursor-mode-3d';
+        cursor.className = 'cursor cursor-mode-3d';
+        if (cursorLabel) cursorLabel.textContent = 'DRAG ⟲';
+        return;
+      }
+
+      // 2. Project Portfolio Card Hover -> EXPLORE label
+      const projectCard = target.closest('.project-card');
+      if (projectCard) {
+        follower.className = 'cursor-follower cursor-mode-project';
+        cursor.className = 'cursor cursor-mode-project';
+        if (cursorLabel) cursorLabel.textContent = 'EXPLORE ↗';
+        return;
+      }
+
+      // 3. Direct Live Demo & Action Buttons -> OPEN label
+      const demoBtn = target.closest('.project-demo-btn, a[href*="github.com"], a[href*="instagram.com"], .profile-chip');
+      if (demoBtn) {
+        follower.className = 'cursor-follower cursor-mode-demo';
+        cursor.className = 'cursor cursor-mode-demo';
+        if (cursorLabel) cursorLabel.textContent = 'OPEN ↗';
+        return;
+      }
+
+      // 4. Standard Interactive Elements -> Fluid Magnetic Expansion
+      const interactive = target.closest('a, button, .btn, .nav__hamburger, input, textarea, select, .tech-tag, .about__profile-card, .review-card, .floating-quick-action, .portal-trigger-btn, .portal-tab-btn, [role="button"], [tabindex="0"]');
+      if (interactive) {
+        follower.className = 'cursor-follower cursor-hover';
+        cursor.className = 'cursor cursor-hover';
+        if (cursorLabel) cursorLabel.textContent = '';
+        return;
       }
     });
 
     document.addEventListener('mouseout', function (e) {
-      if (e.target.closest(interactiveSelectors)) {
-        cursor.classList.remove('cursor-hover');
-        follower.classList.remove('cursor-hover');
+      const related = e.relatedTarget;
+      if (!related || !related.closest('a, button, .btn, .project-card, .hero__scene, .feature3d__canvas, .tech-tag, .about__profile-card, .review-card, input, textarea, select, .profile-chip')) {
+        follower.className = 'cursor-follower';
+        cursor.className = 'cursor';
+        if (cursorLabel) cursorLabel.textContent = '';
       }
     });
 
@@ -137,7 +175,6 @@ const VisionXAnimations = (function () {
       follower.classList.remove('cursor-active');
     });
 
-    // Hide/show cursor on window boundary
     document.addEventListener('mouseleave', function () {
       cursor.style.opacity = '0';
       follower.style.opacity = '0';

@@ -113,22 +113,22 @@ button {
 }
 
 /* ==========================================================================
-   Custom Cursor
+   VisionX Spatial Tech Cursor System (Context-Aware 3D & Quantum Lens)
    ========================================================================== */
 
 .cursor {
   position: fixed;
   top: 0;
   left: 0;
-  width: 8px;
-  height: 8px;
-  background: var(--color-accent);
+  width: 7px;
+  height: 7px;
+  background: #38bdf8;
   border-radius: 50%;
   pointer-events: none;
   z-index: 99999;
   transform: translate(-50%, -50%);
-  box-shadow: 0 0 10px rgba(56, 189, 248, 0.8), 0 0 20px rgba(56, 189, 248, 0.4);
-  transition: opacity 0.2s ease, transform 0.15s ease, background 0.2s ease;
+  box-shadow: 0 0 10px #38bdf8, 0 0 20px rgba(56, 189, 248, 0.6);
+  transition: opacity 0.2s ease, transform 0.15s ease, background-color 0.2s ease;
   will-change: transform, left, top;
 }
 
@@ -136,43 +136,109 @@ button {
   position: fixed;
   top: 0;
   left: 0;
-  width: 38px;
-  height: 38px;
-  border: 1.5px solid rgba(56, 189, 248, 0.45);
-  background: rgba(56, 189, 248, 0.05);
-  backdrop-filter: blur(4px);
-  -webkit-backdrop-filter: blur(4px);
+  width: 36px;
+  height: 36px;
+  border: 1.5px solid rgba(56, 189, 248, 0.4);
+  background: radial-gradient(circle, rgba(56, 189, 248, 0.08) 0%, rgba(15, 23, 42, 0.4) 100%);
+  backdrop-filter: blur(8px);
+  -webkit-backdrop-filter: blur(8px);
   border-radius: 50%;
   pointer-events: none;
   z-index: 99998;
   transform: translate(-50%, -50%);
-  box-shadow: 0 0 15px rgba(56, 189, 248, 0.15);
-  transition: opacity 0.25s ease, width 0.25s cubic-bezier(0.16, 1, 0.3, 1), height 0.25s cubic-bezier(0.16, 1, 0.3, 1), border-color 0.2s ease, background 0.2s ease, transform 0.15s ease;
+  box-shadow: 0 0 20px rgba(56, 189, 248, 0.15), inset 0 1px 1px rgba(255, 255, 255, 0.25);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: opacity 0.25s ease, width 0.25s cubic-bezier(0.16, 1, 0.3, 1), height 0.25s cubic-bezier(0.16, 1, 0.3, 1), border-color 0.2s ease, background 0.2s ease, transform 0.15s ease, border-radius 0.25s ease;
   will-change: transform, left, top, width, height;
 }
 
+.cursor-label {
+  font-size: 0.62rem;
+  font-weight: 800;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: #ffffff;
+  opacity: 0;
+  transform: scale(0.6);
+  transition: opacity 0.2s ease, transform 0.2s ease;
+  white-space: nowrap;
+  pointer-events: none;
+  user-select: none;
+}
+
+/* Hover States */
 .cursor.cursor-hover {
-  transform: translate(-50%, -50%) scale(1.6);
+  transform: translate(-50%, -50%) scale(1.4);
   background: #ffffff;
-  box-shadow: 0 0 12px #ffffff, 0 0 22px rgba(56, 189, 248, 0.9);
+  box-shadow: 0 0 12px #ffffff, 0 0 24px #38bdf8;
 }
 
 .cursor-follower.cursor-hover {
-  width: 58px;
-  height: 58px;
-  border-color: rgba(56, 189, 248, 0.85);
-  background: rgba(56, 189, 248, 0.12);
-  box-shadow: 0 0 25px rgba(56, 189, 248, 0.4);
+  width: 56px;
+  height: 56px;
+  border-color: rgba(56, 189, 248, 0.8);
+  background: rgba(56, 189, 248, 0.15);
+  box-shadow: 0 0 30px rgba(56, 189, 248, 0.35);
 }
 
+/* Context: Project Card Hover */
+.cursor-follower.cursor-mode-project {
+  width: 76px;
+  height: 76px;
+  border-color: #38bdf8;
+  background: rgba(3, 7, 18, 0.88);
+  box-shadow: 0 0 35px rgba(56, 189, 248, 0.45);
+}
+.cursor-follower.cursor-mode-project .cursor-label {
+  opacity: 1;
+  transform: scale(1);
+}
+.cursor.cursor-mode-project {
+  opacity: 0;
+}
+
+/* Context: 3D Interactive Scene Hover */
+.cursor-follower.cursor-mode-3d {
+  width: 82px;
+  height: 82px;
+  border-color: rgba(56, 189, 248, 0.9);
+  background: rgba(15, 23, 42, 0.9);
+  box-shadow: 0 0 40px rgba(56, 189, 248, 0.5);
+}
+.cursor-follower.cursor-mode-3d .cursor-label {
+  opacity: 1;
+  transform: scale(1);
+}
+.cursor.cursor-mode-3d {
+  opacity: 0;
+}
+
+/* Context: Direct Demo / External Link */
+.cursor-follower.cursor-mode-demo {
+  width: 72px;
+  height: 72px;
+  border-color: #38bdf8;
+  background: rgba(56, 189, 248, 0.22);
+}
+.cursor-follower.cursor-mode-demo .cursor-label {
+  opacity: 1;
+  transform: scale(1);
+}
+.cursor.cursor-mode-demo {
+  opacity: 0;
+}
+
+/* Click Active State */
 .cursor.cursor-active {
-  transform: translate(-50%, -50%) scale(0.7);
+  transform: translate(-50%, -50%) scale(0.65);
 }
 
 .cursor-follower.cursor-active {
   transform: translate(-50%, -50%) scale(0.85);
   border-color: #38bdf8;
-  background: rgba(56, 189, 248, 0.25);
+  background: rgba(56, 189, 248, 0.3);
 }
 
 /* ==========================================================================
