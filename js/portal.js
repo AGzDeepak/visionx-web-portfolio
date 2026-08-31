@@ -509,10 +509,17 @@ const VisionXPortal = (function () {
   function renderReviewsGrid() {
     const grid = document.getElementById('reviews-grid');
     const countLabel = document.getElementById('reviews-count-label');
+    const scoreLabel = document.querySelector('.rating-score');
     if (!grid) return;
 
     if (countLabel) {
       countLabel.textContent = clientReviews.length;
+    }
+
+    if (scoreLabel && clientReviews.length > 0) {
+      const sum = clientReviews.reduce((acc, r) => acc + (Number(r.rating) || 5), 0);
+      const avg = (sum / clientReviews.length).toFixed(1);
+      scoreLabel.textContent = `${avg} / 5.0`;
     }
 
     grid.innerHTML = '';
@@ -900,10 +907,26 @@ const VisionXPortal = (function () {
     if (closeBtn) closeBtn.addEventListener('click', closePortal);
     if (portalOverlay) portalOverlay.addEventListener('click', closePortal);
 
-    // Escape Key to close
+    // Escape Key to close all active modals & sheets
     document.addEventListener('keydown', (e) => {
-      if (e.key === 'Escape' && portalModal && portalModal.classList.contains('active')) {
-        closePortal();
+      if (e.key === 'Escape') {
+        const pModal = document.getElementById('portal-modal');
+        const fModal = document.getElementById('founder-modal');
+        const rModal = document.getElementById('review-modal');
+
+        if (pModal && pModal.classList.contains('active')) {
+          closePortal();
+        }
+        if (fModal && fModal.classList.contains('active')) {
+          fModal.classList.remove('active');
+          fModal.setAttribute('aria-hidden', 'true');
+          document.body.classList.remove('menu-open');
+        }
+        if (rModal && rModal.classList.contains('active')) {
+          rModal.classList.remove('active');
+          rModal.setAttribute('aria-hidden', 'true');
+          document.body.classList.remove('menu-open');
+        }
       }
     });
   }
@@ -1150,7 +1173,4 @@ const VisionXPortal = (function () {
 
 })();
 
-// Initialize portal engine on DOM load
-document.addEventListener('DOMContentLoaded', function () {
-  VisionXPortal.init();
-});
+// VisionXPortal is initialized cleanly via js/main.js

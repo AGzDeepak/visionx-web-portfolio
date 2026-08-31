@@ -6,7 +6,7 @@
 
 const VisionXThree = (function () {
 
-  let currentTheme = localStorage.getItem('visionx_theme') || 'light';
+  let currentTheme = localStorage.getItem('visionx_theme') || 'dark';
   let speedMultiplier = 1.0;
 
   // ---- Utilities ----
@@ -604,6 +604,7 @@ const VisionXThree = (function () {
     const projectSubs = ['Creative Technology', 'Business Platform', '3D Experience', 'SaaS Design'];
 
     visuals.forEach(function (visual, index) {
+      if (visual.children && visual.children.length > 0) return;
       const palette = palettes[index % palettes.length];
       visual.style.background = palette.pattern;
       visual.style.display = 'flex';
