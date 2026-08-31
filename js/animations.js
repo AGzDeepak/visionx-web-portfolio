@@ -74,7 +74,7 @@ const VisionXAnimations = (function () {
     }, { passive: true });
   }
 
-      // ---- VisionX Spatial Tech Cursor System (Context-Aware & Physics) ----
+  // ---- VisionX Frosted Glass Cursor (Spring Physics + Context-Aware) ----
 
   function initCursor() {
     const reducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
@@ -86,90 +86,72 @@ const VisionXAnimations = (function () {
     const cursorLabel = document.querySelector('.cursor-label');
     if (!cursor || !follower) return;
 
-    let mouseX = window.innerWidth / 2, mouseY = window.innerHeight / 2;
+    let mouseX = window.innerWidth / 2;
+    let mouseY = window.innerHeight / 2;
     let followerX = mouseX, followerY = mouseY;
-    let rafId = null;
+    let currentMode = '';
 
+    // Start hidden, reveal on first real mousemove
     cursor.style.left = mouseX + 'px';
-    cursor.style.top = mouseY + 'px';
+    cursor.style.top  = mouseY + 'px';
     follower.style.left = mouseX + 'px';
-    follower.style.top = mouseY + 'px';
+    follower.style.top  = mouseY + 'px';
+    cursor.style.opacity = '0';
+    follower.style.opacity = '0';
 
     document.addEventListener('mousemove', function (e) {
       mouseX = e.clientX;
       mouseY = e.clientY;
       cursor.style.left = mouseX + 'px';
-      cursor.style.top = mouseY + 'px';
-    });
+      cursor.style.top  = mouseY + 'px';
+      cursor.style.opacity = '1';
+      follower.style.opacity = '1';
+    }, { passive: true });
 
-    function animateFollower() {
-      const dx = mouseX - followerX;
-      const dy = mouseY - followerY;
-      followerX += dx * 0.15;
-      followerY += dy * 0.15;
-
+    // Smooth spring-physics follower
+    (function animateFollower() {
+      followerX += (mouseX - followerX) * 0.13;
+      followerY += (mouseY - followerY) * 0.13;
       follower.style.left = followerX + 'px';
-      follower.style.top = followerY + 'px';
+      follower.style.top  = followerY + 'px';
+      requestAnimationFrame(animateFollower);
+    })();
 
-      rafId = requestAnimationFrame(animateFollower);
+    // Set mode only when it changes — prevents redundant class churn
+    function setMode(mode, label) {
+      if (currentMode === mode) return;
+      currentMode = mode;
+      follower.className = 'cursor-follower' + (mode ? ' cursor-' + mode : '');
+      cursor.className   = 'cursor'          + (mode ? ' cursor-' + mode : '');
+      if (cursorLabel) cursorLabel.textContent = label || '';
     }
-    animateFollower();
 
-    // Context-Aware Interactive Cursor Delegation
+    // Event delegation — single listeners, no per-element binding
     document.addEventListener('mouseover', function (e) {
-      const target = e.target;
-      
-      // 1. 3D WebGL Canvas Scene Hover -> DRAG label
-      const sceneEl = target.closest('.hero__scene, .feature3d__canvas, #hero-canvas, #feature-canvas, .about__visual');
-      if (sceneEl) {
-        follower.className = 'cursor-follower cursor-mode-3d';
-        cursor.className = 'cursor cursor-mode-3d';
-        if (cursorLabel) cursorLabel.textContent = 'DRAG ⟲';
-        return;
-      }
-
-      // 2. Project Portfolio Card Hover -> EXPLORE label
-      const projectCard = target.closest('.project-card');
-      if (projectCard) {
-        follower.className = 'cursor-follower cursor-mode-project';
-        cursor.className = 'cursor cursor-mode-project';
-        if (cursorLabel) cursorLabel.textContent = 'EXPLORE ↗';
-        return;
-      }
-
-      // 3. Direct Live Demo & Action Buttons -> OPEN label
-      const demoBtn = target.closest('.project-demo-btn, a[href*="github.com"], a[href*="instagram.com"], .profile-chip');
-      if (demoBtn) {
-        follower.className = 'cursor-follower cursor-mode-demo';
-        cursor.className = 'cursor cursor-mode-demo';
-        if (cursorLabel) cursorLabel.textContent = 'OPEN ↗';
-        return;
-      }
-
-      // 4. Standard Interactive Elements -> Fluid Magnetic Expansion
-      const interactive = target.closest('a, button, .btn, .nav__hamburger, input, textarea, select, .tech-tag, .about__profile-card, .review-card, .floating-quick-action, .portal-trigger-btn, .portal-tab-btn, [role="button"], [tabindex="0"]');
-      if (interactive) {
-        follower.className = 'cursor-follower cursor-hover';
-        cursor.className = 'cursor cursor-hover';
-        if (cursorLabel) cursorLabel.textContent = '';
-        return;
+      const t = e.target;
+      if (t.closest('canvas, .hero__scene, .feature3d__canvas, .about__visual')) {
+        setMode('mode-3d', 'DRAG ⟲');
+      } else if (t.closest('.project-card')) {
+        setMode('mode-project', 'EXPLORE ↗');
+      } else if (t.closest('.project-demo-btn, a[href*="github.com"], a[href*="instagram.com"], .profile-chip')) {
+        setMode('mode-demo', 'OPEN ↗');
+      } else if (t.closest('a, button, .btn, .nav__hamburger, input, textarea, select, .tech-tag, .about__profile-card, .review-card, .floating-quick-action, [role="button"], [tabindex="0"]')) {
+        setMode('hover', '');
       }
     });
 
     document.addEventListener('mouseout', function (e) {
-      const related = e.relatedTarget;
-      if (!related || !related.closest('a, button, .btn, .project-card, .hero__scene, .feature3d__canvas, .tech-tag, .about__profile-card, .review-card, input, textarea, select, .profile-chip')) {
-        follower.className = 'cursor-follower';
-        cursor.className = 'cursor';
-        if (cursorLabel) cursorLabel.textContent = '';
-      }
+      const rel = e.relatedTarget;
+      const stillOver = rel && rel.closest(
+        'a, button, .btn, .project-card, canvas, .hero__scene, .feature3d__canvas, .tech-tag, .about__profile-card, .review-card, input, textarea, select, .profile-chip, [role="button"], [tabindex="0"]'
+      );
+      if (!stillOver) setMode('', '');
     });
 
     document.addEventListener('mousedown', function () {
       cursor.classList.add('cursor-active');
       follower.classList.add('cursor-active');
     });
-
     document.addEventListener('mouseup', function () {
       cursor.classList.remove('cursor-active');
       follower.classList.remove('cursor-active');
@@ -185,7 +167,7 @@ const VisionXAnimations = (function () {
     });
   }
 
-  // ---- Hero Entrance ----
+    // ---- Hero Entrance ----
 
   function initHeroEntrance() {
     const hero = document.querySelector('.hero');
