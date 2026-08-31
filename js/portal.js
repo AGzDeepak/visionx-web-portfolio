@@ -181,7 +181,7 @@ const VisionXPortal = (function () {
     initReviews();
     _initFirebaseSync();
     _initFirebaseConfigTab();
-    setupFounderModalEvents();
+    // Founder modal disabled
     renderCMSList();
 
     // Render Auth status
@@ -309,148 +309,7 @@ const VisionXPortal = (function () {
   // Founder Profile Details Modal System
   // =========================================================================
 
-    const FOUNDERS_DATA = {
-    deepak: {
-      name: 'Deepak Kumar',
-      status: 'CEO & Founder',
-      spec: 'Chief Executive Officer • Web Development & Architecture',
-      company: 'VisionX Web Technology',
-      image: 'assets/images/deepak-kumar.jpg',
-      bio: 'Leading executive vision, full-stack architecture, and interactive Three.js 3D WebGL engineering. Dedicated to building high-performance digital platforms that push technological boundaries.',
-      insta: 'https://www.instagram.com/deepak_h4x_?igsi=MWVmbGRyZGVvMWoxYg==',
-      git: 'https://github.com/AGzDeepak',
-      email: 'https://mail.google.com/mail/?view=cm&fs=1&to=deepakyuoyt@gmail.com&su=Inquiry%20for%20Deepak%20Kumar%20(CEO%20%26%20Founder)%20-%20VisionX&body=Hello%20Deepak,%0A%0AI%20would%20like%20to%20discuss%20a%20web%20technology%20project%20with%20VisionX.%0A%0ALooking%20forward%20to%20connecting.'
-    },
-    balaji: {
-      name: 'Balaji',
-      status: 'Co-Founder & CTO',
-      spec: 'Chief Technology Officer • Lead Frontend Engineering',
-      company: 'VisionX Web Technology',
-      image: 'assets/images/balaji.jpg',
-      bio: 'Directing frontend performance, 60 FPS spatial interactions, responsive design systems, and client delivery pipelines.',
-      insta: 'https://www.instagram.com/bala_zx_?igsi=MTZnZXJudWtreWxieA==',
-      git: 'https://github.com/balajibalaji72863-cyber',
-      email: 'https://mail.google.com/mail/?view=cm&fs=1&to=balajibalaji72863@gmail.com&su=Inquiry%20for%20Balaji%20(Co-Founder%20%26%20CTO)%20-%20VisionX&body=Hello%20Balaji,%0A%0AI%20would%20like%20to%20discuss%20frontend%20development%20and%20web%20experiences%20with%20VisionX.%0A%0ALooking%20forward%20to%20connecting.'
-    },
-    sanjay: {
-      name: 'Sanjay',
-      status: 'Co-Founder & CDO',
-      spec: 'Chief Design Officer • UI / UX Architecture',
-      company: 'VisionX Web Technology',
-      image: 'assets/images/sanjay.png',
-      bio: 'Directing design philosophy, user journeys, spatial visual hierarchies, and Apple-grade interface craftsmanship.',
-      insta: 'https://www.instagram.com/_.sanjuzz_x___?igsi=dnF1aG1nMmZoMmdl',
-      git: 'https://github.com/sanjayv152006-cmyk',
-      email: 'https://mail.google.com/mail/?view=cm&fs=1&to=sanjaysanju152006@gmail.com&su=Inquiry%20for%20Sanjay%20(Co-Founder%20%26%20CDO)%20-%20VisionX&body=Hello%20Sanjay,%0A%0AI%20would%20like%20to%20discuss%20UI/UX%20design%20and%20creative%20direction%20with%20VisionX.%0A%0ALooking%20forward%20to%20connecting.'
-    },
-    inbaraj: {
-      name: 'Inbaraj',
-      status: 'Co-Founder & CSA',
-      spec: 'Chief Solutions Architect • Database & Full Stack',
-      company: 'VisionX Web Technology',
-      image: 'assets/images/inbaraj.jpg',
-      bio: 'Architecting scalable database models, cloud infrastructure, secure backend APIs, and enterprise server resilience.',
-      insta: 'https://www.instagram.com/itz_inba_007/',
-      git: 'https://github.com/enbarajenba21-Tech',
-      email: 'https://mail.google.com/mail/?view=cm&fs=1&to=enbarjenba21@gmail.com&su=Inquiry%20for%20Inbaraj%20(Co-Founder%20%26%20CSA)%20-%20VisionX&body=Hello%20Inbaraj,%0A%0AI%20would%20like%20to%20discuss%20database%20architecture%20and%20full%20stack%20development%20with%20VisionX.%0A%0ALooking%20forward%20to%20connecting.'
-    },
-    sivanesan: {
-      name: 'Sivanesan',
-      status: 'Co-Founder',
-      spec: 'Head of Product Design • UI / UX Strategy',
-      company: 'VisionX Web Technology',
-      image: 'assets/images/sivanesan.png',
-      bio: 'Spearheading interaction design, component libraries, wireframing, and user-centric digital prototypes that convert.',
-      insta: 'https://www.instagram.com/_x_o__mad__?igsi=dnp5a2RseDNnb2tu',
-      git: 'https://github.com/AGzDeepak',
-      email: 'https://mail.google.com/mail/?view=cm&fs=1&to=sivanesan010307@gmail.com&su=Inquiry%20for%20Sivanesan%20(Co-Founder%20%26%20Product%20Design)%20-%20VisionX&body=Hello%20Sivanesan,%0A%0AI%20would%20like%20to%20discuss%20UI/UX%20design%20and%20interface%20development%20with%20VisionX.%0A%0ALooking%20forward%20to%20connecting.'
-    },
-    boopathi: {
-      name: 'Boopathi',
-      status: 'Co-Founder',
-      spec: 'Creative Director • Graphic & Brand Identity',
-      company: 'VisionX Web Technology',
-      image: 'assets/images/boopathi.jpg',
-      bio: 'Leading visual branding, graphic storytelling, motion assets, and high-impact digital collateral for modern tech products.',
-      insta: 'https://www.instagram.com/b_o_o_p_a_t_h_i______?igsi=MWZwYmpmaGRwandjNA==',
-      git: 'https://github.com/AGzDeepak',
-      email: 'https://mail.google.com/mail/?view=cm&fs=1&to=boopathi3332@gmail.com&su=Inquiry%20for%20Boopathi%20(Co-Founder%20%26%20Creative%20Director)%20-%20VisionX&body=Hello%20Boopathi,%0A%0AI%20would%20like%20to%20discuss%20graphic%20design%20and%20UI/UX%20branding%20with%20VisionX.%0A%0ALooking%20forward%20to%20connecting.'
-    }
-  };
-
-  function setupFounderModalEvents() {
-    const modal = document.getElementById('founder-modal');
-    const backdrop = document.getElementById('founder-modal-backdrop');
-    const closeBtn = document.getElementById('founder-modal-close-btn');
-
-    const modalImg = document.getElementById('modal-founder-img');
-    const modalStatus = document.getElementById('modal-founder-status');
-    const modalName = document.getElementById('modal-founder-name');
-    const modalSpec = document.getElementById('modal-founder-spec');
-    const modalBio = document.getElementById('modal-founder-bio');
-    const modalInsta = document.getElementById('modal-founder-insta');
-    const modalGit = document.getElementById('modal-founder-git');
-    const modalEmail = document.getElementById('modal-founder-email');
-
-    if (!modal) return;
-
-    function openFounderDetails(key) {
-      const data = FOUNDERS_DATA[key];
-      if (!data) return;
-
-      if (modalImg) {
-        modalImg.src = data.image;
-        modalImg.alt = data.name;
-      }
-      if (modalStatus) modalStatus.textContent = data.status;
-      if (modalName) modalName.textContent = data.name;
-      if (modalSpec) modalSpec.textContent = data.spec;
-      if (modalBio) modalBio.textContent = data.bio;
-
-      if (modalInsta) modalInsta.href = data.insta;
-      if (modalGit) modalGit.href = data.git;
-      if (modalEmail) modalEmail.href = data.email;
-
-      modal.classList.add('active');
-      modal.setAttribute('aria-hidden', 'false');
-      document.body.classList.add('menu-open');
-      playSound('open');
-    }
-
-    function closeFounderDetails() {
-      modal.classList.remove('active');
-      modal.setAttribute('aria-hidden', 'true');
-      document.body.classList.remove('menu-open');
-    }
-
-    if (closeBtn) closeBtn.addEventListener('click', closeFounderDetails);
-    if (backdrop) backdrop.addEventListener('click', closeFounderDetails);
-
-    // Attach click listeners to all founder cards
-    document.querySelectorAll('.js-founder-card').forEach(card => {
-      card.style.cursor = 'pointer';
-      card.addEventListener('click', (e) => {
-        // If user clicks a direct chip link, let that link follow
-        if (e.target.closest('.profile-chip')) return;
-        const key = card.dataset.founder;
-        if (key) {
-          openFounderDetails(key);
-        }
-      });
-
-      card.addEventListener('keydown', (e) => {
-        if (e.key === 'Enter' || e.key === ' ') {
-          if (e.target.closest('.profile-chip')) return;
-          e.preventDefault();
-          const key = card.dataset.founder;
-          if (key) openFounderDetails(key);
-        }
-      });
-    });
-  }
-
-
-  // =========================================================================
+    // =========================================================================
   // Client Reviews System (Interactive & Persistent)
   // =========================================================================
 
@@ -742,7 +601,7 @@ const VisionXPortal = (function () {
     initReviews();
     _initFirebaseSync();
     _initFirebaseConfigTab();
-    setupFounderModalEvents();
+    // Founder modal disabled
           renderCMSList();
           playSound('publish');
         }
@@ -933,17 +792,12 @@ const VisionXPortal = (function () {
     document.addEventListener('keydown', (e) => {
       if (e.key === 'Escape') {
         const pModal = document.getElementById('portal-modal');
-        const fModal = document.getElementById('founder-modal');
         const rModal = document.getElementById('review-modal');
 
         if (pModal && pModal.classList.contains('active')) {
           closePortal();
         }
-        if (fModal && fModal.classList.contains('active')) {
-          fModal.classList.remove('active');
-          fModal.setAttribute('aria-hidden', 'true');
-          document.body.classList.remove('menu-open');
-        }
+
         if (rModal && rModal.classList.contains('active')) {
           rModal.classList.remove('active');
           rModal.setAttribute('aria-hidden', 'true');

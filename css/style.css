@@ -106,7 +106,7 @@ ul, ol {
 button {
   background: none;
   border: none;
-  cursor: pointer;
+  /* cursor */
   font-family: inherit;
   font-size: inherit;
   color: inherit;
