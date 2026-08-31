@@ -41,6 +41,15 @@ const VisionXFirebase = (function () {
         db = firebase.firestore();
         auth = firebase.auth();
 
+        // Ensure active authenticated session (Anonymous auth fallback)
+        try {
+          auth.onAuthStateChanged((user) => {
+            if (!user) {
+              auth.signInAnonymously().catch(() => {});
+            }
+          });
+        } catch (e) {}
+
         if (typeof firebase.analytics === 'function') {
           try {
             analytics = firebase.analytics();
