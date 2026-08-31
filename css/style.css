@@ -71,6 +71,12 @@ body {
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
   transition: color 0.4s ease, background 0.4s ease;
+  cursor: none;
+}
+
+/* Hide default cursor everywhere so the custom dot shows */
+*, *::before, *::after {
+  cursor: none !important;
 }
 
 body.menu-open,
@@ -106,7 +112,6 @@ ul, ol {
 button {
   background: none;
   border: none;
-  /* cursor */
   font-family: inherit;
   font-size: inherit;
   color: inherit;

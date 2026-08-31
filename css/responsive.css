@@ -324,10 +324,13 @@
   }
 }
 
-/* ---- Cursor: hide on touch devices ---- */
-@media (hover: none) or (pointer: coarse) {
+/* ---- Cursor: hide on touch devices, restore default pointer ---- */
+@media (hover: none), (pointer: coarse) {
+  *, *::before, *::after {
+    cursor: auto !important;
+  }
   .cursor,
   .cursor-follower {
-    display: none;
+    display: none !important;
   }
 }
