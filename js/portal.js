@@ -307,72 +307,72 @@ const VisionXPortal = (function () {
   // Founder Profile Details Modal System
   // =========================================================================
 
-  const FOUNDERS_DATA = {
+    const FOUNDERS_DATA = {
     deepak: {
       name: 'Deepak Kumar',
       status: 'CEO & Founder',
-      spec: 'Web Development',
+      spec: 'Chief Executive Officer • Web Development & Architecture',
       company: 'VisionX Web Technology',
       image: 'assets/images/deepak-kumar.jpg',
-      bio: 'Leading overall technical strategy, spatial computing concepts, and interactive WebGL experiences. Specializes in modern JavaScript, Three.js 3D shaders, and high-performance full-stack web applications.',
+      bio: 'Leading executive vision, full-stack architecture, and interactive Three.js 3D WebGL engineering. Dedicated to building high-performance digital platforms that push technological boundaries.',
       insta: 'https://www.instagram.com/deepak_h4x_?igsi=MWVmbGRyZGVvMWoxYg==',
       git: 'https://github.com/AGzDeepak',
       email: 'https://mail.google.com/mail/?view=cm&fs=1&to=deepakyuoyt@gmail.com&su=Inquiry%20for%20Deepak%20Kumar%20(CEO%20%26%20Founder)%20-%20VisionX&body=Hello%20Deepak,%0A%0AI%20would%20like%20to%20discuss%20a%20web%20technology%20project%20with%20VisionX.%0A%0ALooking%20forward%20to%20connecting.'
     },
     balaji: {
       name: 'Balaji',
-      status: 'Founder',
-      spec: 'Frontend Developer',
+      status: 'Co-Founder & CTO',
+      spec: 'Chief Technology Officer • Lead Frontend Engineering',
       company: 'VisionX Web Technology',
       image: 'assets/images/balaji.jpg',
-      bio: 'Crafting responsive, pixel-perfect user interfaces, fluid scroll interactions, and high-speed frontend architectures. Dedicated to seamless user experience across all devices.',
+      bio: 'Directing frontend performance, 60 FPS spatial interactions, responsive design systems, and client delivery pipelines.',
       insta: 'https://www.instagram.com/bala_zx_?igsi=MTZnZXJudWtreWxieA==',
       git: 'https://github.com/balajibalaji72863-cyber',
-      email: 'https://mail.google.com/mail/?view=cm&fs=1&to=balajibalaji72863@gmail.com&su=Inquiry%20for%20Balaji%20(Founder%20%26%20Frontend)%20-%20VisionX&body=Hello%20Balaji,%0A%0AI%20would%20like%20to%20discuss%20frontend%20development%20and%20web%20experiences%20with%20VisionX.%0A%0ALooking%20forward%20to%20connecting.'
+      email: 'https://mail.google.com/mail/?view=cm&fs=1&to=balajibalaji72863@gmail.com&su=Inquiry%20for%20Balaji%20(Co-Founder%20%26%20CTO)%20-%20VisionX&body=Hello%20Balaji,%0A%0AI%20would%20like%20to%20discuss%20frontend%20development%20and%20web%20experiences%20with%20VisionX.%0A%0ALooking%20forward%20to%20connecting.'
     },
     sanjay: {
       name: 'Sanjay',
-      status: 'Founder',
-      spec: 'UI / UX Designer',
+      status: 'Co-Founder & CDO',
+      spec: 'Chief Design Officer • UI / UX Architecture',
       company: 'VisionX Web Technology',
       image: 'assets/images/sanjay.png',
-      bio: 'Designing modern Apple-inspired digital interfaces, user flows, and aesthetic hierarchies. Focused on elevating client products through thoughtful layout and motion design.',
+      bio: 'Directing design philosophy, user journeys, spatial visual hierarchies, and Apple-grade interface craftsmanship.',
       insta: 'https://www.instagram.com/_.sanjuzz_x___?igsi=dnF1aG1nMmZoMmdl',
       git: 'https://github.com/sanjayv152006-cmyk',
-      email: 'https://mail.google.com/mail/?view=cm&fs=1&to=sanjaysanju152006@gmail.com&su=Inquiry%20for%20Sanjay%20(Founder%20%26%20UI%2FUX)%20-%20VisionX&body=Hello%20Sanjay,%0A%0AI%20would%20like%20to%20discuss%20UI/UX%20design%20and%20creative%20direction%20with%20VisionX.%0A%0ALooking%20forward%20to%20connecting.'
+      email: 'https://mail.google.com/mail/?view=cm&fs=1&to=sanjaysanju152006@gmail.com&su=Inquiry%20for%20Sanjay%20(Co-Founder%20%26%20CDO)%20-%20VisionX&body=Hello%20Sanjay,%0A%0AI%20would%20like%20to%20discuss%20UI/UX%20design%20and%20creative%20direction%20with%20VisionX.%0A%0ALooking%20forward%20to%20connecting.'
     },
     inbaraj: {
       name: 'Inbaraj',
-      status: 'Founder',
-      spec: 'Database, Full Stack Development',
+      status: 'Co-Founder & CSA',
+      spec: 'Chief Solutions Architect • Database & Full Stack',
       company: 'VisionX Web Technology',
       image: 'assets/images/inbaraj.jpg',
-      bio: 'Engineering scalable database architectures, resilient backend endpoints, and enterprise-grade cloud integrations. Ensures security, speed, and 99.9% uptime for digital platforms.',
+      bio: 'Architecting scalable database models, cloud infrastructure, secure backend APIs, and enterprise server resilience.',
       insta: 'https://www.instagram.com/itz_inba_007/',
       git: 'https://github.com/enbarajenba21-Tech',
-      email: 'https://mail.google.com/mail/?view=cm&fs=1&to=enbarjenba21@gmail.com&su=Inquiry%20for%20Inbaraj%20(Founder%20%26%20Full%20Stack)%20-%20VisionX&body=Hello%20Inbaraj,%0A%0AI%20would%20like%20to%20discuss%20database%20architecture%20and%20full%20stack%20development%20with%20VisionX.%0A%0ALooking%20forward%20to%20connecting.'
+      email: 'https://mail.google.com/mail/?view=cm&fs=1&to=enbarjenba21@gmail.com&su=Inquiry%20for%20Inbaraj%20(Co-Founder%20%26%20CSA)%20-%20VisionX&body=Hello%20Inbaraj,%0A%0AI%20would%20like%20to%20discuss%20database%20architecture%20and%20full%20stack%20development%20with%20VisionX.%0A%0ALooking%20forward%20to%20connecting.'
     },
     sivanesan: {
       name: 'Sivanesan',
-      status: 'Founder',
-      spec: 'UI / UX Designer',
+      status: 'Co-Founder',
+      spec: 'Head of Product Design • UI / UX Strategy',
       company: 'VisionX Web Technology',
       image: 'assets/images/sivanesan.png',
-      bio: 'Specializing in UI/UX wireframing, component libraries, and spatial product prototyping. Passionate about creating interfaces that feel natural and delightful from the very first touch.',
+      bio: 'Spearheading interaction design, component libraries, wireframing, and user-centric digital prototypes that convert.',
       insta: 'https://www.instagram.com/_x_o__mad__?igsi=dnp5a2RseDNnb2tu',
       git: 'https://github.com/AGzDeepak',
-      email: 'https://mail.google.com/mail/?view=cm&fs=1&to=sivanesan010307@gmail.com&su=Inquiry%20for%20Sivanesan%20(Founder%20%26%20UI%2FUX)%20-%20VisionX&body=Hello%20Sivanesan,%0A%0AI%20would%20like%20to%20discuss%20UI/UX%20design%20and%20interface%20development%20with%20VisionX.%0A%0ALooking%20forward%20to%20connecting.'
+      email: 'https://mail.google.com/mail/?view=cm&fs=1&to=sivanesan010307@gmail.com&su=Inquiry%20for%20Sivanesan%20(Co-Founder%20%26%20Product%20Design)%20-%20VisionX&body=Hello%20Sivanesan,%0A%0AI%20would%20like%20to%20discuss%20UI/UX%20design%20and%20interface%20development%20with%20VisionX.%0A%0ALooking%20forward%20to%20connecting.'
     },
     boopathi: {
       name: 'Boopathi',
-      status: 'Founder',
-      spec: 'Graphic, UI / UX Designer',
+      status: 'Co-Founder',
+      spec: 'Creative Director • Graphic & Brand Identity',
       company: 'VisionX Web Technology',
       image: 'assets/images/boopathi.jpg',
-      bio: 'Creating distinctive visual branding, graphic storytelling, typography assets, and creative UI compositions. Transforms complex concepts into striking visual identities.',
+      bio: 'Leading visual branding, graphic storytelling, motion assets, and high-impact digital collateral for modern tech products.',
       insta: 'https://www.instagram.com/b_o_o_p_a_t_h_i______?igsi=MWZwYmpmaGRwandjNA==',
       git: 'https://github.com/AGzDeepak',
-      email: 'https://mail.google.com/mail/?view=cm&fs=1&to=boopathi3332@gmail.com&su=Inquiry%20for%20Boopathi%20(Founder%20%26%20Graphic%20UI%2FUX)%20-%20VisionX&body=Hello%20Boopathi,%0A%0AI%20would%20like%20to%20discuss%20graphic%20design%20and%20UI/UX%20branding%20with%20VisionX.%0A%0ALooking%20forward%20to%20connecting.'
+      email: 'https://mail.google.com/mail/?view=cm&fs=1&to=boopathi3332@gmail.com&su=Inquiry%20for%20Boopathi%20(Co-Founder%20%26%20Creative%20Director)%20-%20VisionX&body=Hello%20Boopathi,%0A%0AI%20would%20like%20to%20discuss%20graphic%20design%20and%20UI/UX%20branding%20with%20VisionX.%0A%0ALooking%20forward%20to%20connecting.'
     }
   };
 
@@ -990,8 +990,8 @@ const VisionXPortal = (function () {
       passBalajiBtn.addEventListener('click', () => {
         _loginAs({
           name: 'Balaji',
-          role: 'Founder',
-          id: 'VX-FND-02',
+          role: 'Co-Founder & CTO',
+          id: 'VX-CTO-02',
           avatar: 'assets/images/balaji.jpg'
         });
       });
@@ -1003,8 +1003,8 @@ const VisionXPortal = (function () {
       passSanjayBtn.addEventListener('click', () => {
         _loginAs({
           name: 'Sanjay',
-          role: 'Founder',
-          id: 'VX-FND-03',
+          role: 'Co-Founder & CDO',
+          id: 'VX-CDO-03',
           avatar: 'assets/images/sanjay.png'
         });
       });
@@ -1016,8 +1016,8 @@ const VisionXPortal = (function () {
       passInbarajBtn.addEventListener('click', () => {
         _loginAs({
           name: 'Inbaraj',
-          role: 'Founder',
-          id: 'VX-FND-04',
+          role: 'Co-Founder & CSA',
+          id: 'VX-CSA-04',
           avatar: 'assets/images/inbaraj.png'
         });
       });
@@ -1029,8 +1029,8 @@ const VisionXPortal = (function () {
       passSivanesanBtn.addEventListener('click', () => {
         _loginAs({
           name: 'Sivanesan',
-          role: 'Founder',
-          id: 'VX-FND-05',
+          role: 'Co-Founder & Head of Product Design',
+          id: 'VX-DES-05',
           avatar: 'assets/images/sivanesan.png'
         });
       });
@@ -1042,8 +1042,8 @@ const VisionXPortal = (function () {
       passBoopathiBtn.addEventListener('click', () => {
         _loginAs({
           name: 'Boopathi',
-          role: 'Founder',
-          id: 'VX-FND-06',
+          role: 'Co-Founder & Creative Director',
+          id: 'VX-DIR-06',
           avatar: 'assets/images/boopathi.jpg'
         });
       });
