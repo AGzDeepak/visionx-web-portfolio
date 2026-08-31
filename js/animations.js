@@ -74,7 +74,7 @@ const VisionXAnimations = (function () {
     }, { passive: true });
   }
 
-  // ---- VisionX Frosted Glass Cursor (Spring Physics + Context-Aware) ----
+  // ---- Custom Cursor ----
 
   function initCursor() {
     const reducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
@@ -83,80 +83,43 @@ const VisionXAnimations = (function () {
 
     const cursor = document.querySelector('.cursor');
     const follower = document.querySelector('.cursor-follower');
-    const cursorLabel = document.querySelector('.cursor-label');
     if (!cursor || !follower) return;
 
-    let mouseX = window.innerWidth / 2;
-    let mouseY = window.innerHeight / 2;
-    let followerX = mouseX, followerY = mouseY;
-    let currentMode = '';
-
-    // Start hidden, reveal on first real mousemove
-    cursor.style.left = mouseX + 'px';
-    cursor.style.top  = mouseY + 'px';
-    follower.style.left = mouseX + 'px';
-    follower.style.top  = mouseY + 'px';
-    cursor.style.opacity = '0';
-    follower.style.opacity = '0';
+    let mouseX = 0, mouseY = 0;
+    let followerX = 0, followerY = 0;
+    let rafId;
 
     document.addEventListener('mousemove', function (e) {
       mouseX = e.clientX;
       mouseY = e.clientY;
       cursor.style.left = mouseX + 'px';
-      cursor.style.top  = mouseY + 'px';
-      cursor.style.opacity = '1';
-      follower.style.opacity = '1';
-    }, { passive: true });
+      cursor.style.top = mouseY + 'px';
+    });
 
-    // Smooth spring-physics follower
-    (function animateFollower() {
-      followerX += (mouseX - followerX) * 0.13;
-      followerY += (mouseY - followerY) * 0.13;
+    function animateFollower() {
+      followerX += (mouseX - followerX) * 0.12;
+      followerY += (mouseY - followerY) * 0.12;
       follower.style.left = followerX + 'px';
-      follower.style.top  = followerY + 'px';
-      requestAnimationFrame(animateFollower);
-    })();
-
-    // Set mode only when it changes — prevents redundant class churn
-    function setMode(mode, label) {
-      if (currentMode === mode) return;
-      currentMode = mode;
-      follower.className = 'cursor-follower' + (mode ? ' cursor-' + mode : '');
-      cursor.className   = 'cursor'          + (mode ? ' cursor-' + mode : '');
-      if (cursorLabel) cursorLabel.textContent = label || '';
+      follower.style.top = followerY + 'px';
+      rafId = requestAnimationFrame(animateFollower);
     }
+    animateFollower();
 
-    // Event delegation — single listeners, no per-element binding
-    document.addEventListener('mouseover', function (e) {
-      const t = e.target;
-      if (t.closest('canvas, .hero__scene, .feature3d__canvas, .about__visual')) {
-        setMode('mode-3d', 'DRAG ⟲');
-      } else if (t.closest('.project-card')) {
-        setMode('mode-project', 'EXPLORE ↗');
-      } else if (t.closest('.project-demo-btn, a[href*="github.com"], a[href*="instagram.com"], .profile-chip')) {
-        setMode('mode-demo', 'OPEN ↗');
-      } else if (t.closest('a, button, .btn, .nav__hamburger, input, textarea, select, .tech-tag, .about__profile-card, .review-card, .floating-quick-action, [role="button"], [tabindex="0"]')) {
-        setMode('hover', '');
-      }
+    // Hover state on interactive elements
+    const interactiveSelectors = 'a, button, .btn, .service-card, .project-card, .nav__hamburger, input, textarea, select, .tech-tag';
+
+    document.querySelectorAll(interactiveSelectors).forEach(function (el) {
+      el.addEventListener('mouseenter', function () {
+        cursor.classList.add('cursor-hover');
+        follower.classList.add('cursor-hover');
+      });
+      el.addEventListener('mouseleave', function () {
+        cursor.classList.remove('cursor-hover');
+        follower.classList.remove('cursor-hover');
+      });
     });
 
-    document.addEventListener('mouseout', function (e) {
-      const rel = e.relatedTarget;
-      const stillOver = rel && rel.closest(
-        'a, button, .btn, .project-card, canvas, .hero__scene, .feature3d__canvas, .tech-tag, .about__profile-card, .review-card, input, textarea, select, .profile-chip, [role="button"], [tabindex="0"]'
-      );
-      if (!stillOver) setMode('', '');
-    });
-
-    document.addEventListener('mousedown', function () {
-      cursor.classList.add('cursor-active');
-      follower.classList.add('cursor-active');
-    });
-    document.addEventListener('mouseup', function () {
-      cursor.classList.remove('cursor-active');
-      follower.classList.remove('cursor-active');
-    });
-
+    // Hide cursor when leaving window
     document.addEventListener('mouseleave', function () {
       cursor.style.opacity = '0';
       follower.style.opacity = '0';
