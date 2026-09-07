@@ -48,7 +48,7 @@ VisionX is founded and steered by six dedicated digital craftsmen:
 | **Sanjay** | `Co-Founder & CDO`<br>✦ **Chief Design Officer &bull; UI / UX** | [Instagram](https://www.instagram.com/_.sanjuzz_x___?igsi=dnF1aG1nMmZoMmdl) • [GitHub](https://github.com/sanjayv152006-cmyk) • [Email](https://mail.google.com/mail/?view=cm&fs=1&to=sanjaysanju152006@gmail.com&su=Inquiry%20for%20Sanjay%20(Co-Founder%20%26%20CDO)%20-%20VisionX) |
 | **Sivanesan** | `Co-Founder`<br>✦ **Head of Product Design &bull; UI / UX** | [Instagram](https://www.instagram.com/_x_o__mad__?igsi=dnp5a2RseDNnb2tu) • [GitHub](https://github.com/AGzDeepak) • [Email](https://mail.google.com/mail/?view=cm&fs=1&to=sivanesan010307@gmail.com&su=Inquiry%20for%20Sivanesan%20(Co-Founder%20%26%20Product%20Design)%20-%20VisionX) |
 | **Boopathi** | `Co-Founder`<br>✦ **Creative Director &bull; Brand Identity** | [Instagram](https://www.instagram.com/b_o_o_p_a_t_h_i______?igsi=MWZwYmpmaGRwandjNA==) • [GitHub](https://github.com/AGzDeepak) • [Email](https://mail.google.com/mail/?view=cm&fs=1&to=boopathi3332@gmail.com&su=Inquiry%20for%20Boopathi%20(Co-Founder%20%26%20Creative%20Director)%20-%20VisionX) |
-| **Godwin Kumar** | `Full Stack &bull; Designer`<br>✦ **Full Stack Developer & Designer** | [Instagram](https://www.instagram.com/godwin__kumar?igsi=MXg4YXkza2Z0ZjNyeQ==) • [GitHub](https://github.com/AGzDeepak) • [Email](https://mail.google.com/mail/?view=cm&fs=1&to=esec1712007@gmail.com&su=Inquiry%20for%20Godwin%20Kumar%20(Full%20Stack%20%26%20Designer)%20-%20VisionX) |
+| **Godwin Kumar** | `Co-Founder`<br>✦ **Co-Founder &bull; Full Stack &amp; Designer** | [Instagram](https://www.instagram.com/godwin__kumar?igsi=MXg4YXkza2Z0ZjNyeQ==) • [GitHub](https://github.com/AGzDeepak) • [Email](https://mail.google.com/mail/?view=cm&fs=1&to=godxsolutions369@gmail.com&su=Inquiry%20for%20Godwin%20Kumar%20(Co-Founder)%20-%20VisionX) |
 
 </div>
 
@@ -100,7 +100,7 @@ VisionX Web Technology is seamlessly integrated with **Firebase Cloud Firestore*
   - Stores all verified client reviews and feedback submissions in the cloud.
 
 ### 2. Executive Authentication & Admin Authorization
-* **Executive Admin Passes**: Deepak Kumar (`CEO & Founder`), Balaji (`Co-Founder & CTO`), Sanjay (`Co-Founder & CDO`), Inbaraj (`Co-Founder & CSA`), Sivanesan (`Co-Founder & Product Design`), Boopathi (`Co-Founder & Creative Director`), and Godwin Kumar (`Full Stack Developer & Designer`).
+* **Executive Admin Passes**: Deepak Kumar (`CEO & Founder`), Balaji (`Co-Founder & CTO`), Sanjay (`Co-Founder & CDO`), Inbaraj (`Co-Founder & CSA`), Sivanesan (`Co-Founder & Product Design`), Boopathi (`Co-Founder & Creative Director`), and Godwin Kumar (`Co-Founder & Full Stack Designer`).
 * Grants administrative CMS privileges to create and edit live showcase projects.
 
 ### 3. Setting Up Your Firebase Project

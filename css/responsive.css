@@ -257,24 +257,48 @@
   }
 }
 
-/* Leadership Responsive: Single Line on Desktop -> Clean Wrap on Mobile */
-@media (max-width: 1200px) {
-  .about__team-grid--founders {
-    grid-template-columns: repeat(3, 1fr);
+/* Executive Leadership Tier (3 Cards) & Founders Grid (4 Cards) Responsive */
+@media (max-width: 1024px) {
+  .about__executive-tier {
+    gap: 1.2rem;
     max-width: 960px;
+  }
+
+  .about__team-grid--founders {
+    gap: 1rem;
+    max-width: 960px;
+  }
+}
+
+@media (max-width: 880px) {
+  .about__executive-tier {
+    grid-template-columns: repeat(2, 1fr);
+    max-width: 680px;
+    gap: 1.25rem;
+  }
+
+  .about__executive-tier .about__profile-card--featured:last-child {
+    grid-column: span 2;
+    max-width: 330px;
+  }
+
+  .about__team-grid--founders {
+    grid-template-columns: repeat(2, 1fr);
+    max-width: 600px;
     gap: 1.25rem;
   }
 }
 
-@media (max-width: 768px) {
-  .about__team-grid--founders {
-    grid-template-columns: repeat(2, 1fr);
-    max-width: 600px;
-    gap: 1.2rem;
+@media (max-width: 600px) {
+  .about__executive-tier {
+    grid-template-columns: 1fr;
+    max-width: 320px;
   }
-}
 
-@media (max-width: 480px) {
+  .about__executive-tier .about__profile-card--featured:last-child {
+    grid-column: span 1;
+  }
+
   .about__team-grid--founders {
     grid-template-columns: 1fr;
     max-width: 320px;

@@ -1421,20 +1421,23 @@ textarea {
 }
 
 /* ==========================================================================
-   Leadership Structure (Deepak Kumar CEO Top + 5 Founders in Single Line)
+   Leadership Structure (Deepak Kumar, Balaji & Godwin Kumar Top Tier + 4 Founders Grid)
    ========================================================================== */
 
-/* Featured Top Tier: Deepak Kumar (Curved Borders & Specular Glow) */
-.about__ceo-wrap {
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  margin-bottom: 3.5rem;
+/* Executive Leadership Tier: 3 Featured Cards Side-by-Side with Equal Prominence */
+.about__executive-tier {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 1.8rem;
+  max-width: 1120px;
+  margin: 0 auto 3.5rem;
+  width: 100%;
+  justify-items: center;
 }
 
 .about__profile-card--featured {
   width: 100%;
-  max-width: 320px;
+  max-width: 340px;
   border-radius: 34px !important;
   border: 1.5px solid rgba(56, 189, 248, 0.4) !important;
   box-shadow: 0 28px 70px -12px rgba(0, 0, 0, 0.9), 
@@ -1475,20 +1478,14 @@ textarea {
   font-size: 1.25rem;
 }
 
-/* Core Team & Founders Grid: Responsive 6-card layout */
+/* Founders Tier: 4 Co-Founders in Balanced Grid */
 .about__team-grid--founders {
   display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+  grid-template-columns: repeat(4, 1fr);
   gap: 1.2rem;
-  max-width: 1400px;
+  max-width: 1200px;
   margin: 0 auto 3.5rem;
   width: 100%;
-}
-
-@media (min-width: 1300px) {
-  .about__team-grid--founders {
-    grid-template-columns: repeat(6, 1fr);
-  }
 }
 
 .about__team-grid--founders .about__profile-card {

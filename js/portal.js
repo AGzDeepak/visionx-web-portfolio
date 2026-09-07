@@ -963,7 +963,7 @@ To complete setup:
       passGodwinBtn.addEventListener('click', () => {
         _loginAs({
           name: 'Godwin Kumar',
-          role: 'Full Stack Developer & Designer',
+          role: 'Co-Founder & Full Stack Designer',
           id: 'VX-DEV-07',
           avatar: 'assets/images/godwin.jpg'
         });
@@ -977,10 +977,10 @@ To complete setup:
         const emailInput = document.getElementById('portal-email');
         const val = (emailInput ? emailInput.value : '').toLowerCase();
 
-        if (val.includes('godwin') || val.includes('esec1712007')) {
+        if (val.includes('godwin') || val.includes('godxsolutions369') || val.includes('esec1712007')) {
           _loginAs({
             name: 'Godwin Kumar',
-            role: 'Full Stack Developer & Designer',
+            role: 'Co-Founder & Full Stack Designer',
             id: 'VX-DEV-07',
             avatar: 'assets/images/godwin.jpg'
           });
