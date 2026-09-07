@@ -1475,14 +1475,20 @@ textarea {
   font-size: 1.25rem;
 }
 
-/* Founders Tier: 5 Founders in a Single Horizontal Line */
+/* Core Team & Founders Grid: Responsive 6-card layout */
 .about__team-grid--founders {
   display: grid;
-  grid-template-columns: repeat(5, 1fr);
+  grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
   gap: 1.2rem;
-  max-width: 1380px;
+  max-width: 1400px;
   margin: 0 auto 3.5rem;
   width: 100%;
+}
+
+@media (min-width: 1300px) {
+  .about__team-grid--founders {
+    grid-template-columns: repeat(6, 1fr);
+  }
 }
 
 .about__team-grid--founders .about__profile-card {

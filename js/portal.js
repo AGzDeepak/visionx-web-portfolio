@@ -957,6 +957,19 @@ To complete setup:
       });
     }
 
+    // 1-Click Executive Pass: Godwin Kumar
+    const passGodwinBtn = document.getElementById('pass-godwin-btn');
+    if (passGodwinBtn) {
+      passGodwinBtn.addEventListener('click', () => {
+        _loginAs({
+          name: 'Godwin Kumar',
+          role: 'Full Stack Developer & Designer',
+          id: 'VX-DEV-07',
+          avatar: 'assets/images/godwin.jpg'
+        });
+      });
+    }
+
     // Manual Form Login
     if (loginForm) {
       loginForm.addEventListener('submit', (e) => {
@@ -964,12 +977,47 @@ To complete setup:
         const emailInput = document.getElementById('portal-email');
         const val = (emailInput ? emailInput.value : '').toLowerCase();
 
-        if (val.includes('balaji')) {
+        if (val.includes('godwin') || val.includes('esec1712007')) {
+          _loginAs({
+            name: 'Godwin Kumar',
+            role: 'Full Stack Developer & Designer',
+            id: 'VX-DEV-07',
+            avatar: 'assets/images/godwin.jpg'
+          });
+        } else if (val.includes('balaji')) {
           _loginAs({
             name: 'Balaji',
-            role: 'Founder',
-            id: 'VX-FND-02',
+            role: 'Co-Founder & CTO',
+            id: 'VX-CTO-02',
             avatar: 'assets/images/balaji.jpg'
+          });
+        } else if (val.includes('sanjay')) {
+          _loginAs({
+            name: 'Sanjay',
+            role: 'Co-Founder & CDO',
+            id: 'VX-CDO-03',
+            avatar: 'assets/images/sanjay.png'
+          });
+        } else if (val.includes('inbaraj')) {
+          _loginAs({
+            name: 'Inbaraj',
+            role: 'Co-Founder & CSA',
+            id: 'VX-CSA-04',
+            avatar: 'assets/images/inbaraj.jpg'
+          });
+        } else if (val.includes('sivanesan')) {
+          _loginAs({
+            name: 'Sivanesan',
+            role: 'Co-Founder & Head of Product Design',
+            id: 'VX-DES-05',
+            avatar: 'assets/images/sivanesan.png'
+          });
+        } else if (val.includes('boopathi')) {
+          _loginAs({
+            name: 'Boopathi',
+            role: 'Co-Founder & Creative Director',
+            id: 'VX-DIR-06',
+            avatar: 'assets/images/boopathi.jpg'
           });
         } else {
           _loginAs({

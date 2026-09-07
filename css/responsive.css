@@ -261,7 +261,7 @@
 @media (max-width: 1200px) {
   .about__team-grid--founders {
     grid-template-columns: repeat(3, 1fr);
-    max-width: 860px;
+    max-width: 960px;
     gap: 1.25rem;
   }
 }
@@ -269,7 +269,7 @@
 @media (max-width: 768px) {
   .about__team-grid--founders {
     grid-template-columns: repeat(2, 1fr);
-    max-width: 580px;
+    max-width: 600px;
     gap: 1.2rem;
   }
 }
@@ -277,7 +277,7 @@
 @media (max-width: 480px) {
   .about__team-grid--founders {
     grid-template-columns: 1fr;
-    max-width: 300px;
+    max-width: 320px;
     gap: 1.5rem;
   }
 }
