@@ -262,10 +262,6 @@
     width: 100%;
   }
 
-  .about__profile-card--featured .about__image-frame {
-    height: 240px;
-  }
-
   .about__team-grid--founders {
     grid-template-columns: repeat(4, 1fr);
     gap: 1rem;
@@ -277,10 +273,6 @@
   .about__team-grid--founders .about__profile-card {
     max-width: 235px;
     width: 100%;
-  }
-
-  .about__team-grid--founders .about__image-frame {
-    height: 195px;
   }
 
   .founder-modal-container {
@@ -328,10 +320,6 @@
   .about__team-grid--founders .about__profile-card {
     max-width: 330px;
     width: 100%;
-  }
-
-  .about__image-frame {
-    height: 250px;
   }
 
   .founder-modal-container {
@@ -521,10 +509,6 @@
     max-width: 100%;
     width: 100%;
   }
-
-  .about__image-frame {
-    height: 270px;
-  }
 }
 
 /* ---- Very Small Mobile (380px and below) ---- */
@@ -533,10 +517,6 @@
   .about__team-grid--founders {
     max-width: 100%;
     padding: 0 0.25rem;
-  }
-
-  .about__image-frame {
-    height: 235px;
   }
 
   .founder-modal-container {

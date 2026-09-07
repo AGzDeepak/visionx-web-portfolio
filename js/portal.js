@@ -476,6 +476,7 @@ const VisionXPortal = (function () {
 
       modal.classList.add('active');
       modal.setAttribute('aria-hidden', 'false');
+      modal.setAttribute('data-current-founder', key);
       document.body.classList.add('menu-open');
       playSound('open');
       console.log(`[VisionX] Opened profile details for: ${data.name} (${key})`);
