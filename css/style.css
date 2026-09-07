@@ -3480,12 +3480,14 @@ textarea {
   justify-content: center;
   padding: 1.5rem;
   opacity: 0;
+  visibility: hidden;
   pointer-events: none;
-  transition: opacity var(--transition-normal);
+  transition: opacity var(--transition-normal), visibility var(--transition-normal);
 }
 
 .founder-modal-overlay.active {
   opacity: 1;
+  visibility: visible;
   pointer-events: all;
 }
 
@@ -3502,6 +3504,8 @@ textarea {
   z-index: 2;
   width: 100%;
   max-width: 680px;
+  max-height: 90vh;
+  overflow-y: auto;
   background: var(--liquid-modal-bg);
   backdrop-filter: var(--liquid-glass-blur);
   -webkit-backdrop-filter: var(--liquid-glass-blur);
@@ -3511,6 +3515,15 @@ textarea {
   padding: 2.25rem 2.5rem;
   transform: translateY(24px) scale(0.96);
   transition: transform var(--transition-normal);
+}
+
+.founder-modal-container::-webkit-scrollbar {
+  width: 4px;
+}
+
+.founder-modal-container::-webkit-scrollbar-thumb {
+  background: rgba(56, 189, 248, 0.3);
+  border-radius: 4px;
 }
 
 .founder-modal-overlay.active .founder-modal-container {

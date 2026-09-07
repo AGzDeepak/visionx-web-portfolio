@@ -440,11 +440,17 @@ const VisionXPortal = (function () {
     const modalGit = document.getElementById('modal-founder-git');
     const modalEmail = document.getElementById('modal-founder-email');
 
-    if (!modal) return;
+    if (!modal) {
+      console.warn('[VisionX] #founder-modal element not found in DOM.');
+      return;
+    }
 
     function openFounderDetails(key) {
       const data = FOUNDERS_DATA[key];
-      if (!data) return;
+      if (!data) {
+        console.warn(`[VisionX] No profile data found for key: ${key}`);
+        return;
+      }
 
       if (modalImg) {
         modalImg.src = data.image;
@@ -472,6 +478,7 @@ const VisionXPortal = (function () {
       modal.setAttribute('aria-hidden', 'false');
       document.body.classList.add('menu-open');
       playSound('open');
+      console.log(`[VisionX] Opened profile details for: ${data.name} (${key})`);
     }
 
     function closeFounderDetails() {
@@ -481,18 +488,60 @@ const VisionXPortal = (function () {
       playSound('click');
     }
 
-    if (closeBtn) closeBtn.addEventListener('click', closeFounderDetails);
-    if (backdrop) backdrop.addEventListener('click', closeFounderDetails);
+    if (closeBtn) closeBtn.addEventListener('click', (e) => {
+      e.preventDefault();
+      closeFounderDetails();
+    });
 
-    // Attach click listener to team member cards & image frames
-    document.querySelectorAll('.js-founder-card').forEach(card => {
+    if (backdrop) backdrop.addEventListener('click', (e) => {
+      e.preventDefault();
+      closeFounderDetails();
+    });
+
+    // Attach click listeners to cards and image frames
+    const founderCards = document.querySelectorAll('.js-founder-card, [data-founder]');
+    founderCards.forEach(card => {
+      card.style.cursor = 'pointer';
+      
       card.addEventListener('click', (e) => {
-        // If clicking directly on a direct link chip or anchor, allow that link to follow
-        if (e.target.closest('.profile-chips, .profile-chip')) return;
-        const key = card.dataset.founder;
+        // If clicking directly on an external chip link (Instagram, GitHub, Email), don't block that link
+        if (e.target.closest('.profile-chips, .profile-chip')) {
+          return;
+        }
+
+        const key = card.dataset.founder || (card.closest('[data-founder]') ? card.closest('[data-founder]').dataset.founder : null);
         if (key) {
           e.preventDefault();
+          e.stopPropagation();
           openFounderDetails(key);
+        }
+      });
+
+      // Keyboard accessibility (Enter / Space)
+      card.setAttribute('tabindex', '0');
+      card.setAttribute('role', 'button');
+      card.setAttribute('aria-label', `View full profile details for ${card.querySelector('.profile-name') ? card.querySelector('.profile-name').textContent : 'team member'}`);
+      card.addEventListener('keydown', (e) => {
+        if (e.key === 'Enter' || e.key === ' ') {
+          if (e.target.closest('.profile-chips, .profile-chip')) return;
+          const key = card.dataset.founder;
+          if (key) {
+            e.preventDefault();
+            openFounderDetails(key);
+          }
+        }
+      });
+    });
+
+    // Also attach click directly to .about__image-frame as direct target
+    document.querySelectorAll('.about__image-frame').forEach(frame => {
+      frame.style.cursor = 'pointer';
+      frame.addEventListener('click', (e) => {
+        const card = frame.closest('[data-founder]');
+        if (card && card.dataset.founder) {
+          e.preventDefault();
+          e.stopPropagation();
+          openFounderDetails(card.dataset.founder);
         }
       });
     });
@@ -978,6 +1027,91 @@ To complete setup:
     document.body.classList.remove('portal-open');
   }
 
+  // =========================================================================
+  // Firebase Cloud Real-Time Listeners & Config Tab
+  // =========================================================================
+
+  function _initFirebaseSync() {
+    if (typeof VisionXFirebase === 'undefined') return;
+
+    // Real-time Firestore Projects Listener
+    try {
+      VisionXFirebase.subscribeProjects((cloudProjects) => {
+        if (cloudProjects && cloudProjects.length > 0) {
+          STATE.projects = cloudProjects;
+          localStorage.setItem('visionx_projects', JSON.stringify(STATE.projects));
+          renderPortfolioGrid();
+          renderCMSList();
+        }
+      });
+    } catch (e) {}
+
+    // Real-time Firestore Reviews Listener
+    try {
+      VisionXFirebase.subscribeReviews((cloudReviews) => {
+        if (cloudReviews && cloudReviews.length > 0) {
+          clientReviews = cloudReviews;
+          localStorage.setItem('visionx_client_reviews', JSON.stringify(clientReviews));
+          renderReviewsGrid();
+        }
+      });
+    } catch (e) {}
+
+    _updateFirebaseStatusUI();
+  }
+
+  function _updateFirebaseStatusUI() {
+    const indicator = document.getElementById('firebase-status-indicator');
+    const text = document.getElementById('firebase-status-text');
+    if (!indicator || !text) return;
+
+    if (typeof VisionXFirebase !== 'undefined' && VisionXFirebase.isLive()) {
+      indicator.classList.add('live');
+      text.textContent = '🟢 Cloud Firestore Live Connected';
+    } else {
+      indicator.classList.remove('live');
+      text.textContent = '⚡ Cloud Firestore Ready (Local & Offline Fallback Active)';
+    }
+  }
+
+  function _initFirebaseConfigTab() {
+    const form = document.getElementById('firebase-config-form');
+    if (!form || typeof VisionXFirebase === 'undefined') return;
+
+    const config = VisionXFirebase.getConfig();
+    if (config) {
+      if (document.getElementById('fb-api-key')) document.getElementById('fb-api-key').value = config.apiKey || '';
+      if (document.getElementById('fb-auth-domain')) document.getElementById('fb-auth-domain').value = config.authDomain || '';
+      if (document.getElementById('fb-project-id')) document.getElementById('fb-project-id').value = config.projectId || '';
+      if (document.getElementById('fb-storage-bucket')) document.getElementById('fb-storage-bucket').value = config.storageBucket || '';
+      if (document.getElementById('fb-app-id')) document.getElementById('fb-app-id').value = config.appId || '';
+    }
+
+    form.addEventListener('submit', (e) => {
+      e.preventDefault();
+      const apiKey = (document.getElementById('fb-api-key') ? document.getElementById('fb-api-key').value : '').trim();
+      const authDomain = (document.getElementById('fb-auth-domain') ? document.getElementById('fb-auth-domain').value : '').trim();
+      const projectId = (document.getElementById('fb-project-id') ? document.getElementById('fb-project-id').value : '').trim();
+      const storageBucket = (document.getElementById('fb-storage-bucket') ? document.getElementById('fb-storage-bucket').value : '').trim();
+      const appId = (document.getElementById('fb-app-id') ? document.getElementById('fb-app-id').value : '').trim();
+
+      if (!apiKey || !projectId) {
+        alert('Please provide at least a valid Firebase API Key and Project ID.');
+        return;
+      }
+
+      VisionXFirebase.saveConfig({
+        apiKey,
+        authDomain,
+        projectId,
+        storageBucket,
+        appId
+      });
+
+      playSound('publish');
+    });
+  }
+
   function _setupModalEvents() {
     if (openBtns) {
       openBtns.forEach(btn => {
@@ -1310,6 +1444,7 @@ To complete setup:
     init: init,
     openPortal: openPortal,
     closePortal: closePortal,
+    setupFounderModalEvents: setupFounderModalEvents,
     setTheme: setTheme,
     cycleTheme: cycleTheme,
     renderPortfolioGrid: renderPortfolioGrid
@@ -1318,3 +1453,21 @@ To complete setup:
 })();
 
 // VisionXPortal is initialized cleanly via js/main.js
+
+
+// Standalone fallback: Ensure setupFounderModalEvents runs safely across all browser environments
+if (typeof document !== 'undefined') {
+  if (document.readyState === 'loading') {
+    document.addEventListener('DOMContentLoaded', () => {
+      if (typeof VisionXPortal !== 'undefined' && typeof VisionXPortal.setupFounderModalEvents === 'function') {
+        VisionXPortal.setupFounderModalEvents();
+      }
+    });
+  } else {
+    setTimeout(() => {
+      if (typeof VisionXPortal !== 'undefined' && typeof VisionXPortal.setupFounderModalEvents === 'function') {
+        VisionXPortal.setupFounderModalEvents();
+      }
+    }, 100);
+  }
+}
