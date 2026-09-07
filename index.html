@@ -47,7 +47,20 @@
     </div>
   </div>
 
-  <div class="scroll-progress" aria-hidden="true"></div>
+  <!-- Liquid Cyber Scroll Progress Bar -->
+  <div class="scroll-progress" aria-hidden="true">
+    <div class="scroll-progress__bead"></div>
+  </div>
+
+  <!-- Liquid Glass Custom Cursor Pointer -->
+  <div class="liquid-cursor is-hidden" id="liquid-cursor" aria-hidden="true">
+    <div class="liquid-cursor__dot"></div>
+    <div class="liquid-cursor__glass">
+      <div class="liquid-cursor__highlight"></div>
+      <div class="liquid-cursor__label"></div>
+    </div>
+    <div class="liquid-cursor__ripple"></div>
+  </div>
 
   <header>
     <nav class="nav" role="navigation" aria-label="Main navigation">
@@ -77,7 +90,7 @@
     </nav>
   </header>
 
-  <div class="mobile-menu" id="mobile-menu" role="dialog" aria-modal="true" aria-label="Navigation menu">
+  <div class="mobile-menu" id="mobile-menu" role="dialog" aria-modal="true" aria-label="Navigation menu" data-lenis-prevent="true">
     <nav class="mobile-menu__links" aria-label="Mobile navigation">
       <a href="#work"><span class="mobile-menu__num">01</span>Work</a>
       <a href="#services"><span class="mobile-menu__num">02</span>Services</a>
@@ -465,11 +478,10 @@
           </p>
         </div>
 
-        <!-- Executive Leadership Tier: Deepak Kumar, Balaji, and Godwin Kumar (Equal Featured Stance) -->
-        <div class="about__executive-tier">
-          
+        <!-- Tier 1: CEO & Founder (Deepak Kumar) - Centered Prestige Stance -->
+        <div class="about__ceo-tier">
           <!-- Deepak Kumar Card (CEO & Founder) -->
-          <div class="about__profile-card about__profile-card--featured reveal js-founder-card" data-founder="deepak">
+          <div class="about__profile-card about__profile-card--featured about__profile-card--ceo reveal js-founder-card" data-founder="deepak">
             <div class="about__image-frame">
               <img
                 src="assets/images/deepak-kumar.jpg"
@@ -501,7 +513,10 @@
               </div>
             </div>
           </div>
+        </div>
 
+        <!-- Tier 2: Executive Co-Founders (Balaji & Godwin Kumar) - Symmetric 2-Card Row Directly Below Deepak -->
+        <div class="about__executive-pair">
           <!-- Balaji Card (Co-Founder & CTO) -->
           <div class="about__profile-card about__profile-card--featured reveal reveal-delay-1 js-founder-card" data-founder="balaji">
             <div class="about__image-frame">
@@ -569,7 +584,6 @@
               </div>
             </div>
           </div>
-
         </div>
 
         <!-- Founders Tier: 4 Co-Founders in Balanced Grid -->
@@ -791,9 +805,9 @@
     </section>
 
     <!-- Client Review Submission Modal -->
-    <div class="review-modal-overlay" id="review-modal" role="dialog" aria-modal="true" aria-hidden="true">
+    <div class="review-modal-overlay" id="review-modal" role="dialog" aria-modal="true" aria-hidden="true" data-lenis-prevent="true">
       <div class="review-modal-backdrop" id="review-modal-backdrop"></div>
-      <div class="review-modal-container">
+      <div class="review-modal-container" data-lenis-prevent="true">
         <div class="review-modal-header">
           <div>
             <h3 class="review-modal-title">Write a Client Review</h3>
@@ -1090,9 +1104,9 @@
   <!-- =====================================================================
        EXECUTIVE TEAM MEMBER DETAILS POPUP MODAL (Apple Liquid Glass)
        ===================================================================== -->
-  <div class="founder-modal-overlay" id="founder-modal" role="dialog" aria-modal="true" aria-hidden="true" aria-label="Executive Profile Details">
+  <div class="founder-modal-overlay" id="founder-modal" role="dialog" aria-modal="true" aria-hidden="true" aria-label="Executive Profile Details" data-lenis-prevent="true">
     <div class="founder-modal-backdrop" id="founder-modal-backdrop"></div>
-    <div class="founder-modal-container">
+    <div class="founder-modal-container" data-lenis-prevent="true">
       <button type="button" class="founder-modal-close" id="founder-modal-close-btn" aria-label="Close profile details">&times;</button>
       
       <div class="founder-modal-body">
@@ -1165,30 +1179,415 @@
        PORTAL, EXECUTIVE CMS & THEME STUDIO MODAL
        ===================================================================== -->
   <div class="portal-overlay" id="portal-overlay" aria-hidden="true"></div>
-  <div class="portal-modal" id="portal-modal" role="dialog" aria-modal="true" aria-labelledby="portal-title">
+  <div class="portal-modal" id="portal-modal" role="dialog" aria-modal="true" aria-labelledby="portal-title" data-lenis-prevent="true">
+    <div class="portal-toast" id="portal-toast">✓ Action completed</div>
     <button class="portal-modal__close" id="portal-close-btn" aria-label="Close Portal">&times;</button>
     
     <div class="portal-modal__header">
       <div class="portal-badge">
         <img src="assets/images/visionx-logo.png" alt="VisionX Badge" class="portal-badge__img" draggable="false" />
       </div>
-      <h2 class="portal-modal__title" id="portal-title">VisionX Executive Portal</h2>
-      <p class="portal-modal__subtitle">Executive Project Studio &amp; Interface Control</p>
+      <h2 class="portal-modal__title" id="portal-title">VisionX Industry Portal</h2>
+      <p class="portal-modal__subtitle">Executive Project Studio &bull; Scope &amp; Pricing Engine &bull; Production SLA</p>
       
       <div class="portal-tabs" role="tablist">
-        <button class="portal-tab-btn active" data-tab="login" role="tab" aria-selected="true">Gateway</button>
-        <button class="portal-tab-btn" data-tab="cms" role="tab" aria-selected="false">📁 Project CMS</button>
-        <button class="portal-tab-btn" data-tab="cloud" role="tab" aria-selected="false">☁️ Firebase Cloud</button>
+        <button class="portal-tab-btn active" data-tab="overview" role="tab" aria-selected="true">📊 Dashboard</button>
+        <button class="portal-tab-btn" data-tab="cms" role="tab" aria-selected="false">📁 Project Studio</button>
+        <button class="portal-tab-btn" data-tab="estimator" role="tab" aria-selected="false">⚡ Scope &amp; Pricing</button>
+        <button class="portal-tab-btn" data-tab="deliverables" role="tab" aria-selected="false">📦 Milestones &amp; SLA</button>
+        <button class="portal-tab-btn" data-tab="login" role="tab" aria-selected="false">🔐 Access Gateway</button>
+        <button class="portal-tab-btn" data-tab="cloud" role="tab" aria-selected="false">☁️ Cloud &amp; Sync</button>
       </div>
     </div>
 
-    <!-- Tab 1: Executive Gateway / Login -->
-    <div class="portal-tab-pane active" id="tab-login" role="tabpanel">
+    <!-- Tab 1: Executive & Client Overview Dashboard -->
+    <div class="portal-tab-pane active" id="tab-overview" role="tabpanel">
+      <!-- Active User Profile Banner -->
+      <div class="portal-user-banner">
+        <div class="portal-user-meta">
+          <img src="assets/images/deepak-kumar.jpg" alt="Active User Avatar" class="portal-user-avatar" id="overview-user-avatar" />
+          <div>
+            <div class="portal-user-name" id="overview-user-name">Deepak Kumar</div>
+            <div class="portal-user-role" id="overview-user-role">CEO &amp; Founder &bull; Architecture Lead</div>
+          </div>
+        </div>
+        <div class="portal-session-tag">
+          <span class="status-dot"></span>
+          <span id="overview-session-status">Enterprise Node Active</span>
+        </div>
+      </div>
+
+      <!-- Real-time KPI Stats Grid -->
+      <div class="portal-kpi-grid">
+        <div class="portal-kpi-card">
+          <span class="kpi-icon">⚡</span>
+          <span class="kpi-val" id="kpi-projects-count">4</span>
+          <span class="kpi-label">Active Deployments</span>
+          <span class="kpi-sub">100% Live &amp; Operational</span>
+        </div>
+        <div class="portal-kpi-card">
+          <span class="kpi-icon">⏱️</span>
+          <span class="kpi-val">60 FPS</span>
+          <span class="kpi-label">Interaction Latency</span>
+          <span class="kpi-sub">WebGL &amp; Lenis GPU Sync</span>
+        </div>
+        <div class="portal-kpi-card">
+          <span class="kpi-icon">🛡️</span>
+          <span class="kpi-val">99.98%</span>
+          <span class="kpi-label">Uptime SLA Guarantee</span>
+          <span class="kpi-sub">Multi-Region Edge Nodes</span>
+        </div>
+        <div class="portal-kpi-card">
+          <span class="kpi-icon">💎</span>
+          <span class="kpi-val">4.9 / 5.0</span>
+          <span class="kpi-label">Client CSAT Score</span>
+          <span class="kpi-sub">Enterprise Rated Delivery</span>
+        </div>
+      </div>
+
+      <!-- Live Production Pipeline Card -->
+      <div class="portal-pipeline-card">
+        <div class="pipeline-header">
+          <div>
+            <h4 class="pipeline-title">Sprint &amp; Architecture Delivery Pipeline</h4>
+            <p style="font-size: 0.78rem; color: var(--color-text-muted); margin-top: 0.2rem;">Current Sprint: Q3 Interactive 3D WebGL Ecosystem</p>
+          </div>
+          <span class="pipeline-pct" id="pipeline-pct-label">82% Completed</span>
+        </div>
+        <div class="pipeline-track">
+          <div class="pipeline-bar" id="pipeline-progress-bar" style="width: 82%;"></div>
+        </div>
+        <div class="pipeline-milestones-grid">
+          <div class="pipeline-stage-item">
+            <span class="pipeline-stage-title">1. Discovery &amp; IA</span>
+            <span class="pipeline-stage-status done">✓ Completed</span>
+          </div>
+          <div class="pipeline-stage-item">
+            <span class="pipeline-stage-title">2. 3D WebGL Canvas</span>
+            <span class="pipeline-stage-status done">✓ Completed</span>
+          </div>
+          <div class="pipeline-stage-item">
+            <span class="pipeline-stage-title">3. CMS &amp; Cloud Sync</span>
+            <span class="pipeline-stage-status done">✓ Completed</span>
+          </div>
+          <div class="pipeline-stage-item">
+            <span class="pipeline-stage-title">4. QA &amp; 60 FPS Audit</span>
+            <span class="pipeline-stage-status active">⚡ In Progress</span>
+          </div>
+          <div class="pipeline-stage-item">
+            <span class="pipeline-stage-title">5. Production Release</span>
+            <span class="pipeline-stage-status pending">⏳ Scheduled</span>
+          </div>
+        </div>
+      </div>
+
+      <!-- Quick Navigation Actions -->
+      <div style="display: flex; gap: 0.75rem; flex-wrap: wrap;">
+        <button type="button" class="btn btn-primary js-portal-switch" data-tab-target="cms" style="padding: 0.75rem 1.25rem; font-size: 0.85rem;">
+          📁 Open Project CMS Studio &rarr;
+        </button>
+        <button type="button" class="btn btn-secondary js-portal-switch" data-tab-target="estimator" style="padding: 0.75rem 1.25rem; font-size: 0.85rem;">
+          ⚡ Estimate SOW &amp; Pricing &rarr;
+        </button>
+        <button type="button" class="btn btn-secondary js-portal-switch" data-tab-target="deliverables" style="padding: 0.75rem 1.25rem; font-size: 0.85rem;">
+          📦 View Contract Milestones &rarr;
+        </button>
+      </div>
+    </div>
+
+    <!-- Tab 2: Executive Project CMS & Live Card Studio -->
+    <div class="portal-tab-pane" id="tab-cms" role="tabpanel">
+      <div class="cms-header">
+        <div class="cms-user-badge">
+          <span class="status-dot"></span>
+          <span class="cms-active-user" id="cms-active-user">Deepak Kumar (CEO &amp; Founder)</span>
+        </div>
+        <p class="cms-subtitle">Publish and update portfolio projects live on the website with instant real-time preview.</p>
+      </div>
+
+      <!-- Split Layout: Form on Left, Live Card Preview on Right -->
+      <div class="cms-studio-layout">
+        <!-- Add / Edit Project Form -->
+        <form class="cms-form" id="cms-project-form">
+          <input type="hidden" id="cms-project-id" value="" />
+          
+          <div class="form-row">
+            <div class="form-group">
+              <label for="cms-title">Project Title *</label>
+              <input type="text" id="cms-title" placeholder="e.g. AETHER 3D, PRISM AI, NOVA" required />
+            </div>
+            <div class="form-group">
+              <label for="cms-category">Category / Specialization *</label>
+              <input type="text" id="cms-category" placeholder="e.g. Spatial Computing / 3D Web" required />
+            </div>
+          </div>
+
+          <div class="form-row">
+            <div class="form-group">
+              <label for="cms-layout">Layout Style</label>
+              <select id="cms-layout">
+                <option value="normal">Standard Card (Half Width)</option>
+                <option value="large">Featured Card (Full Width)</option>
+              </select>
+            </div>
+            <div class="form-group">
+              <label for="cms-theme">Visual Atmosphere</label>
+              <select id="cms-theme">
+                <option value="cosmic">Cosmic Void (Deep Space &amp; Slate)</option>
+                <option value="sapphire">Sapphire Aurora (Electric Blue &amp; Indigo)</option>
+                <option value="midnight">Midnight Matrix (Emerald &amp; Dark Cyan)</option>
+                <option value="crimson">Nebula Glow (Violet &amp; Magenta)</option>
+                <option value="platinum">Platinum Crystalline (Pure Chrome)</option>
+              </select>
+            </div>
+          </div>
+
+          <div class="form-row">
+            <div class="form-group">
+              <label for="cms-image-url">Custom Image / Visual URL (Optional)</label>
+              <input type="url" id="cms-image-url" placeholder="https://... (or leave blank for 3D generative gradient)" />
+            </div>
+            <div class="form-group">
+              <label for="cms-link">Live Project Demo Link *</label>
+              <input type="url" id="cms-link" placeholder="https://yourprojectdemo.com or https://github.com/..." />
+            </div>
+          </div>
+
+          <div class="cms-actions">
+            <button type="submit" class="btn btn-primary" id="cms-save-btn">
+              + Publish to Live Site
+            </button>
+            <button type="button" class="btn btn-secondary" id="cms-cancel-btn" style="display:none;">
+              Cancel Edit
+            </button>
+            <button type="button" class="btn btn-secondary" id="cms-sync-firebase-btn" title="Push all current portfolio works into Firebase Firestore">
+              🔥 Push All Works to Firebase
+            </button>
+          </div>
+        </form>
+
+        <!-- Right Side: Live Card Preview -->
+        <div class="cms-preview-box">
+          <div class="cms-preview-label">
+            <span>👁️</span> Real-Time Card Preview
+          </div>
+          <div class="cms-card-preview-container" id="cms-card-preview">
+            <!-- Dynamically updated via input listeners -->
+          </div>
+        </div>
+      </div>
+
+      <!-- Live Projects Manager List -->
+      <div class="cms-manager">
+        <div class="cms-manager-header">
+          <h4>Live Portfolio Projects (<span id="cms-project-count">4</span>)</h4>
+          <button type="button" class="cms-reset-btn" id="cms-reset-btn" title="Reset to initial projects">Reset Defaults</button>
+        </div>
+        <div class="cms-project-list" id="cms-project-list">
+          <!-- Dynamically populated -->
+        </div>
+      </div>
+    </div>
+
+    <!-- Tab 3: Interactive Project Scope & Pricing Estimator -->
+    <div class="portal-tab-pane" id="tab-estimator" role="tabpanel">
+      <div class="estimator-wrap">
+        <div>
+          <h3 class="estimator-section-title">⚡ 1. Select Primary Architecture Tier</h3>
+          <p style="font-size: 0.8rem; color: var(--color-text-muted); margin-bottom: 0.85rem;">Select the core foundation package engineered to match your product scale.</p>
+          <div class="estimator-tiers-grid" id="estimator-tiers">
+            <div class="estimator-tier-card" data-tier="mvp" data-base-price="2800" data-base-days="12" data-name="Startup MVP Web">
+              <div class="estimator-tier-title">Startup MVP Web</div>
+              <div class="estimator-tier-price">$2,800</div>
+              <div class="estimator-tier-desc">High-conversion landing experience, bespoke typography, responsive layout, SEO architecture, 10–14 days delivery.</div>
+            </div>
+            <div class="estimator-tier-card selected" data-tier="3d" data-base-price="4500" data-base-days="18" data-name="Interactive 3D WebGL">
+              <div class="estimator-tier-title">Interactive 3D WebGL ★</div>
+              <div class="estimator-tier-price">$4,500</div>
+              <div class="estimator-tier-desc">Custom Three.js particle canvas, 60 FPS Lenis smooth scroll, liquid glass aesthetics, micro-interactions, 14–21 days.</div>
+            </div>
+            <div class="estimator-tier-card" data-tier="saas" data-base-price="6800" data-base-days="26" data-name="Enterprise SaaS Platform">
+              <div class="estimator-tier-title">Enterprise SaaS Platform</div>
+              <div class="estimator-tier-price">$6,800</div>
+              <div class="estimator-tier-desc">Full-stack multi-page web platform, Firebase/Firestore database, RBAC dashboard, API integrations, 21–30 days.</div>
+            </div>
+            <div class="estimator-tier-card" data-tier="spatial" data-base-price="8900" data-base-days="38" data-name="Custom Spatial &amp; Immersive">
+              <div class="estimator-tier-title">Custom Spatial &amp; Immersive</div>
+              <div class="estimator-tier-price">$8,900</div>
+              <div class="estimator-tier-desc">Bespoke 3D showroom, WebXR ready, custom GLSL shaders, Apple Vision Pro level craftsmanship, 30–45 days.</div>
+            </div>
+          </div>
+        </div>
+
+        <div>
+          <h3 class="estimator-section-title">🛠️ 2. Select Enterprise Capabilities &amp; Add-Ons</h3>
+          <div class="estimator-addons-group">
+            <label class="estimator-addon-item">
+              <div class="estimator-addon-left">
+                <input type="checkbox" class="estimator-addon-checkbox" data-price="600" data-days="3" data-name="60 FPS Performance Audit &amp; GPU Tuning" checked />
+                <div class="estimator-addon-info">
+                  <span class="estimator-addon-name">Performance Audit &amp; 60 FPS GPU Tuning</span>
+                  <span class="estimator-addon-days">+3 days &bull; Zero layout shifts, Lighthouse 98+ score</span>
+                </div>
+              </div>
+              <span class="estimator-addon-price">+$600</span>
+            </label>
+
+            <label class="estimator-addon-item">
+              <div class="estimator-addon-left">
+                <input type="checkbox" class="estimator-addon-checkbox" data-price="950" data-days="4" data-name="Cloud Firestore Real-Time Database Sync" checked />
+                <div class="estimator-addon-info">
+                  <span class="estimator-addon-name">Cloud Firestore Real-Time Database Sync</span>
+                  <span class="estimator-addon-days">+4 days &bull; Live multi-device syncing, automated backups</span>
+                </div>
+              </div>
+              <span class="estimator-addon-price">+$950</span>
+            </label>
+
+            <label class="estimator-addon-item">
+              <div class="estimator-addon-left">
+                <input type="checkbox" class="estimator-addon-checkbox" data-price="1200" data-days="5" data-name="Custom Three.js 3D GLTF Model Integration" />
+                <div class="estimator-addon-info">
+                  <span class="estimator-addon-name">Custom Three.js 3D GLTF Model Integration</span>
+                  <span class="estimator-addon-days">+5 days &bull; Interactive 3D product view, orbital controls</span>
+                </div>
+              </div>
+              <span class="estimator-addon-price">+$1,200</span>
+            </label>
+
+            <label class="estimator-addon-item">
+              <div class="estimator-addon-left">
+                <input type="checkbox" class="estimator-addon-checkbox" data-price="850" data-days="3" data-name="Executive CMS &amp; Role-Based Access Control" />
+                <div class="estimator-addon-info">
+                  <span class="estimator-addon-name">Executive CMS &amp; Role-Based Access Control</span>
+                  <span class="estimator-addon-days">+3 days &bull; Admin studio, inline editing, instant publishing</span>
+                </div>
+              </div>
+              <span class="estimator-addon-price">+$850</span>
+            </label>
+
+            <label class="estimator-addon-item">
+              <div class="estimator-addon-left">
+                <input type="checkbox" class="estimator-addon-checkbox" data-price="1400" data-days="0" data-name="Enterprise SLA Support &amp; Dedicated Tech Lead (30 Days)" />
+                <div class="estimator-addon-info">
+                  <span class="estimator-addon-name">Enterprise SLA Support &amp; Dedicated Tech Lead (30 Days)</span>
+                  <span class="estimator-addon-days">Immediate coverage &bull; 1hr response time, founder on-call</span>
+                </div>
+              </div>
+              <span class="estimator-addon-price">+$1,400</span>
+            </label>
+          </div>
+        </div>
+
+        <!-- Calculated Summary Card -->
+        <div class="estimator-result-card">
+          <div class="estimator-stat-box">
+            <span class="estimator-stat-label">Estimated Investment</span>
+            <div class="estimator-total-price" id="estimator-total-price">$6,050</div>
+          </div>
+          <div class="estimator-stat-box">
+            <span class="estimator-stat-label">Estimated Timeline</span>
+            <div class="estimator-total-days" id="estimator-total-days">25 Days (~3.5 Sprints)</div>
+          </div>
+          <div class="estimator-actions">
+            <button type="button" class="btn btn-primary" id="estimator-download-btn" style="padding: 0.85rem 1.4rem; font-size: 0.88rem;">
+              📥 Download Scope Brief (.txt)
+            </button>
+            <a href="https://mail.google.com/mail/?view=cm&fs=1&to=visionxwebtechnology@gmail.com&su=Project%20Scope%20Inquiry%20-%20VisionX&body=Hello%20VisionX%20Leadership%20Team,%0A%0AI%20have%20configured%20our%20project%20scope%20via%20the%20VisionX%20Executive%20Estimator.%0A%0ALooking%20forward%20to%20initiating%20Sprint%20Zero." target="_blank" rel="noopener noreferrer" class="btn btn-secondary" id="estimator-inquire-btn" style="padding: 0.85rem 1.4rem; font-size: 0.88rem;">
+              📧 Email Brief
+            </a>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Tab 4: Production Milestones & SLA Deliverables -->
+    <div class="portal-tab-pane" id="tab-deliverables" role="tabpanel">
+      <div style="margin-bottom: 1.25rem;">
+        <h3 style="font-size: 1.05rem; font-weight: 700; color: var(--color-text); margin-bottom: 0.35rem;">📦 Active Project Milestones &amp; Deliverables</h3>
+        <p style="font-size: 0.82rem; color: var(--color-text-muted);">Real-time tracking of statement of work (SOW) deliverables, code audits, and sprint completion states.</p>
+      </div>
+
+      <div class="deliverables-timeline">
+        <div class="deliverable-card">
+          <div class="deliverable-info">
+            <span class="deliverable-code">MILESTONE 01 &bull; SPRINT ZERO</span>
+            <h4 class="deliverable-title">Architecture Specification &amp; Visual Design Matrix</h4>
+            <p class="deliverable-desc">Component hierarchy, Figma design system tokens, color palettes, and Three.js 3D scene topology.</p>
+          </div>
+          <span class="deliverable-status-pill completed">✓ Verified Completed</span>
+        </div>
+
+        <div class="deliverable-card">
+          <div class="deliverable-info">
+            <span class="deliverable-code">MILESTONE 02 &bull; SPRINT 1</span>
+            <h4 class="deliverable-title">Interactive 3D WebGL Canvas &amp; Liquid Physics</h4>
+            <p class="deliverable-desc">Custom Three.js shaders, 60 FPS Lenis scroll orchestration, liquid glass cursor, and hardware-accelerated animations.</p>
+          </div>
+          <span class="deliverable-status-pill completed">✓ Verified Completed</span>
+        </div>
+
+        <div class="deliverable-card">
+          <div class="deliverable-info">
+            <span class="deliverable-code">MILESTONE 03 &bull; SPRINT 2</span>
+            <h4 class="deliverable-title">Executive CMS Studio &amp; Cloud Database Sync</h4>
+            <p class="deliverable-desc">Real-time Firebase Firestore synchronization, dynamic project studio, live card previews, and JSON backups.</p>
+          </div>
+          <span class="deliverable-status-pill active">⚡ In Review &bull; Stage 3</span>
+        </div>
+
+        <div class="deliverable-card">
+          <div class="deliverable-info">
+            <span class="deliverable-code">MILESTONE 04 &bull; SPRINT 3</span>
+            <h4 class="deliverable-title">Enterprise SLA Cross-Browser Audit &amp; Production Signoff</h4>
+            <p class="deliverable-desc">Lighthouse performance audit, responsive mobile testing, CDN edge configuration, and client repository handover.</p>
+          </div>
+          <span class="deliverable-status-pill review">⏳ Upcoming Sprint</span>
+        </div>
+      </div>
+
+      <div style="margin-top: 1.5rem;">
+        <h4 style="font-size: 0.95rem; font-weight: 700; color: var(--color-text); margin-bottom: 0.75rem;">🧾 SOW Invoicing &amp; Payment Verification</h4>
+        <table class="invoices-summary-table">
+          <thead>
+            <tr>
+              <th>Invoice #</th>
+              <th>Description</th>
+              <th>Amount</th>
+              <th>Status</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td><code>INV-2026-001</code></td>
+              <td>Sprint Zero Discovery &amp; 3D WebGL Prototyping Deposit</td>
+              <td><strong>$2,250.00</strong></td>
+              <td><span style="color: #10b981; font-weight: 700;">✓ Paid &amp; Cleared</span></td>
+            </tr>
+            <tr>
+              <td><code>INV-2026-002</code></td>
+              <td>Milestone 2 Development &amp; WebGL Staging Handover</td>
+              <td><strong>$2,250.00</strong></td>
+              <td><span style="color: #10b981; font-weight: 700;">✓ Paid &amp; Cleared</span></td>
+            </tr>
+            <tr>
+              <td><code>INV-2026-003</code></td>
+              <td>Final Release, Enterprise SLA &amp; Global Deployment</td>
+              <td><strong>$1,550.00</strong></td>
+              <td><span style="color: #f59e0b; font-weight: 700;">⏳ Due on Signoff</span></td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+
+    <!-- Tab 5: Executive & Client Gateway / Login -->
+    <div class="portal-tab-pane" id="tab-login" role="tabpanel">
       <div class="portal-auth-message" id="portal-auth-message" style="display:none;"></div>
       
-      <!-- One-Click Executive Passes -->
-                  <div class="executive-quick-access">
-        <p class="quick-access-label">Instant Executive Access:</p>
+      <!-- One-Click Executive & Client Passes -->
+      <div class="executive-quick-access">
+        <p class="quick-access-label">Instant One-Click Pass Access:</p>
         <div class="executive-pass-grid">
           <button type="button" class="executive-pass-btn" id="pass-deepak-btn">
             <div class="pass-avatar">
@@ -1208,6 +1607,17 @@
             <div class="pass-info">
               <span class="pass-name">Balaji</span>
               <span class="pass-role">Co-Founder &amp; CTO</span>
+            </div>
+            <span class="pass-arrow">&rarr;</span>
+          </button>
+
+          <button type="button" class="executive-pass-btn" id="pass-godwin-btn">
+            <div class="pass-avatar">
+              <img src="assets/images/godwin.jpg" alt="Godwin Kumar" />
+            </div>
+            <div class="pass-info">
+              <span class="pass-name">Godwin Kumar</span>
+              <span class="pass-role">Co-Founder &bull; Full Stack &amp; Designer</span>
             </div>
             <span class="pass-arrow">&rarr;</span>
           </button>
@@ -1256,13 +1666,13 @@
             <span class="pass-arrow">&rarr;</span>
           </button>
 
-          <button type="button" class="executive-pass-btn" id="pass-godwin-btn">
-            <div class="pass-avatar">
-              <img src="assets/images/godwin.jpg" alt="Godwin Kumar" />
+          <button type="button" class="executive-pass-btn" id="pass-client-btn" style="border-color: rgba(56, 189, 248, 0.45); background: rgba(56, 189, 248, 0.08);">
+            <div class="pass-avatar" style="border-color: #38bdf8;">
+              <span style="font-size: 1.25rem;">🤝</span>
             </div>
             <div class="pass-info">
-              <span class="pass-name">Godwin Kumar</span>
-              <span class="pass-role">Co-Founder &bull; Full Stack &amp; Designer</span>
+              <span class="pass-name">Client Partner</span>
+              <span class="pass-role" style="color: #38bdf8;">Enterprise Client Access</span>
             </div>
             <span class="pass-arrow">&rarr;</span>
           </button>
@@ -1273,8 +1683,8 @@
 
       <form class="portal-form" id="portal-login-form">
         <div class="form-group">
-          <label for="portal-email">Executive ID or Work Email</label>
-          <input type="text" id="portal-email" placeholder="e.g. deepak@visionx.com or balaji@visionx.com" required autocomplete="username" />
+          <label for="portal-email">Executive ID or Client Account Email</label>
+          <input type="text" id="portal-email" placeholder="e.g. deepak@visionx.com, balaji@visionx.com, or client@partner.com" required autocomplete="username" />
         </div>
         <div class="form-group">
           <label for="portal-pass">Security Access Key / PIN</label>
@@ -1286,90 +1696,10 @@
           </button>
         </div>
       </form>
-      <p class="portal-note">🔒 End-to-end encrypted node connection for VisionX leadership &amp; partners.</p>
+      <p class="portal-note">🔒 End-to-end encrypted node connection for VisionX leadership &amp; verified partners.</p>
     </div>
 
-    <!-- Tab 2: Executive Project CMS -->
-    <div class="portal-tab-pane" id="tab-cms" role="tabpanel">
-      <div class="cms-header">
-        <div class="cms-user-badge">
-          <span class="status-dot"></span>
-          <span class="cms-active-user" id="cms-active-user">Deepak Kumar (CEO &amp; Founder)</span>
-        </div>
-        <p class="cms-subtitle">Publish and update portfolio projects live on the website.</p>
-      </div>
-
-      <!-- Add / Edit Project Form -->
-      <form class="cms-form" id="cms-project-form">
-        <input type="hidden" id="cms-project-id" value="" />
-        
-        <div class="form-row">
-          <div class="form-group">
-            <label for="cms-title">Project Title *</label>
-            <input type="text" id="cms-title" placeholder="e.g. AETHER 3D, PRISM AI, NOVA" required />
-          </div>
-          <div class="form-group">
-            <label for="cms-category">Category / Specialization *</label>
-            <input type="text" id="cms-category" placeholder="e.g. Spatial Computing / 3D Web" required />
-          </div>
-        </div>
-
-        <div class="form-row">
-          <div class="form-group">
-            <label for="cms-layout">Layout Style</label>
-            <select id="cms-layout">
-              <option value="normal">Standard Card (Half Width)</option>
-              <option value="large">Featured Card (Full Width)</option>
-            </select>
-          </div>
-          <div class="form-group">
-            <label for="cms-theme">Visual Atmosphere</label>
-            <select id="cms-theme">
-              <option value="cosmic">Cosmic Void (Deep Space &amp; Slate)</option>
-              <option value="sapphire">Sapphire Aurora (Electric Blue &amp; Indigo)</option>
-              <option value="midnight">Midnight Matrix (Emerald &amp; Dark Cyan)</option>
-              <option value="crimson">Nebula Glow (Violet &amp; Magenta)</option>
-              <option value="platinum">Platinum Crystalline (Pure Chrome)</option>
-            </select>
-          </div>
-        </div>
-
-        <div class="form-row">
-          <div class="form-group">
-            <label for="cms-image-url">Custom Image / Visual URL (Optional)</label>
-            <input type="url" id="cms-image-url" placeholder="https://... (or leave blank for 3D generative gradient)" />
-          </div>
-          <div class="form-group">
-            <label for="cms-link">Live Project Demo Link *</label>
-            <input type="url" id="cms-link" placeholder="https://yourprojectdemo.com or https://github.com/..." />
-          </div>
-        </div>
-
-        <div class="cms-actions">
-          <button type="submit" class="btn btn-primary" id="cms-save-btn">
-            + Publish to Live Site
-          </button>
-          <button type="button" class="btn btn-secondary" id="cms-cancel-btn" style="display:none;">
-            Cancel Edit
-          </button>
-          <button type="button" class="btn btn-secondary" id="cms-sync-firebase-btn" title="Push all current portfolio works into Firebase Firestore">
-            🔥 Push All Works to Firebase
-          </button>
-        </div>
-      </form>
-
-      <!-- Live Projects Manager List -->
-      <div class="cms-manager">
-        <div class="cms-manager-header">
-          <h4>Live Portfolio Projects (<span id="cms-project-count">4</span>)</h4>
-          <button type="button" class="cms-reset-btn" id="cms-reset-btn" title="Reset to initial projects">Reset Defaults</button>
-        </div>
-        <div class="cms-project-list" id="cms-project-list">
-          <!-- Dynamically populated -->
-        </div>
-      </div>
-    
-    <!-- Tab 3: Firebase Cloud & Live Database Settings -->
+    <!-- Tab 6: Firebase Cloud & Backup Settings -->
     <div class="portal-tab-pane" id="tab-cloud" role="tabpanel">
       <div class="cms-header">
         <div class="firebase-status-badge" id="firebase-status-indicator">
@@ -1428,8 +1758,22 @@
           </button>
         </div>
       </form>
+
+      <!-- Snapshot Backup & Restore -->
+      <div style="margin-top: 1.5rem; background: var(--liquid-card-bg); border: 1px solid var(--liquid-glass-border); border-radius: var(--radius-md); padding: 1.25rem;">
+        <h4 style="font-size: 0.92rem; font-weight: 700; color: var(--color-text); margin-bottom: 0.35rem;">📦 Data Snapshot &amp; Disaster Recovery</h4>
+        <p style="font-size: 0.78rem; color: var(--color-text-muted); margin-bottom: 1rem;">Export your entire portfolio state, reviews, and configurations to JSON, or restore from a backup snapshot file.</p>
+        <div style="display: flex; gap: 0.75rem; flex-wrap: wrap; align-items: center;">
+          <button type="button" class="btn btn-secondary" id="export-json-btn" style="font-size: 0.82rem; padding: 0.65rem 1.15rem;">
+            📤 Export State Snapshot (.json)
+          </button>
+          <label class="btn btn-secondary" style="cursor: pointer; font-size: 0.82rem; padding: 0.65rem 1.15rem; display: inline-flex; align-items: center; gap: 0.4rem; margin: 0;">
+            📥 Restore from Snapshot
+            <input type="file" id="import-json-input" accept=".json" style="display: none;" />
+          </label>
+        </div>
+      </div>
     </div>
-</div>
 
     
   </div>
@@ -1450,6 +1794,10 @@
   <script src="https://www.gstatic.com/firebasejs/10.12.2/firebase-firestore-compat.js"></script>
   <script src="https://www.gstatic.com/firebasejs/10.12.2/firebase-analytics-compat.js"></script>
   <script src="js/firebase-config.js"></script>
+
+  <!-- VisionX Interactive Engines -->
+  <script src="js/lenis.min.js"></script>
+  <script src="js/liquid-cursor.js"></script>
 
   <!-- VisionX Scripts -->
   <script src="js/three-scene.js"></script>

@@ -39,6 +39,7 @@ const VisionXThree = (function () {
   let heroMouse = { x: 0, y: 0 };
   let heroTarget = { x: 0, y: 0 };
   let heroContainer = null;
+  let isHeroVisible = true;
 
   function initHeroScene(container) {
     heroContainer = container;
@@ -68,6 +69,13 @@ const VisionXThree = (function () {
     _setupHeroLights();
     _setupHeroInteraction(container);
     updateTheme(currentTheme);
+
+    // Pause WebGL rendering when scrolled out of view to eliminate scroll lag
+    const heroObs = new IntersectionObserver(function (entries) {
+      isHeroVisible = entries[0].isIntersecting;
+    }, { threshold: 0.02 });
+    heroObs.observe(container);
+
     _animateHero();
 
     window.addEventListener('resize', _resizeHero);
@@ -197,11 +205,10 @@ const VisionXThree = (function () {
 
   let heroTime = 0;
   function _animateHero() {
-    if (document.hidden) {
-      heroAnimId = requestAnimationFrame(_animateHero);
+    heroAnimId = requestAnimationFrame(_animateHero);
+    if (document.hidden || !isHeroVisible) {
       return;
     }
-    heroAnimId = requestAnimationFrame(_animateHero);
     heroTime += 0.005 * speedMultiplier;
 
     // Smooth inertia
@@ -254,6 +261,7 @@ const VisionXThree = (function () {
   let f3dDragging = false;
   let f3dDragStart = { x: 0, y: 0 };
   let f3dRotation = { x: 0, y: 0 };
+  let isF3DVisible = true;
 
   function initFeature3DScene(container) {
     f3dContainer = container;
@@ -277,6 +285,12 @@ const VisionXThree = (function () {
     _createFeature3DObjects(mobile);
     _setupFeature3DLights();
     _setupFeature3DInteraction(container);
+
+    const f3dObs = new IntersectionObserver(function (entries) {
+      isF3DVisible = entries[0].isIntersecting;
+    }, { threshold: 0.02 });
+    f3dObs.observe(container);
+
     _animateFeature3D();
 
     window.addEventListener('resize', _resizeFeature3D);
@@ -417,11 +431,10 @@ const VisionXThree = (function () {
 
   let f3dTime = 0;
   function _animateFeature3D() {
-    if (document.hidden) {
-      f3dAnimId = requestAnimationFrame(_animateFeature3D);
+    f3dAnimId = requestAnimationFrame(_animateFeature3D);
+    if (document.hidden || !isF3DVisible) {
       return;
     }
-    f3dAnimId = requestAnimationFrame(_animateFeature3D);
     f3dTime += 0.005 * speedMultiplier;
 
     if (!f3dDragging) {
@@ -462,6 +475,7 @@ const VisionXThree = (function () {
   let aboutScene, aboutCamera, aboutRenderer, aboutAnimId;
   let aboutMesh;
   let aboutContainer = null;
+  let isAboutVisible = true;
 
   function initAboutScene(container) {
     aboutContainer = container;
@@ -506,17 +520,21 @@ const VisionXThree = (function () {
     const aLight = new THREE.AmbientLight(0xffffff, 0.9);
     aboutScene.add(aLight);
 
+    const aboutObs = new IntersectionObserver(function (entries) {
+      isAboutVisible = entries[0].isIntersecting;
+    }, { threshold: 0.02 });
+    aboutObs.observe(container);
+
     _animateAbout();
     window.addEventListener('resize', _resizeAbout);
   }
 
   let aboutTime = 0;
   function _animateAbout() {
-    if (document.hidden) {
-      aboutAnimId = requestAnimationFrame(_animateAbout);
+    aboutAnimId = requestAnimationFrame(_animateAbout);
+    if (document.hidden || !isAboutVisible) {
       return;
     }
-    aboutAnimId = requestAnimationFrame(_animateAbout);
     aboutTime += 0.004 * speedMultiplier;
     if (aboutMesh) {
       aboutMesh.rotation.y = aboutTime;

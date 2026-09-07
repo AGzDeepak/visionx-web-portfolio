@@ -249,6 +249,25 @@
 
 /* ---- Tablet Landscape & Compact Desktop (881px - 1024px) ---- */
 @media (max-width: 1024px) {
+  .about__ceo-tier {
+    margin: 0 auto 2rem;
+  }
+
+  .about__profile-card--ceo {
+    max-width: 330px;
+  }
+
+  .about__executive-pair {
+    grid-template-columns: repeat(2, minmax(260px, 330px));
+    gap: 1.75rem;
+    max-width: 700px;
+    margin: 0 auto 3rem;
+  }
+
+  .about__executive-pair .about__profile-card--featured {
+    max-width: 320px;
+  }
+
   .about__executive-tier {
     grid-template-columns: repeat(3, 1fr);
     gap: 1.25rem;
@@ -288,6 +307,28 @@
 
 /* ---- Tablet Portrait (601px - 880px) ---- */
 @media (max-width: 880px) {
+  .about__ceo-tier {
+    margin: 0 auto 2rem;
+  }
+
+  .about__profile-card--ceo {
+    max-width: 320px;
+  }
+
+  .about__executive-pair {
+    grid-template-columns: repeat(2, 1fr);
+    max-width: 680px;
+    gap: 1.4rem;
+    width: 100%;
+    margin: 0 auto 3rem;
+    justify-items: center;
+  }
+
+  .about__executive-pair .about__profile-card--featured {
+    max-width: 320px;
+    width: 100%;
+  }
+
   .about__executive-tier {
     grid-template-columns: repeat(2, 1fr);
     max-width: 680px;
@@ -477,6 +518,30 @@
 
 /* ---- Mobile View (up to 600px) ---- */
 @media (max-width: 600px) {
+  .about__ceo-tier {
+    margin: 0 auto 1.5rem;
+    width: 100%;
+  }
+
+  .about__profile-card--ceo {
+    max-width: min(100%, 350px);
+    width: 100%;
+  }
+
+  .about__executive-pair {
+    grid-template-columns: 1fr;
+    max-width: min(100%, 350px);
+    width: 100%;
+    margin: 0 auto 2.5rem;
+    gap: 1.4rem;
+    justify-items: center;
+  }
+
+  .about__executive-pair .about__profile-card--featured {
+    max-width: 100%;
+    width: 100%;
+  }
+
   .about__executive-tier {
     grid-template-columns: 1fr;
     max-width: min(100%, 350px);
@@ -513,6 +578,8 @@
 
 /* ---- Very Small Mobile (380px and below) ---- */
 @media (max-width: 380px) {
+  .about__ceo-tier,
+  .about__executive-pair,
   .about__executive-tier,
   .about__team-grid--founders {
     max-width: 100%;

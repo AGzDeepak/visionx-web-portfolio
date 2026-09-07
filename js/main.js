@@ -19,6 +19,20 @@ document.addEventListener('DOMContentLoaded', function () {
   if (typeof VisionXPortal !== 'undefined') VisionXPortal.init();
   if (typeof VisionXNav !== 'undefined') VisionXNav.init();
   if (typeof VisionXAnimations !== 'undefined') VisionXAnimations.init();
+  if (typeof VisionXLiquidCursor !== 'undefined') VisionXLiquidCursor.init();
+
+  // Modal scroll lock synchronization with Lenis
+  const bodyScrollObserver = new MutationObserver(function () {
+    const isLocked = document.body.classList.contains('portal-open') || document.body.classList.contains('menu-open');
+    if (typeof VisionXAnimations !== 'undefined') {
+      if (isLocked) {
+        VisionXAnimations.stopScroll();
+      } else {
+        VisionXAnimations.startScroll();
+      }
+    }
+  });
+  bodyScrollObserver.observe(document.body, { attributes: true, attributeFilter: ['class'] });
 
   // Initialize Three.js scenes
   _initThreeScenes();
@@ -283,30 +297,29 @@ function _showFormError(messageEl, submitBtn, customMsg) {
 // ---- Misc Interactions ----
 
 function _initMiscInteractions() {
+  function smoothScrollTo(targetEl) {
+    if (!targetEl) return;
+    const navH = document.querySelector('.nav') ? document.querySelector('.nav').offsetHeight : 0;
+    if (typeof VisionXAnimations !== 'undefined' && typeof VisionXAnimations.scrollTo === 'function') {
+      VisionXAnimations.scrollTo(targetEl, { offset: -navH + 2, duration: 1.2 });
+    } else {
+      const top = targetEl.getBoundingClientRect().top + window.scrollY - navH;
+      window.scrollTo({ top: top, behavior: 'smooth' });
+    }
+  }
+
   // CTA buttons scroll
   const exploreBtn = document.querySelector('[data-scroll="work"]');
   if (exploreBtn) {
     exploreBtn.addEventListener('click', function () {
-      const target = document.querySelector('#work');
-      if (target) {
-        const navH = document.querySelector('.nav');
-        const offset = navH ? navH.offsetHeight : 0;
-        const top = target.getBoundingClientRect().top + window.scrollY - offset;
-        window.scrollTo({ top: top, behavior: 'smooth' });
-      }
+      smoothScrollTo(document.querySelector('#work'));
     });
   }
 
   const startBtns = document.querySelectorAll('[data-scroll="contact"]');
   startBtns.forEach(function (btn) {
     btn.addEventListener('click', function () {
-      const target = document.querySelector('#contact');
-      if (target) {
-        const navH = document.querySelector('.nav');
-        const offset = navH ? navH.offsetHeight : 0;
-        const top = target.getBoundingClientRect().top + window.scrollY - offset;
-        window.scrollTo({ top: top, behavior: 'smooth' });
-      }
+      smoothScrollTo(document.querySelector('#contact'));
     });
   });
 
@@ -317,12 +330,7 @@ function _initMiscInteractions() {
   // Service card link behavior
   document.querySelectorAll('.service-card').forEach(function (card) {
     card.addEventListener('click', function () {
-      const target = document.querySelector('#contact');
-      if (target) {
-        const navH = document.querySelector('.nav');
-        const offset = navH ? navH.offsetHeight : 0;
-        window.scrollTo({ top: target.getBoundingClientRect().top + window.scrollY - offset, behavior: 'smooth' });
-      }
+      smoothScrollTo(document.querySelector('#contact'));
     });
   });
 

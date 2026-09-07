@@ -1,4 +1,4 @@
-﻿/* ==========================================================================
+/* ==========================================================================
    VisionX Web Technology — Navigation
    ========================================================================== */
 
@@ -57,21 +57,22 @@ const VisionXNav = (function () {
     _setupFAQAccordion();
   }
 
+  let isNavScrolled = false;
   function _setupScrollBehavior() {
+    // Avoid duplicate scroll listeners if VisionXAnimations is active
+    if (typeof VisionXAnimations !== 'undefined') return;
+
     const onScroll = function () {
       const scrollY = window.scrollY;
-
-      if (scrollY > 60) {
-        nav.classList.add('scrolled');
-      } else {
-        nav.classList.remove('scrolled');
+      const shouldScrolled = scrollY > 50;
+      if (shouldScrolled !== isNavScrolled) {
+        nav.classList.toggle('scrolled', shouldScrolled);
+        isNavScrolled = shouldScrolled;
       }
-
-      lastScrollY = scrollY;
     };
 
     window.addEventListener('scroll', onScroll, { passive: true });
-    onScroll(); // run on init
+    onScroll();
   }
 
   function _setupHamburger() {
@@ -129,13 +130,17 @@ const VisionXNav = (function () {
     document.querySelectorAll('a[href^="#"]').forEach(function (anchor) {
       anchor.addEventListener('click', function (e) {
         const targetId = this.getAttribute('href');
-        if (targetId === '#') return;
+        if (!targetId || targetId === '#') return;
         const target = document.querySelector(targetId);
         if (target) {
           e.preventDefault();
           const navHeight = nav ? nav.offsetHeight : 0;
-          const top = target.getBoundingClientRect().top + window.scrollY - navHeight;
-          window.scrollTo({ top: top, behavior: 'smooth' });
+          if (typeof VisionXAnimations !== 'undefined' && typeof VisionXAnimations.scrollTo === 'function') {
+            VisionXAnimations.scrollTo(target, { offset: -navHeight + 2, duration: 1.2 });
+          } else {
+            const top = target.getBoundingClientRect().top + window.scrollY - navHeight;
+            window.scrollTo({ top: top, behavior: 'smooth' });
+          }
         }
       });
     });

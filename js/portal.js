@@ -184,6 +184,12 @@ const VisionXPortal = (function () {
     setupFounderModalEvents();
     renderCMSList();
 
+    // Initialize Industry Portal Engines
+    _initEstimator();
+    _initSnapshotEngine();
+    _updateLiveCardPreview();
+    _updateOverviewStats();
+
     // Render Auth status
     _updateAuthUI();
   }
@@ -848,6 +854,16 @@ To complete setup:
 
     if (!cmsProjectForm) return;
 
+    // Real-time live card preview inputs
+    const previewInputs = ['cms-title', 'cms-category', 'cms-layout', 'cms-theme', 'cms-image-url'];
+    previewInputs.forEach(inputId => {
+      const el = document.getElementById(inputId);
+      if (el) {
+        el.addEventListener('input', _updateLiveCardPreview);
+        el.addEventListener('change', _updateLiveCardPreview);
+      }
+    });
+
     cmsProjectForm.addEventListener('submit', (e) => {
       e.preventDefault();
       _saveProjectFromForm();
@@ -866,13 +882,16 @@ To complete setup:
           localStorage.setItem('visionx_projects', JSON.stringify(STATE.projects));
           renderPortfolioGrid();
           renderCMSList();
+          _updateLiveCardPreview();
+          _updateOverviewStats();
           playSound('publish');
+          showPortalToast('Portfolio reset to default projects.', '🔄');
         }
       });
     }
   }
 
-    function _saveProjectFromForm() {
+  function _saveProjectFromForm() {
     const idInput = document.getElementById('cms-project-id');
     const titleInput = document.getElementById('cms-title');
     const catInput = document.getElementById('cms-category');
@@ -891,6 +910,7 @@ To complete setup:
     if (!title || !category) return;
 
     const existingId = idInput.value;
+    let savedProject = null;
 
     if (existingId) {
       // Update existing
@@ -905,6 +925,7 @@ To complete setup:
           image,
           link
         };
+        savedProject = STATE.projects[idx];
       }
     } else {
       // Add new
@@ -918,17 +939,21 @@ To complete setup:
         link
       };
       STATE.projects.push(newProj);
+      savedProject = newProj;
     }
 
     localStorage.setItem('visionx_projects', JSON.stringify(STATE.projects));
     // Cloud Firestore Sync
-    if (typeof VisionXFirebase !== 'undefined') {
-      VisionXFirebase.saveProject(existingId ? STATE.projects[idx] : newProj);
+    if (typeof VisionXFirebase !== 'undefined' && savedProject) {
+      VisionXFirebase.saveProject(savedProject);
     }
     renderPortfolioGrid();
     renderCMSList();
+    _updateLiveCardPreview();
+    _updateOverviewStats();
     _resetCMSForm();
     playSound('publish');
+    showPortalToast(`Project "${title}" published live!`, '🚀');
 
     const saveBtn = document.getElementById('cms-save-btn');
     if (saveBtn) {
@@ -964,6 +989,7 @@ To complete setup:
     if (cmsCancelBtn) cmsCancelBtn.style.display = 'inline-flex';
 
     document.getElementById('cms-title').focus();
+    _updateLiveCardPreview();
     playSound('click');
   }
 
@@ -974,13 +1000,16 @@ To complete setup:
     if (confirm(`Remove "${proj.title}" from live portfolio?`)) {
       STATE.projects = STATE.projects.filter(p => p.id !== id);
       localStorage.setItem('visionx_projects', JSON.stringify(STATE.projects));
-    // Cloud Firestore Sync
-    if (typeof VisionXFirebase !== 'undefined') {
-      VisionXFirebase.saveProject(existingId ? STATE.projects[idx] : newProj);
-    }
+      // Cloud Firestore Sync
+      if (typeof VisionXFirebase !== 'undefined' && typeof VisionXFirebase.deleteProject === 'function') {
+        VisionXFirebase.deleteProject(id);
+      }
       renderPortfolioGrid();
       renderCMSList();
+      _updateLiveCardPreview();
+      _updateOverviewStats();
       playSound('delete');
+      showPortalToast(`Project "${proj.title}" removed.`, '🗑️');
     }
   }
 
@@ -996,13 +1025,14 @@ To complete setup:
     }
     if (cmsSaveBtn) cmsSaveBtn.textContent = '+ Publish to Live Site';
     if (cmsCancelBtn) cmsCancelBtn.style.display = 'none';
+    _updateLiveCardPreview();
   }
 
   // =========================================================================
   // Modal Logic & Tab Switching
   // =========================================================================
 
-  function openPortal(tabName = 'login') {
+  function openPortal(tabName = 'overview') {
     if (!portalModal) return;
     initAudio();
     playSound('open');
@@ -1010,12 +1040,17 @@ To complete setup:
     portalOverlay.classList.add('active');
     document.body.classList.add('portal-open');
 
-    if (tabName) {
-      _switchTab(tabName);
+    let target = tabName || 'overview';
+    if (target === 'login' && STATE.isLoggedIn) {
+      target = 'overview';
     }
 
+    _switchTab(target);
+    _updateOverviewStats();
+    _updateLiveCardPreview();
+
     const firstInput = portalModal.querySelector('input');
-    if (firstInput && tabName === 'login') {
+    if (firstInput && target === 'login') {
       setTimeout(() => firstInput.focus(), 250);
     }
   }
@@ -1136,6 +1171,17 @@ To complete setup:
     if (closeBtn) closeBtn.addEventListener('click', closePortal);
     if (portalOverlay) portalOverlay.addEventListener('click', closePortal);
 
+    // Isolate scrolling inside modal containers so events are processed natively without bubbling to window
+    if (portalModal) {
+      portalModal.addEventListener('wheel', (e) => {
+        e.stopPropagation();
+      }, { passive: true });
+
+      portalModal.addEventListener('touchmove', (e) => {
+        e.stopPropagation();
+      }, { passive: true });
+    }
+
     // Escape Key to close all active modals & sheets
     document.addEventListener('keydown', (e) => {
       if (e.key === 'Escape') {
@@ -1163,19 +1209,51 @@ To complete setup:
   }
 
   function _setupTabEvents() {
-    if (!tabButtons) return;
-    tabButtons.forEach(btn => {
-      btn.addEventListener('click', () => {
-        playSound('click');
-        const tab = btn.dataset.tab;
-        _switchTab(tab);
+    const allTabBtns = document.querySelectorAll('.portal-tab-btn');
+    if (allTabBtns) {
+      allTabBtns.forEach(btn => {
+        btn.addEventListener('click', () => {
+          playSound('click');
+          const tab = btn.dataset.tab;
+          _switchTab(tab);
+        });
+      });
+    }
+
+    // Quick switch triggers from overview dashboard
+    const switchBtns = document.querySelectorAll('.js-portal-switch');
+    switchBtns.forEach(btn => {
+      btn.addEventListener('click', (e) => {
+        e.preventDefault();
+        const target = btn.dataset.tabTarget;
+        if (target) {
+          playSound('click');
+          _switchTab(target);
+        }
       });
     });
   }
 
   function _switchTab(tabName) {
-    tabButtons.forEach(b => b.classList.toggle('active', b.dataset.tab === tabName));
-    tabPanes.forEach(p => p.classList.toggle('active', p.id === `tab-${tabName}`));
+    const allTabBtns = document.querySelectorAll('.portal-tab-btn');
+    const allTabPanes = document.querySelectorAll('.portal-tab-pane');
+
+    allTabBtns.forEach(b => {
+      const isMatch = b.dataset.tab === tabName;
+      b.classList.toggle('active', isMatch);
+      b.setAttribute('aria-selected', isMatch ? 'true' : 'false');
+    });
+
+    allTabPanes.forEach(p => {
+      const isMatch = p.id === `tab-${tabName}`;
+      p.classList.toggle('active', isMatch);
+    });
+
+    if (tabName === 'cms') {
+      _updateLiveCardPreview();
+    } else if (tabName === 'overview') {
+      _updateOverviewStats();
+    }
   }
 
   function _setupThemeEvents() {
@@ -1200,11 +1278,11 @@ To complete setup:
   }
 
   // =========================================================================
-  // Executive Authentication Engine (Deepak Kumar & Balaji)
+  // Executive Authentication Engine (Founders & Client Partners)
   // =========================================================================
 
   function _setupAuthEvents() {
-            // 1-Click Executive Pass: Deepak Kumar
+    // 1-Click Executive Pass: Deepak Kumar
     if (passDeepakBtn) {
       passDeepakBtn.addEventListener('click', () => {
         _loginAs({
@@ -1249,7 +1327,7 @@ To complete setup:
           name: 'Inbaraj',
           role: 'Co-Founder & CSA',
           id: 'VX-CSA-04',
-          avatar: 'assets/images/inbaraj.png'
+          avatar: 'assets/images/inbaraj.jpg'
         });
       });
     }
@@ -1293,6 +1371,19 @@ To complete setup:
       });
     }
 
+    // 1-Click Pass: Client Partner
+    const passClientBtn = document.getElementById('pass-client-btn');
+    if (passClientBtn) {
+      passClientBtn.addEventListener('click', () => {
+        _loginAs({
+          name: 'Enterprise Client Partner',
+          role: 'Client Partner • Starlight Enterprise',
+          id: 'VX-CLIENT-08',
+          avatar: 'assets/images/visionx-logo.png'
+        });
+      });
+    }
+
     // Manual Form Login
     if (loginForm) {
       loginForm.addEventListener('submit', (e) => {
@@ -1300,7 +1391,14 @@ To complete setup:
         const emailInput = document.getElementById('portal-email');
         const val = (emailInput ? emailInput.value : '').toLowerCase();
 
-        if (val.includes('godwin') || val.includes('godxsolutions369') || val.includes('esec1712007')) {
+        if (val.includes('client') || val.includes('partner') || val.includes('enterprise')) {
+          _loginAs({
+            name: 'Enterprise Client Partner',
+            role: 'Client Partner • Starlight Enterprise',
+            id: 'VX-CLIENT-08',
+            avatar: 'assets/images/visionx-logo.png'
+          });
+        } else if (val.includes('godwin') || val.includes('godxsolutions369') || val.includes('esec1712007')) {
           _loginAs({
             name: 'Godwin Kumar',
             role: 'Co-Founder & Full Stack Designer',
@@ -1369,9 +1467,11 @@ To complete setup:
 
     playSound('login');
     _updateAuthUI();
+    _updateOverviewStats();
+    showPortalToast(`Signed in as ${userObj.name}`, '🔐');
 
-    // Automatically switch to the CMS tab so they can immediately edit projects!
-    _switchTab('cms');
+    // Automatically switch to overview dashboard!
+    _switchTab('overview');
   }
 
   function _logout() {
@@ -1379,6 +1479,8 @@ To complete setup:
     localStorage.setItem('visionx_auth', 'false');
     playSound('logout');
     _updateAuthUI();
+    _updateOverviewStats();
+    showPortalToast('Logged out of workspace session.', '👋');
     _switchTab('login');
   }
 
@@ -1397,25 +1499,326 @@ To complete setup:
       navPortalBtns.forEach(btn => {
         btn.classList.add('logged-in');
         const textSpan = btn.querySelector('.portal-btn-text');
-        if (textSpan) textSpan.textContent = STATE.user.name.split(' ')[0] + ' (CEO/Founder)';
+        if (textSpan) textSpan.textContent = STATE.user.name.split(' ')[0] + ' (Portal)';
       });
 
       if (portalAuthMsg) {
         portalAuthMsg.style.display = 'block';
         portalAuthMsg.className = 'portal-auth-message success';
-        portalAuthMsg.innerHTML = `✓ Authenticated: <strong>${STATE.user.name}</strong> (${STATE.user.role}) — Full CMS Privileges Active.`;
+        portalAuthMsg.innerHTML = `✓ Authenticated: <strong>${STATE.user.name}</strong> (${STATE.user.role}) — Full Portal Privileges Active.`;
       }
     } else {
       if (hudElement) hudElement.classList.remove('visible');
       navPortalBtns.forEach(btn => {
         btn.classList.remove('logged-in');
         const textSpan = btn.querySelector('.portal-btn-text');
-        if (textSpan) textSpan.textContent = 'Gateway';
+        if (textSpan) textSpan.textContent = 'Portal';
       });
 
       if (portalAuthMsg) {
         portalAuthMsg.style.display = 'none';
       }
+    }
+
+    _updateOverviewStats();
+  }
+
+  // =========================================================================
+  // Industry Portal Subsystems: Toast, Stats, Live Preview, Estimator, Snapshot
+  // =========================================================================
+
+  function showPortalToast(message, icon = '✓') {
+    const toast = document.getElementById('portal-toast');
+    if (!toast) return;
+    toast.innerHTML = `<span style="color:#38bdf8; font-size:1.1rem;">${icon}</span> <span>${message}</span>`;
+    toast.classList.add('show');
+    clearTimeout(toast._timeout);
+    toast._timeout = setTimeout(() => {
+      toast.classList.remove('show');
+    }, 2800);
+  }
+
+  function _updateOverviewStats() {
+    const countEl = document.getElementById('kpi-projects-count');
+    if (countEl) {
+      countEl.textContent = STATE.projects.length;
+    }
+    const avatarEl = document.getElementById('overview-user-avatar');
+    const nameEl = document.getElementById('overview-user-name');
+    const roleEl = document.getElementById('overview-user-role');
+    const statusEl = document.getElementById('overview-session-status');
+
+    if (STATE.isLoggedIn && STATE.user) {
+      if (avatarEl && STATE.user.avatar) avatarEl.src = STATE.user.avatar;
+      if (nameEl && STATE.user.name) nameEl.textContent = STATE.user.name;
+      if (roleEl && STATE.user.role) roleEl.textContent = STATE.user.role;
+      if (statusEl) statusEl.textContent = 'Authenticated Session';
+    } else {
+      if (avatarEl) avatarEl.src = 'assets/images/deepak-kumar.jpg';
+      if (nameEl) nameEl.textContent = 'Deepak Kumar';
+      if (roleEl) roleEl.textContent = 'CEO & Founder • Architecture Lead';
+      if (statusEl) statusEl.textContent = 'Enterprise Node Active';
+    }
+  }
+
+  function _updateLiveCardPreview() {
+    const previewContainer = document.getElementById('cms-card-preview');
+    if (!previewContainer) return;
+
+    const titleInput = document.getElementById('cms-title');
+    const catInput = document.getElementById('cms-category');
+    const layoutInput = document.getElementById('cms-layout');
+    const themeInput = document.getElementById('cms-theme');
+    const imgInput = document.getElementById('cms-image-url');
+
+    const title = (titleInput && titleInput.value.trim()) || 'AETHER 3D';
+    const category = (catInput && catInput.value.trim()) || 'Spatial Computing / 3D Web';
+    const layout = layoutInput ? layoutInput.value : 'normal';
+    const theme = themeInput ? themeInput.value : 'cosmic';
+    const image = imgInput ? imgInput.value.trim() : '';
+
+    const bgStyle = THEME_GRADIENTS[theme] || THEME_GRADIENTS.cosmic;
+    const isLarge = layout === 'large';
+
+    let visualContent = '';
+    if (image.length > 0) {
+      visualContent = `
+        <div class="project-card__visual" style="height: 140px;">
+          <div class="project-card__visual-inner">
+            <img src="${image}" alt="${title}" class="project-card__img" style="width: 100%; height: 100%; object-fit: cover;" onerror="this.onerror=null; this.src=''; this.parentElement.style.background='${bgStyle}';" />
+          </div>
+        </div>
+      `;
+    } else {
+      visualContent = `
+        <div class="project-card__visual" style="height: 140px;">
+          <div class="project-card__visual-inner" style="background: ${bgStyle};">
+            <div class="project-card__grid-overlay"></div>
+            <div class="project-card__watermark-wrap">
+              <span class="project-card__watermark" style="font-size: 1.6rem;">${title}</span>
+              <span class="project-card__watermark-sub" style="font-size: 0.65rem;">${category.split('/')[0].trim()}</span>
+            </div>
+          </div>
+        </div>
+      `;
+    }
+
+    previewContainer.innerHTML = `
+      <article class="project-card ${isLarge ? 'project-card--large' : ''} revealed" style="margin: 0; pointer-events: none; border-color: rgba(56, 189, 248, 0.4); box-shadow: 0 10px 30px rgba(0,0,0,0.5);">
+        ${visualContent}
+        <div class="project-card__info" style="padding: 1rem;">
+          <div class="project-card__meta">
+            <p class="project-card__num">LIVE PREVIEW</p>
+            <h3 class="project-card__title" style="font-size: 1.15rem;">${title}</h3>
+            <p class="project-card__category" style="font-size: 0.76rem;">${category}</p>
+          </div>
+          <div class="project-card__actions" style="margin-top: 0.75rem;">
+            <span class="project-demo-btn" style="padding: 0.35rem 0.75rem; font-size: 0.75rem;">
+              <span>Live Demo</span> <span class="demo-arrow">&nearr;</span>
+            </span>
+          </div>
+        </div>
+      </article>
+    `;
+  }
+
+  function _initEstimator() {
+    const tiersContainer = document.getElementById('estimator-tiers');
+    const addonCheckboxes = document.querySelectorAll('.estimator-addon-checkbox');
+    const priceDisplay = document.getElementById('estimator-total-price');
+    const daysDisplay = document.getElementById('estimator-total-days');
+    const downloadBtn = document.getElementById('estimator-download-btn');
+    const inquireBtn = document.getElementById('estimator-inquire-btn');
+
+    if (!tiersContainer) return;
+
+    let selectedTier = {
+      id: '3d',
+      name: 'Interactive 3D WebGL',
+      price: 4500,
+      days: 18
+    };
+
+    function recalculate() {
+      let totalCost = selectedTier.price;
+      let totalDays = selectedTier.days;
+      const activeAddons = [];
+
+      addonCheckboxes.forEach(cb => {
+        if (cb.checked) {
+          const price = parseInt(cb.dataset.price, 10) || 0;
+          const days = parseInt(cb.dataset.days, 10) || 0;
+          totalCost += price;
+          totalDays += days;
+          activeAddons.push({
+            name: cb.dataset.name,
+            price: price,
+            days: days
+          });
+        }
+      });
+
+      if (priceDisplay) {
+        priceDisplay.textContent = `$${totalCost.toLocaleString()}`;
+      }
+
+      if (daysDisplay) {
+        const sprints = (totalDays / 7).toFixed(1);
+        daysDisplay.textContent = `${totalDays} Days (~${sprints} Sprints)`;
+      }
+
+      // Update inquire mailto link
+      if (inquireBtn) {
+        const addonListStr = activeAddons.map(a => ` - ${a.name} (+$${a.price})`).join('%0A');
+        const mailBody = `Hello VisionX Leadership,%0A%0AI have generated a project specification via the VisionX Executive Estimator:%0A%0A* Selected Tier: ${selectedTier.name} ($${selectedTier.price})%0A* Capabilities & Add-Ons:%0A${addonListStr}%0A%0A* Total Estimated Investment: $${totalCost.toLocaleString()}%0A* Estimated Timeline: ${totalDays} Days%0A%0APlease let us know the earliest availability for Sprint Zero kickoff.%0A%0ABest regards.`;
+        inquireBtn.href = `https://mail.google.com/mail/?view=cm&fs=1&to=visionxwebtechnology@gmail.com&su=VisionX%20Project%20Scope%20(${encodeURIComponent(selectedTier.name)})&body=${mailBody}`;
+      }
+
+      return { totalCost, totalDays, activeAddons };
+    }
+
+    // Tier selection
+    const tierCards = tiersContainer.querySelectorAll('.estimator-tier-card');
+    tierCards.forEach(card => {
+      card.addEventListener('click', () => {
+        tierCards.forEach(c => c.classList.remove('selected'));
+        card.classList.add('selected');
+        selectedTier = {
+          id: card.dataset.tier,
+          name: card.dataset.name || card.querySelector('.estimator-tier-title').textContent.trim(),
+          price: parseInt(card.dataset.basePrice, 10) || 4500,
+          days: parseInt(card.dataset.baseDays, 10) || 18
+        };
+        playSound('click');
+        recalculate();
+      });
+    });
+
+    // Addon toggles
+    addonCheckboxes.forEach(cb => {
+      cb.addEventListener('change', () => {
+        playSound('click');
+        recalculate();
+      });
+    });
+
+    // Download scope brief .txt
+    if (downloadBtn) {
+      downloadBtn.addEventListener('click', () => {
+        const { totalCost, totalDays, activeAddons } = recalculate();
+        const now = new Date().toLocaleDateString('en-US', { year: 'numeric', month: 'long', day: 'numeric' });
+        
+        let fileContent = `===============================================================\n`;
+        fileContent += `   VISIONX WEB TECHNOLOGY — EXECUTIVE SCOPE & SOW BRIEF\n`;
+        fileContent += `   Leadership: Deepak Kumar (CEO & Founder) & Balaji (CTO)\n`;
+        fileContent += `   Date Generated: ${now}\n`;
+        fileContent += `===============================================================\n\n`;
+        fileContent += `1. SELECTED ARCHITECTURE TIER\n`;
+        fileContent += `---------------------------------------------------------------\n`;
+        fileContent += `Package:    ${selectedTier.name}\n`;
+        fileContent += `Base Cost:  $${selectedTier.price.toLocaleString()}\n`;
+        fileContent += `Base Time:  ${selectedTier.days} Days\n\n`;
+        fileContent += `2. SELECTED ENTERPRISE CAPABILITIES & ADD-ONS\n`;
+        fileContent += `---------------------------------------------------------------\n`;
+        if (activeAddons.length === 0) {
+          fileContent += `(None selected)\n`;
+        } else {
+          activeAddons.forEach((addon, idx) => {
+            fileContent += `${idx + 1}. ${addon.name}\n`;
+            fileContent += `   Investment: +$${addon.price} | SOW Timeline: +${addon.days} days\n`;
+          });
+        }
+        fileContent += `\n3. TOTAL PROJECT INVESTMENT & SPRINT DURATION\n`;
+        fileContent += `---------------------------------------------------------------\n`;
+        fileContent += `Total Investment:       $${totalCost.toLocaleString()} USD\n`;
+        fileContent += `Total Production Time:  ${totalDays} Days (~${(totalDays / 7).toFixed(1)} Sprints)\n`;
+        fileContent += `SLA Guarantee:          99.98% Uptime & 60 FPS Fluid Hardware Acceleration\n\n`;
+        fileContent += `4. VISIONX LEADERSHIP DIRECT CONTACT\n`;
+        fileContent += `---------------------------------------------------------------\n`;
+        fileContent += `Executive Team:   visionxwebtechnology@gmail.com\n`;
+        fileContent += `Deepak Kumar:     deepakyuoyt@gmail.com (CEO & Architecture)\n`;
+        fileContent += `Balaji:           balajibalaji72863@gmail.com (Co-Founder & CTO)\n`;
+        fileContent += `\n===============================================================\n`;
+        fileContent += `   VisionX Web Technology • End of Scope Specification\n`;
+        fileContent += `===============================================================\n`;
+
+        const blob = new Blob([fileContent], { type: 'text/plain;charset=utf-8' });
+        const downloadUrl = URL.createObjectURL(blob);
+        const tempLink = document.createElement('a');
+        tempLink.href = downloadUrl;
+        tempLink.download = `VisionX_SOW_Brief_${selectedTier.id}_${Date.now()}.txt`;
+        document.body.appendChild(tempLink);
+        tempLink.click();
+        document.body.removeChild(tempLink);
+        URL.revokeObjectURL(downloadUrl);
+
+        showPortalToast('Scope brief downloaded successfully!', '📥');
+      });
+    }
+
+    recalculate();
+  }
+
+  function _initSnapshotEngine() {
+    const exportBtn = document.getElementById('export-json-btn');
+    const importInput = document.getElementById('import-json-input');
+
+    if (exportBtn) {
+      exportBtn.addEventListener('click', () => {
+        const snapshot = {
+          version: '2.4.0',
+          exportedAt: new Date().toISOString(),
+          projects: STATE.projects,
+          clientReviews: clientReviews
+        };
+
+        const jsonStr = JSON.stringify(snapshot, null, 2);
+        const blob = new Blob([jsonStr], { type: 'application/json' });
+        const url = URL.createObjectURL(blob);
+        const a = document.createElement('a');
+        a.href = url;
+        a.download = `visionx_portfolio_snapshot_${Date.now()}.json`;
+        document.body.appendChild(a);
+        a.click();
+        document.body.removeChild(a);
+        URL.revokeObjectURL(url);
+
+        showPortalToast('Portfolio state snapshot exported!', '📦');
+      });
+    }
+
+    if (importInput) {
+      importInput.addEventListener('change', (e) => {
+        const file = e.target.files && e.target.files[0];
+        if (!file) return;
+
+        const reader = new FileReader();
+        reader.onload = (event) => {
+          try {
+            const data = JSON.parse(event.target.result);
+            if (Array.isArray(data.projects)) {
+              STATE.projects = data.projects;
+              localStorage.setItem('visionx_projects', JSON.stringify(STATE.projects));
+              if (Array.isArray(data.clientReviews)) {
+                clientReviews = data.clientReviews;
+                localStorage.setItem('visionx_client_reviews', JSON.stringify(clientReviews));
+                renderReviewsGrid();
+              }
+              renderPortfolioGrid();
+              renderCMSList();
+              _updateLiveCardPreview();
+              _updateOverviewStats();
+              showPortalToast('Portfolio snapshot restored successfully!', '✓');
+            } else {
+              alert('Invalid snapshot file format. Expected a VisionX JSON backup with a "projects" array.');
+            }
+          } catch (err) {
+            alert('Error parsing JSON backup file: ' + err.message);
+          }
+          importInput.value = '';
+        };
+        reader.readAsText(file);
+      });
     }
   }
 
@@ -1448,7 +1851,9 @@ To complete setup:
     setupFounderModalEvents: setupFounderModalEvents,
     setTheme: setTheme,
     cycleTheme: cycleTheme,
-    renderPortfolioGrid: renderPortfolioGrid
+    renderPortfolioGrid: renderPortfolioGrid,
+    showToast: showPortalToast,
+    switchTab: _switchTab
   };
 
 })();
