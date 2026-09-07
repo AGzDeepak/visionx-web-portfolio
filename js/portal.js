@@ -181,7 +181,7 @@ const VisionXPortal = (function () {
     initReviews();
     _initFirebaseSync();
     _initFirebaseConfigTab();
-    // Founder modal disabled
+    setupFounderModalEvents();
     renderCMSList();
 
     // Render Auth status
@@ -310,6 +310,195 @@ const VisionXPortal = (function () {
   // =========================================================================
 
     // =========================================================================
+  // Executive Founders & Team Profile Data
+  // =========================================================================
+
+  const FOUNDERS_DATA = {
+    deepak: {
+      name: 'Deepak Kumar',
+      status: 'CEO & Founder',
+      spec: 'Chief Executive Officer • Web Development & Architecture',
+      domain: 'Web Development & Full-Stack Architecture',
+      emailText: 'deepakyuoyt@gmail.com',
+      gitHandle: '@AGzDeepak',
+      instaHandle: '@deepak_h4x_',
+      image: 'assets/images/deepak-kumar.jpg',
+      skills: ['Full-Stack Architecture', 'Three.js & 3D WebGL', 'System Engineering', 'Interactive UI Systems'],
+      bio: 'Leading executive vision, full-stack architecture, and interactive Three.js 3D WebGL engineering. Dedicated to building high-performance digital platforms that push technological boundaries for visionary brands worldwide.',
+      insta: 'https://www.instagram.com/deepak_h4x_?igsi=MWVmbGRyZGVvMWoxYg==',
+      git: 'https://github.com/AGzDeepak',
+      email: 'https://mail.google.com/mail/?view=cm&fs=1&to=deepakyuoyt@gmail.com&su=Inquiry%20for%20Deepak%20Kumar%20(CEO%20%26%20Founder)%20-%20VisionX&body=Hello%20Deepak,%0A%0AI%20would%20like%20to%20discuss%20a%20web%20technology%20project%20with%20VisionX.%0A%0ALooking%20forward%20to%20connecting.'
+    },
+    balaji: {
+      name: 'Balaji',
+      status: 'Co-Founder & CTO',
+      spec: 'Chief Technology Officer • Lead Frontend Engineering',
+      domain: 'Frontend Development & 60 FPS Performance',
+      emailText: 'balajibalaji72863@gmail.com',
+      gitHandle: '@balajibalaji72863-cyber',
+      instaHandle: '@bala_zx_',
+      image: 'assets/images/balaji.jpg',
+      skills: ['60 FPS Frontend Performance', 'Micro-Interactions', 'Design Systems', 'Client Delivery Pipelines'],
+      bio: 'Directing frontend performance, 60 FPS spatial interactions, responsive design systems, and client delivery pipelines. Focused on crafting silky-smooth, lag-free user experiences that delight clients.',
+      insta: 'https://www.instagram.com/bala_zx_?igsi=MTZnZXJudWtreWxieA==',
+      git: 'https://github.com/balajibalaji72863-cyber',
+      email: 'https://mail.google.com/mail/?view=cm&fs=1&to=balajibalaji72863@gmail.com&su=Inquiry%20for%20Balaji%20(Co-Founder%20%26%20CTO)%20-%20VisionX&body=Hello%20Balaji,%0A%0AI%20would%20like%20to%20discuss%20frontend%20development%20and%20web%20experiences%20with%20VisionX.%0A%0ALooking%20forward%20to%20connecting.'
+    },
+    godwin: {
+      name: 'Godwin Kumar',
+      status: 'Co-Founder',
+      spec: 'Co-Founder • Full Stack Developer & Designer',
+      domain: 'Full Stack Development & UI/UX Design',
+      emailText: 'godxsolutions369@gmail.com',
+      gitHandle: '@AGzDeepak',
+      instaHandle: '@godwin__kumar',
+      image: 'assets/images/godwin.jpg',
+      skills: ['Full-Stack Development', 'UI / UX Design', 'Modern Frontend Frameworks', 'Creative Prototyping'],
+      bio: 'Co-founder directing modern full-stack web architectures, elegant user interfaces, and dynamic digital experiences. Dedicated to engineering robust web solutions with clean aesthetic clarity.',
+      insta: 'https://www.instagram.com/godwin__kumar?igsi=MXg4YXkza2Z0ZjNyeQ==',
+      git: 'https://github.com/AGzDeepak',
+      email: 'https://mail.google.com/mail/?view=cm&fs=1&to=godxsolutions369@gmail.com&su=Inquiry%20for%20Godwin%20Kumar%20(Co-Founder)%20-%20VisionX&body=Hello%20Godwin,%0A%0AI%20would%20like%20to%20discuss%20a%20full%20stack%20development%20and%20design%20project%20with%20VisionX.%0A%0ALooking%20forward%20to%20connecting.'
+    },
+    sanjay: {
+      name: 'Sanjay',
+      status: 'Co-Founder & CDO',
+      spec: 'Chief Design Officer • UI / UX Architecture',
+      domain: 'UI / UX Design & Spatial Prototyping',
+      emailText: 'sanjaysanju152006@gmail.com',
+      gitHandle: '@sanjayv152006-cmyk',
+      instaHandle: '@_.sanjuzz_x___',
+      image: 'assets/images/sanjay.png',
+      skills: ['UI / UX Architecture', 'Figma Prototyping', 'Spatial Hierarchy', 'Apple-grade Craftsmanship'],
+      bio: 'Directing design philosophy, user journeys, spatial visual hierarchies, and Apple-grade interface craftsmanship. Translates complex product logic into effortless, visually stunning user experiences.',
+      insta: 'https://www.instagram.com/_.sanjuzz_x___?igsi=dnF1aG1nMmZoMmdl',
+      git: 'https://github.com/sanjayv152006-cmyk',
+      email: 'https://mail.google.com/mail/?view=cm&fs=1&to=sanjaysanju152006@gmail.com&su=Inquiry%20for%20Sanjay%20(Co-Founder%20%26%20CDO)%20-%20VisionX&body=Hello%20Sanjay,%0A%0AI%20would%20like%20to%20discuss%20UI/UX%20design%20and%20creative%20direction%20with%20VisionX.%0A%0ALooking%20forward%20to%20connecting.'
+    },
+    inbaraj: {
+      name: 'Inbaraj',
+      status: 'Co-Founder & CSA',
+      spec: 'Chief Solutions Architect • Database & Full Stack',
+      domain: 'Database & Full Stack Development',
+      emailText: 'enbarjenba21@gmail.com',
+      gitHandle: '@enbarajenba21-Tech',
+      instaHandle: '@itz_inba_007',
+      image: 'assets/images/inbaraj.jpg',
+      skills: ['Database Modeling', 'Cloud Infrastructure', 'Secure Backend APIs', 'Server Resilience'],
+      bio: 'Architecting scalable database models, cloud infrastructure, secure backend APIs, and enterprise server resilience. Dedicated to building robust backends that scale effortlessly under heavy traffic.',
+      insta: 'https://www.instagram.com/itz_inba_007/',
+      git: 'https://github.com/enbarajenba21-Tech',
+      email: 'https://mail.google.com/mail/?view=cm&fs=1&to=enbarjenba21@gmail.com&su=Inquiry%20for%20Inbaraj%20(Co-Founder%20%26%20CSA)%20-%20VisionX&body=Hello%20Inbaraj,%0A%0AI%20would%20like%20to%20discuss%20database%20architecture%20and%20full%20stack%20development%20with%20VisionX.%0A%0ALooking%20forward%20to%20connecting.'
+    },
+    sivanesan: {
+      name: 'Sivanesan',
+      status: 'Co-Founder',
+      spec: 'Head of Product Design • UI / UX Strategy',
+      domain: 'UI / UX Design & Component Systems',
+      emailText: 'sivanesan010307@gmail.com',
+      gitHandle: '@AGzDeepak',
+      instaHandle: '@_x_o__mad__',
+      image: 'assets/images/sivanesan.png',
+      skills: ['Product UX Strategy', 'Component Libraries', 'User Flow Mapping', 'High-Fidelity Wireframes'],
+      bio: 'Spearheading interaction design, component libraries, wireframing, and user-centric digital prototypes that convert. Focused on creating intuitive interfaces that feel natural and delightful from the first touch.',
+      insta: 'https://www.instagram.com/_x_o__mad__?igsi=dnp5a2RseDNnb2tu',
+      git: 'https://github.com/AGzDeepak',
+      email: 'https://mail.google.com/mail/?view=cm&fs=1&to=sivanesan010307@gmail.com&su=Inquiry%20for%20Sivanesan%20(Co-Founder%20%26%20Product%20Design)%20-%20VisionX&body=Hello%20Sivanesan,%0A%0AI%20would%20like%20to%20discuss%20UI/UX%20design%20and%20interface%20development%20with%20VisionX.%0A%0ALooking%20forward%20to%20connecting.'
+    },
+    boopathi: {
+      name: 'Boopathi',
+      status: 'Co-Founder',
+      spec: 'Creative Director • Graphic & Brand Identity',
+      domain: 'Graphic & Brand Identity Designer',
+      emailText: 'boopathi3332@gmail.com',
+      gitHandle: '@AGzDeepak',
+      instaHandle: '@b_o_o_p_a_t_h_i______',
+      image: 'assets/images/boopathi.jpg',
+      skills: ['Brand Identity Systems', 'Graphic Storytelling', 'Visual Compositions', 'Typography & Motion'],
+      bio: 'Leading visual branding, graphic storytelling, motion assets, and high-impact digital collateral for modern tech products. Crafts iconic visual identities that elevate tech brands on the global stage.',
+      insta: 'https://www.instagram.com/b_o_o_p_a_t_h_i______?igsi=MWZwYmpmaGRwandjNA==',
+      git: 'https://github.com/AGzDeepak',
+      email: 'https://mail.google.com/mail/?view=cm&fs=1&to=boopathi3332@gmail.com&su=Inquiry%20for%20Boopathi%20(Co-Founder%20%26%20Creative%20Director)%20-%20VisionX&body=Hello%20Boopathi,%0A%0AI%20would%20like%20to%20discuss%20graphic%20design%20and%20UI/UX%20branding%20with%20VisionX.%0A%0ALooking%20forward%20to%20connecting.'
+    }
+  };
+
+  function setupFounderModalEvents() {
+    const modal = document.getElementById('founder-modal');
+    const backdrop = document.getElementById('founder-modal-backdrop');
+    const closeBtn = document.getElementById('founder-modal-close-btn');
+
+    const modalImg = document.getElementById('modal-founder-img');
+    const modalStatus = document.getElementById('modal-founder-status');
+    const modalName = document.getElementById('modal-founder-name');
+    const modalSpec = document.getElementById('modal-founder-spec');
+    const modalBio = document.getElementById('modal-founder-bio');
+    const modalSkills = document.getElementById('modal-founder-skills');
+    const modalEmailText = document.getElementById('modal-founder-email-text');
+    const modalGitText = document.getElementById('modal-founder-git-text');
+    const modalInstaText = document.getElementById('modal-founder-insta-text');
+    const modalDomainText = document.getElementById('modal-founder-domain-text');
+    const modalInsta = document.getElementById('modal-founder-insta');
+    const modalGit = document.getElementById('modal-founder-git');
+    const modalEmail = document.getElementById('modal-founder-email');
+
+    if (!modal) return;
+
+    function openFounderDetails(key) {
+      const data = FOUNDERS_DATA[key];
+      if (!data) return;
+
+      if (modalImg) {
+        modalImg.src = data.image;
+        modalImg.alt = `${data.name} - ${data.status}`;
+      }
+      if (modalStatus) modalStatus.textContent = data.status;
+      if (modalName) modalName.textContent = data.name;
+      if (modalSpec) modalSpec.textContent = data.spec;
+      if (modalBio) modalBio.textContent = data.bio;
+
+      if (modalEmailText) modalEmailText.textContent = data.emailText || '';
+      if (modalGitText) modalGitText.textContent = data.gitHandle || '';
+      if (modalInstaText) modalInstaText.textContent = data.instaHandle || '';
+      if (modalDomainText) modalDomainText.textContent = data.domain || '';
+
+      if (modalSkills && data.skills) {
+        modalSkills.innerHTML = data.skills.map(s => `<span class="founder-modal-skill-chip">✦ ${s}</span>`).join('');
+      }
+
+      if (modalInsta) modalInsta.href = data.insta;
+      if (modalGit) modalGit.href = data.git;
+      if (modalEmail) modalEmail.href = data.email;
+
+      modal.classList.add('active');
+      modal.setAttribute('aria-hidden', 'false');
+      document.body.classList.add('menu-open');
+      playSound('open');
+    }
+
+    function closeFounderDetails() {
+      modal.classList.remove('active');
+      modal.setAttribute('aria-hidden', 'true');
+      document.body.classList.remove('menu-open');
+      playSound('click');
+    }
+
+    if (closeBtn) closeBtn.addEventListener('click', closeFounderDetails);
+    if (backdrop) backdrop.addEventListener('click', closeFounderDetails);
+
+    // Attach click listener to team member cards & image frames
+    document.querySelectorAll('.js-founder-card').forEach(card => {
+      card.addEventListener('click', (e) => {
+        // If clicking directly on a direct link chip or anchor, allow that link to follow
+        if (e.target.closest('.profile-chips, .profile-chip')) return;
+        const key = card.dataset.founder;
+        if (key) {
+          e.preventDefault();
+          openFounderDetails(key);
+        }
+      });
+    });
+  }
+
+  // =========================================================================
   // Client Reviews System (Interactive & Persistent)
   // =========================================================================
 
@@ -359,7 +548,7 @@ const VisionXPortal = (function () {
         clientReviews = [...DEFAULT_REVIEWS];
         localStorage.setItem('visionx_client_reviews', JSON.stringify(clientReviews));
         if (typeof VisionXFirebase !== 'undefined') {
-          VisionXFirebase.saveReview(newRev);
+          // Initial reviews seeded
         }
       }
     } catch (e) {
@@ -502,7 +691,7 @@ const VisionXPortal = (function () {
         clientReviews.unshift(newRev);
         localStorage.setItem('visionx_client_reviews', JSON.stringify(clientReviews));
         if (typeof VisionXFirebase !== 'undefined') {
-          VisionXFirebase.saveReview(newRev);
+          // Initial reviews seeded
         }
 
         renderReviewsGrid();
@@ -625,15 +814,7 @@ To complete setup:
         if (confirm('Reset portfolio to the default VisionX projects?')) {
           STATE.projects = JSON.parse(JSON.stringify(DEFAULT_PROJECTS));
           localStorage.setItem('visionx_projects', JSON.stringify(STATE.projects));
-    // Cloud Firestore Sync
-    if (typeof VisionXFirebase !== 'undefined') {
-      VisionXFirebase.saveProject(existingId ? STATE.projects[idx] : newProj);
-    }
           renderPortfolioGrid();
-    initReviews();
-    _initFirebaseSync();
-    _initFirebaseConfigTab();
-    // Founder modal disabled
           renderCMSList();
           playSound('publish');
         }
@@ -833,6 +1014,13 @@ To complete setup:
         if (rModal && rModal.classList.contains('active')) {
           rModal.classList.remove('active');
           rModal.setAttribute('aria-hidden', 'true');
+          document.body.classList.remove('menu-open');
+        }
+
+        const fModal = document.getElementById('founder-modal');
+        if (fModal && fModal.classList.contains('active')) {
+          fModal.classList.remove('active');
+          fModal.setAttribute('aria-hidden', 'true');
           document.body.classList.remove('menu-open');
         }
       }

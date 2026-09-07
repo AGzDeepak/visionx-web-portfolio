@@ -3575,6 +3575,30 @@ textarea {
   display: block;
 }
 
+.founder-avatar-glow {
+  position: absolute;
+  inset: 0;
+  border-radius: 24px;
+  pointer-events: none;
+  box-shadow: inset 0 0 25px rgba(56, 189, 248, 0.25);
+}
+
+.founder-modal-header-meta {
+  display: flex;
+  flex-direction: column;
+  gap: 0.2rem;
+}
+
+.founder-modal-org-label {
+  font-size: 0.62rem;
+  font-weight: 700;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: var(--color-accent);
+  display: block;
+  margin-bottom: 0.15rem;
+}
+
 .founder-modal-right {
   display: flex;
   flex-direction: column;
@@ -3675,7 +3699,111 @@ textarea {
   border-color: rgba(56, 189, 248, 0.4);
 }
 
+/* ==========================================================================
+   Founder Modal Info Grid & Skill Chips
+   ========================================================================== */
 
+.founder-modal-info-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 0.75rem;
+  margin: 0.75rem 0 1rem;
+}
+
+.founder-info-pill {
+  background: rgba(255, 255, 255, 0.04);
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  border-radius: 14px;
+  padding: 0.65rem 0.9rem;
+  display: flex;
+  flex-direction: column;
+  gap: 0.25rem;
+  transition: border-color var(--transition-fast), background var(--transition-fast);
+}
+
+.founder-info-pill:hover {
+  border-color: rgba(56, 189, 248, 0.3);
+  background: rgba(56, 189, 248, 0.04);
+}
+
+.info-pill-label {
+  font-size: 0.62rem;
+  font-weight: 700;
+  letter-spacing: 0.08em;
+  color: var(--color-accent);
+  text-transform: uppercase;
+}
+
+.info-pill-value {
+  font-size: 0.82rem;
+  font-weight: 600;
+  color: #f1f5f9;
+  word-break: break-all;
+}
+
+.founder-modal-skills {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.45rem;
+  margin-bottom: 1.25rem;
+}
+
+.founder-modal-skill-chip {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.35rem;
+  font-size: 0.72rem;
+  font-weight: 600;
+  padding: 0.3rem 0.7rem;
+  border-radius: 100px;
+  background: rgba(56, 189, 248, 0.08);
+  border: 1px solid rgba(56, 189, 248, 0.25);
+  color: #93c5fd;
+  letter-spacing: 0.02em;
+}
+
+@media (max-width: 640px) {
+  .founder-modal-info-grid {
+    grid-template-columns: 1fr;
+    text-align: left;
+  }
+  .founder-modal-skills {
+    justify-content: center;
+  }
+}
+
+/* Hover hint on profile image frame */
+.about__image-frame {
+  cursor: pointer;
+  position: relative;
+}
+
+.about__image-frame::after {
+  content: 'View Profile ↗';
+  position: absolute;
+  bottom: 12px;
+  right: 12px;
+  background: rgba(10, 15, 29, 0.85);
+  backdrop-filter: blur(8px);
+  -webkit-backdrop-filter: blur(8px);
+  border: 1px solid rgba(56, 189, 248, 0.4);
+  color: #38bdf8;
+  font-size: 0.68rem;
+  font-weight: 700;
+  letter-spacing: 0.04em;
+  padding: 0.3rem 0.65rem;
+  border-radius: 100px;
+  opacity: 0;
+  transform: translateY(6px);
+  transition: all var(--transition-normal);
+  pointer-events: none;
+  z-index: 3;
+}
+
+.about__profile-card:hover .about__image-frame::after {
+  opacity: 1;
+  transform: translateY(0);
+}
 
 /* High-Contrast Crystal Clear Select Dropdown */
 .form-group select {

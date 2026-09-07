@@ -469,7 +469,7 @@
         <div class="about__executive-tier">
           
           <!-- Deepak Kumar Card (CEO & Founder) -->
-          <div class="about__profile-card about__profile-card--featured reveal">
+          <div class="about__profile-card about__profile-card--featured reveal js-founder-card" data-founder="deepak">
             <div class="about__image-frame">
               <img
                 src="assets/images/deepak-kumar.jpg"
@@ -503,7 +503,7 @@
           </div>
 
           <!-- Balaji Card (Co-Founder & CTO) -->
-          <div class="about__profile-card about__profile-card--featured reveal reveal-delay-1">
+          <div class="about__profile-card about__profile-card--featured reveal reveal-delay-1 js-founder-card" data-founder="balaji">
             <div class="about__image-frame">
               <img
                 src="assets/images/balaji.jpg"
@@ -537,7 +537,7 @@
           </div>
 
           <!-- Godwin Kumar Card (Co-Founder & Lead Full Stack / Designer) -->
-          <div class="about__profile-card about__profile-card--featured reveal reveal-delay-2">
+          <div class="about__profile-card about__profile-card--featured reveal reveal-delay-2 js-founder-card" data-founder="godwin">
             <div class="about__image-frame">
               <img
                 src="assets/images/godwin.jpg"
@@ -576,7 +576,7 @@
         <div class="about__team-grid about__team-grid--founders">
           
           <!-- Sanjay Card -->
-          <div class="about__profile-card reveal reveal-delay-1">
+          <div class="about__profile-card reveal reveal-delay-1 js-founder-card" data-founder="sanjay">
             <div class="about__image-frame">
               <img
                 src="assets/images/sanjay.png"
@@ -610,7 +610,7 @@
           </div>
 
           <!-- Inbaraj Card -->
-          <div class="about__profile-card reveal reveal-delay-2">
+          <div class="about__profile-card reveal reveal-delay-2 js-founder-card" data-founder="inbaraj">
             <div class="about__image-frame">
               <img
                 src="assets/images/inbaraj.jpg"
@@ -644,7 +644,7 @@
           </div>
 
           <!-- Sivanesan Card -->
-          <div class="about__profile-card reveal reveal-delay-3">
+          <div class="about__profile-card reveal reveal-delay-3 js-founder-card" data-founder="sivanesan">
             <div class="about__image-frame">
               <img
                 src="assets/images/sivanesan.png"
@@ -678,7 +678,7 @@
           </div>
 
           <!-- Boopathi Card -->
-          <div class="about__profile-card reveal reveal-delay-4">
+          <div class="about__profile-card reveal reveal-delay-4 js-founder-card" data-founder="boopathi">
             <div class="about__image-frame">
               <img
                 src="assets/images/boopathi.jpg"
@@ -1088,6 +1088,80 @@
   </aside>
 
   <!-- =====================================================================
+       EXECUTIVE TEAM MEMBER DETAILS POPUP MODAL (Apple Liquid Glass)
+       ===================================================================== -->
+  <div class="founder-modal-overlay" id="founder-modal" role="dialog" aria-modal="true" aria-hidden="true" aria-label="Executive Profile Details">
+    <div class="founder-modal-backdrop" id="founder-modal-backdrop"></div>
+    <div class="founder-modal-container">
+      <button type="button" class="founder-modal-close" id="founder-modal-close-btn" aria-label="Close profile details">&times;</button>
+      
+      <div class="founder-modal-body">
+        <div class="founder-modal-left">
+          <div class="founder-modal-avatar-frame">
+            <img src="assets/images/deepak-kumar.jpg" alt="Executive Portrait" id="modal-founder-img" class="founder-modal-avatar" />
+            <div class="founder-avatar-glow"></div>
+          </div>
+          <div class="founder-modal-badge" id="modal-founder-badge-wrap">
+            <span class="status-dot"></span>
+            <span id="modal-founder-status">CEO &amp; Founder</span>
+          </div>
+        </div>
+        
+        <div class="founder-modal-right">
+          <div class="founder-modal-header-meta">
+            <span class="founder-modal-org-label">VISIONX LEADERSHIP &bull; VERIFIED EXECUTIVE</span>
+            <h3 class="founder-modal-name" id="modal-founder-name">Deepak Kumar</h3>
+            <p class="founder-modal-spec" id="modal-founder-spec">CEO &bull; Web Development &amp; Architecture</p>
+          </div>
+          
+          <div class="founder-modal-divider"></div>
+          
+          <p class="founder-modal-bio" id="modal-founder-bio">
+            Leading executive vision, full-stack architecture, and interactive Three.js 3D WebGL engineering. Dedicated to building high-performance digital platforms that push technological boundaries.
+          </p>
+
+          <!-- Verified Information Meta Grid -->
+          <div class="founder-modal-info-grid">
+            <div class="founder-info-pill">
+              <span class="info-pill-label">DIRECT EMAIL</span>
+              <span class="info-pill-value" id="modal-founder-email-text">deepakyuoyt@gmail.com</span>
+            </div>
+            <div class="founder-info-pill">
+              <span class="info-pill-label">GITHUB HANDLE</span>
+              <span class="info-pill-value" id="modal-founder-git-text">@AGzDeepak</span>
+            </div>
+            <div class="founder-info-pill">
+              <span class="info-pill-label">INSTAGRAM</span>
+              <span class="info-pill-value" id="modal-founder-insta-text">@deepak_h4x_</span>
+            </div>
+            <div class="founder-info-pill">
+              <span class="info-pill-label">SPECIALIZATION</span>
+              <span class="info-pill-value" id="modal-founder-domain-text">Web Development</span>
+            </div>
+          </div>
+
+          <!-- Core Skills / Focus Areas -->
+          <div class="founder-modal-skills" id="modal-founder-skills">
+            <!-- Dynamically populated tags -->
+          </div>
+
+          <div class="founder-modal-actions">
+            <a href="#" target="_blank" rel="noopener noreferrer" class="founder-modal-action-btn" id="modal-founder-insta">
+              <span>Instagram Profile</span> ↗
+            </a>
+            <a href="#" target="_blank" rel="noopener noreferrer" class="founder-modal-action-btn" id="modal-founder-git">
+              <span>GitHub Profile</span> ↗
+            </a>
+            <a href="#" target="_blank" rel="noopener noreferrer" class="founder-modal-action-btn founder-modal-action-btn--email" id="modal-founder-email">
+              <span>Send Email in Gmail</span> ✉
+            </a>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+    <!-- =====================================================================
        PORTAL, EXECUTIVE CMS & THEME STUDIO MODAL
        ===================================================================== -->
   <div class="portal-overlay" id="portal-overlay" aria-hidden="true"></div>
